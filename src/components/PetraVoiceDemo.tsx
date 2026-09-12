@@ -147,6 +147,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
         const y = (height - barHeight) / 2;
 
         const gradient = ctx.createLinearGradient(0, y, 0, y + barHeight);
+        const isDark = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'dark';
         if (isSpeaking) {
           gradient.addColorStop(0, '#60A5FA');
           gradient.addColorStop(1, '#8B5CF6');
@@ -154,8 +155,8 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
           gradient.addColorStop(0, '#3B82F6');
           gradient.addColorStop(1, '#10B981');
         } else {
-          gradient.addColorStop(0, 'rgba(255, 255, 255, 0.15)');
-          gradient.addColorStop(1, 'rgba(255, 255, 255, 0.05)');
+          gradient.addColorStop(0, isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(37, 99, 235, 0.2)');
+          gradient.addColorStop(1, isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(37, 99, 235, 0.08)');
         }
 
         ctx.fillStyle = gradient;
@@ -353,6 +354,38 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
           transform: translateY(-2px);
           box-shadow: var(--shadow-sm);
         }
+        .petra-post-demo-card {
+          max-width: 860px;
+          margin: 36px auto 0 auto;
+          background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(99, 102, 241, 0.05) 100%), var(--bg-card);
+          border: 1px solid var(--border-glow);
+          border-radius: 24px;
+          padding: clamp(32px, 5vw, 44px) clamp(20px, 4vw, 36px);
+          text-align: center;
+          box-shadow: var(--shadow-lg);
+          position: relative;
+          overflow: hidden;
+        }
+        [data-theme="dark"] .petra-post-demo-card {
+          background: linear-gradient(135deg, rgba(30, 58, 138, 0.4) 0%, rgba(88, 28, 135, 0.35) 100%), var(--bg-card);
+          border: 1px solid rgba(96, 165, 250, 0.35);
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+        .petra-post-demo-title {
+          font-size: clamp(1.5rem, 3vw, 2.1rem);
+          font-weight: 800;
+          color: var(--text-primary);
+          margin-bottom: 12px;
+          line-height: 1.25;
+          letter-spacing: -0.02em;
+        }
+        .petra-post-demo-desc {
+          font-size: 1.05rem;
+          color: var(--text-secondary);
+          max-width: 640px;
+          margin: 0 auto 28px auto;
+          line-height: 1.6;
+        }
       `}</style>
       <div className="container">
         {/* Section Header */}
@@ -476,15 +509,15 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
               maxHeight: '200px',
               overflowY: 'auto',
               padding: '16px',
-              background: 'rgba(7, 11, 20, 0.6)',
+              background: 'var(--bg-secondary)',
               borderRadius: '16px',
-              border: '1px solid rgba(255, 255, 255, 0.05)',
+              border: '1px solid var(--border-subtle)',
               marginBottom: '24px',
               display: 'flex',
               flexDirection: 'column',
               gap: '12px'
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', color: '#94A3B8', fontWeight: 600 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>
                 <MessageSquare size={14} />
                 <span>LIVE CONVERSATION TRANSCRIPT</span>
               </div>
@@ -495,20 +528,20 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
                     alignSelf: m.sender === 'customer' ? 'flex-end' : 'flex-start',
                     maxWidth: '85%',
                     background: m.sender === 'customer' 
-                      ? 'rgba(59, 130, 246, 0.2)' 
+                      ? 'rgba(37, 99, 235, 0.12)' 
                       : m.sender === 'petra' 
-                        ? 'rgba(99, 102, 241, 0.2)' 
-                        : 'rgba(255, 255, 255, 0.05)',
-                    border: `1px solid ${m.sender === 'customer' ? 'rgba(59, 130, 246, 0.4)' : m.sender === 'petra' ? 'rgba(99, 102, 241, 0.4)' : 'rgba(255, 255, 255, 0.1)'}`,
+                        ? 'rgba(99, 102, 241, 0.12)' 
+                        : 'var(--bg-card)',
+                    border: `1px solid ${m.sender === 'customer' ? 'rgba(37, 99, 235, 0.25)' : m.sender === 'petra' ? 'rgba(99, 102, 241, 0.25)' : 'var(--border-subtle)'}`,
                     borderRadius: '12px',
                     padding: '10px 14px',
                     fontSize: '0.875rem'
                   }}
                 >
-                  <div style={{ fontSize: '0.7rem', color: m.sender === 'customer' ? '#93C5FD' : '#A5B4FC', marginBottom: '2px', fontWeight: 600 }}>
+                  <div style={{ fontSize: '0.7rem', color: m.sender === 'customer' ? 'var(--accent-blue)' : 'var(--accent-indigo)', marginBottom: '2px', fontWeight: 600 }}>
                     {m.sender === 'customer' ? 'You' : m.sender === 'petra' ? 'Petra' : 'System'} • {m.time}
                   </div>
-                  <div style={{ color: '#F8FAFC', lineHeight: 1.4 }}>{m.text}</div>
+                  <div style={{ color: 'var(--text-primary)', lineHeight: 1.4 }}>{m.text}</div>
                 </div>
               ))}
             </div>
@@ -534,14 +567,14 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
                   <h5 style={{ fontSize: '1rem', color: '#10B981', fontWeight: 700 }}>
                     Appointment Successfully Booked!
                   </h5>
-                  <p style={{ fontSize: '0.8125rem', color: '#D1FAE5', margin: 0 }}>
+                  <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', margin: 0 }}>
                     Thursday at 2:30 PM • Consultation
                   </p>
                 </div>
               </div>
               <div style={{
                 background: 'rgba(16, 185, 129, 0.2)',
-                color: '#A7F3D0',
+                color: '#10B981',
                 padding: '4px 12px',
                 borderRadius: '8px',
                 fontSize: '0.75rem',
@@ -556,7 +589,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
           <div style={{ marginBottom: '28px' }}>
             <h4 style={{ 
               fontSize: '0.875rem', 
-              color: '#94A3B8', 
+              color: 'var(--text-muted)', 
               textTransform: 'uppercase', 
               letterSpacing: '0.06em', 
               fontWeight: 700,
@@ -565,7 +598,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
               alignItems: 'center',
               gap: '8px'
             }}>
-              <Sparkles size={14} color="#60A5FA" />
+              <Sparkles size={14} color="var(--accent-blue)" />
               Try saying...
             </h4>
             <div className="demo-prompts-grid">
@@ -590,7 +623,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
             flexWrap: 'wrap',
             gap: '16px',
             paddingTop: '16px',
-            borderTop: '1px solid rgba(255, 255, 255, 0.08)'
+            borderTop: '1px solid var(--border-subtle)'
           }}>
             {callStatus === 'idle' || callStatus === 'ended' || callStatus === 'error' ? (
               <button
@@ -600,7 +633,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
                 style={{
                   fontSize: '1.15rem',
                   padding: '16px 40px',
-                  boxShadow: '0 0 35px rgba(59, 130, 246, 0.5)'
+                  boxShadow: '0 0 35px var(--accent-blue-glow)'
                 }}
               >
                 <PhoneCall size={22} />
@@ -614,9 +647,9 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
                     width: '50px',
                     height: '50px',
                     borderRadius: '50%',
-                    background: isMuted ? 'rgba(239, 68, 68, 0.2)' : 'rgba(255, 255, 255, 0.08)',
-                    border: `1px solid ${isMuted ? '#EF4444' : 'rgba(255, 255, 255, 0.15)'}`,
-                    color: isMuted ? '#EF4444' : '#CBD5E1',
+                    background: isMuted ? 'rgba(239, 68, 68, 0.2)' : 'var(--bg-secondary)',
+                    border: `1px solid ${isMuted ? '#EF4444' : 'var(--border-subtle)'}`,
+                    color: isMuted ? '#EF4444' : 'var(--text-primary)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -662,7 +695,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
           <p style={{
             textAlign: 'center',
             fontSize: '0.85rem',
-            color: '#94A3B8',
+            color: 'var(--text-muted)',
             marginTop: '16px'
           }}>
             No forms. No waiting. No sales call.
@@ -672,9 +705,9 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
           <div style={{
             marginTop: '28px',
             padding: '16px 20px',
-            background: 'rgba(255, 255, 255, 0.03)',
+            background: 'var(--bg-secondary)',
             borderRadius: '14px',
-            border: '1px solid rgba(255, 255, 255, 0.06)',
+            border: '1px solid var(--border-subtle)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -682,12 +715,12 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
             gap: '14px'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <Phone size={18} color="#3B82F6" />
+              <Phone size={18} color="var(--accent-blue)" />
               <div>
-                <span style={{ fontSize: '0.9rem', color: '#F8FAFC', fontWeight: 600 }}>
+                <span style={{ fontSize: '0.9rem', color: 'var(--text-primary)', fontWeight: 600 }}>
                   Prefer using your phone?
                 </span>
-                <span style={{ fontSize: '0.8rem', color: '#94A3B8', display: 'block' }}>
+                <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', display: 'block' }}>
                   Call our live demonstration line directly
                 </span>
               </div>
@@ -698,8 +731,8 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
               onClick={() => trackEvent('phone_demo_click', { number: voiceConfig.phoneNumber })}
               className="btn btn-secondary btn-sm"
               style={{
-                borderColor: 'rgba(59, 130, 246, 0.4)',
-                color: '#60A5FA',
+                borderColor: 'var(--border-glow)',
+                color: 'var(--accent-blue)',
                 fontWeight: 600
               }}
             >
@@ -712,30 +745,11 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
 
         {/* Section 14: Demo Post-Interaction Conversion Card */}
         {callStatus === 'ended' && (
-          <div style={{
-            maxWidth: '860px',
-            margin: '36px auto 0 auto',
-            background: 'linear-gradient(135deg, rgba(30, 58, 138, 0.4) 0%, rgba(88, 28, 135, 0.35) 100%)',
-            border: '1px solid rgba(96, 165, 250, 0.35)',
-            borderRadius: '24px',
-            padding: '36px 32px',
-            textAlign: 'center',
-            boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
-          }}>
-            <h3 style={{
-              fontSize: 'clamp(1.5rem, 3vw, 2.1rem)',
-              fontWeight: 800,
-              color: '#FFFFFF',
-              marginBottom: '12px'
-            }}>
+          <div className="petra-post-demo-card">
+            <h3 className="petra-post-demo-title">
               Imagine Petra Answering Your Business Calls.
             </h3>
-            <p style={{
-              fontSize: '1.05rem',
-              color: '#CBD5E1',
-              maxWidth: '640px',
-              margin: '0 auto 28px auto'
-            }}>
+            <p className="petra-post-demo-desc">
               That same experience can be customized for your business, your services, your customers, and your appointment schedule.
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '16px' }}>
