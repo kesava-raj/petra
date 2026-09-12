@@ -42,27 +42,45 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
       position: 'fixed',
       inset: 0,
       zIndex: 200,
-      background: 'rgba(4, 7, 14, 0.85)',
+      background: 'rgba(0, 0, 0, 0.75)',
       backdropFilter: 'blur(12px)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       padding: '16px'
     }}>
+      <style>{`
+        .lead-modal-fields-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 14px;
+        }
+        @media (max-width: 520px) {
+          .lead-modal-fields-row {
+            grid-template-columns: 1fr;
+          }
+        }
+        .lead-modal-input:focus {
+          outline: none;
+          border-color: var(--accent-blue) !important;
+          box-shadow: 0 0 0 3px var(--accent-blue-glow);
+        }
+      `}</style>
       <div 
         role="dialog"
         aria-modal="true"
         aria-labelledby="lead-modal-title"
+        className="lead-modal-card glass-panel"
         style={{
           width: '100%',
           maxWidth: '520px',
           maxHeight: '92vh',
           overflowY: 'auto',
-          background: 'rgba(15, 23, 42, 0.95)',
-          border: '1px solid rgba(59, 130, 246, 0.3)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-glow)',
           borderRadius: '24px',
           padding: 'clamp(24px, 4vw, 36px)',
-          boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 35px rgba(59, 130, 246, 0.2)',
+          boxShadow: 'var(--shadow-lg), var(--shadow-glow)',
           position: 'relative'
         }}
       >
@@ -70,19 +88,20 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
         <button
           onClick={handleModalClose}
           aria-label="Close modal"
+          className="lead-modal-close-btn"
           style={{
             position: 'absolute',
             top: '20px',
             right: '20px',
-            background: 'rgba(255, 255, 255, 0.06)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            background: 'var(--bg-secondary)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '50%',
             width: '36px',
             height: '36px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#CBD5E1',
+            color: 'var(--text-secondary)',
             cursor: 'pointer'
           }}
         >
@@ -96,34 +115,35 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
               <span>CUSTOM BUSINESS SETUP</span>
             </div>
 
-            <h3 id="lead-modal-title" style={{ fontSize: '1.65rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '8px' }}>
+            <h3 id="lead-modal-title" style={{ fontSize: '1.65rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '8px' }}>
               Get Petra for Your Business
             </h3>
 
-            <p style={{ fontSize: '0.9rem', color: '#94A3B8', marginBottom: '24px', lineHeight: 1.5 }}>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '24px', lineHeight: 1.5 }}>
               Provide your details and we&apos;ll configure a custom preview tailored to your appointment calendar and services.
             </p>
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.8125rem', color: '#CBD5E1', fontWeight: 600, marginBottom: '6px' }}>
+                <label style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
                   Full Name
                 </label>
                 <div style={{ position: 'relative' }}>
-                  <User size={16} color="#64748B" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
+                  <User size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
                   <input
                     type="text"
                     required
                     placeholder="Dr. Jordan Miller"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="lead-modal-input"
                     style={{
                       width: '100%',
                       padding: '12px 14px 12px 42px',
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      background: 'var(--bg-secondary)',
+                      border: '1px solid var(--border-subtle)',
                       borderRadius: '12px',
-                      color: '#FFFFFF',
+                      color: 'var(--text-primary)',
                       fontSize: '0.9375rem'
                     }}
                   />
@@ -131,50 +151,52 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8125rem', color: '#CBD5E1', fontWeight: 600, marginBottom: '6px' }}>
+                <label style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
                   Business Name
                 </label>
                 <div style={{ position: 'relative' }}>
-                  <Building size={16} color="#64748B" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
+                  <Building size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
                   <input
                     type="text"
                     required
                     placeholder="Miller Dental Wellness"
                     value={formData.businessName}
                     onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
+                    className="lead-modal-input"
                     style={{
                       width: '100%',
                       padding: '12px 14px 12px 42px',
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      background: 'var(--bg-secondary)',
+                      border: '1px solid var(--border-subtle)',
                       borderRadius: '12px',
-                      color: '#FFFFFF',
+                      color: 'var(--text-primary)',
                       fontSize: '0.9375rem'
                     }}
                   />
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+              <div className="lead-modal-fields-row">
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8125rem', color: '#CBD5E1', fontWeight: 600, marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
                     Work Email
                   </label>
                   <div style={{ position: 'relative' }}>
-                    <Mail size={16} color="#64748B" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
+                    <Mail size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
                     <input
                       type="email"
                       required
                       placeholder="jordan@practice.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="lead-modal-input"
                       style={{
                         width: '100%',
                         padding: '12px 14px 12px 42px',
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid rgba(255, 255, 255, 0.12)',
+                        background: 'var(--bg-secondary)',
+                        border: '1px solid var(--border-subtle)',
                         borderRadius: '12px',
-                        color: '#FFFFFF',
+                        color: 'var(--text-primary)',
                         fontSize: '0.9375rem'
                       }}
                     />
@@ -182,24 +204,25 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8125rem', color: '#CBD5E1', fontWeight: 600, marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
                     Phone Number
                   </label>
                   <div style={{ position: 'relative' }}>
-                    <Phone size={16} color="#64748B" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
+                    <Phone size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
                     <input
                       type="tel"
                       required
                       placeholder="(555) 019-2834"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="lead-modal-input"
                       style={{
                         width: '100%',
                         padding: '12px 14px 12px 42px',
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid rgba(255, 255, 255, 0.12)',
+                        background: 'var(--bg-secondary)',
+                        border: '1px solid var(--border-subtle)',
                         borderRadius: '12px',
-                        color: '#FFFFFF',
+                        color: 'var(--text-primary)',
                         fontSize: '0.9375rem'
                       }}
                     />
@@ -208,21 +231,22 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8125rem', color: '#CBD5E1', fontWeight: 600, marginBottom: '6px' }}>
+                <label style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
                   Business Type
                 </label>
                 <div style={{ position: 'relative' }}>
-                  <Briefcase size={16} color="#64748B" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
+                  <Briefcase size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
                   <select
                     value={formData.businessType}
                     onChange={(e) => setFormData({ ...formData, businessType: e.target.value })}
+                    className="lead-modal-input"
                     style={{
                       width: '100%',
                       padding: '12px 14px 12px 42px',
-                      background: '#0D1527',
-                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      background: 'var(--bg-secondary)',
+                      border: '1px solid var(--border-subtle)',
                       borderRadius: '12px',
-                      color: '#FFFFFF',
+                      color: 'var(--text-primary)',
                       fontSize: '0.9375rem'
                     }}
                   >
@@ -266,11 +290,11 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
               <CheckCircle2 size={36} />
             </div>
 
-            <h3 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '10px' }}>
+            <h3 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '10px' }}>
               We&apos;re Preparing Your Custom Setup!
             </h3>
 
-            <p style={{ fontSize: '0.95rem', color: '#94A3B8', lineHeight: 1.5, marginBottom: '28px' }}>
+            <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', lineHeight: 1.5, marginBottom: '28px' }}>
               Thank you, {formData.name}. Our onboarding specialist will connect your calendar and send you a private test line for {formData.businessName} within 2 hours.
             </p>
 

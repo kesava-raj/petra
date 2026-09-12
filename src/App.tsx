@@ -17,6 +17,7 @@ import { FinalCTA } from './components/FinalCTA';
 import { Footer } from './components/Footer';
 import { MobileStickyCTA } from './components/MobileStickyCTA';
 import { LeadCaptureModal } from './components/LeadCaptureModal';
+import { ThemeToggle } from './components/ThemeToggle';
 import { trackEvent, getStoredUTMParams } from './utils/analytics';
 
 export const App: React.FC = () => {
@@ -93,6 +94,9 @@ export const App: React.FC = () => {
 
       {/* Mobile Sticky CTA */}
       <MobileStickyCTA onOpenDemo={scrollToDemo} />
+
+      {/* Floating Theme Toggle (Light / Dark) */}
+      <ThemeToggle />
 
       {/* Lead Capture Modal */}
       <LeadCaptureModal 
