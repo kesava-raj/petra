@@ -1,10 +1,45 @@
-import React, { useState } from 'react';
-import { Sparkles, CheckCircle2, User, Building, Mail, Phone, Briefcase, MessageSquare, Send, Clock, ShieldCheck, Headphones } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { 
+  Sparkles, 
+  CheckCircle2, 
+  User, 
+  Building, 
+  Mail, 
+  Phone, 
+  Briefcase, 
+  MessageSquare, 
+  Send, 
+  Clock, 
+  ShieldCheck, 
+  Headphones, 
+  ChevronDown, 
+  Check 
+} from 'lucide-react';
 import { trackEvent } from '../utils/analytics';
 
 interface InquirySectionProps {
   onOpenDemo?: () => void;
 }
+
+const BUSINESS_CATEGORIES = [
+  'Dental Clinic',
+  'Medical Practice',
+  'Salon & Spa',
+  'Med Spa / Aesthetics',
+  'Law Practice',
+  'Real Estate',
+  'Home Services / HVAC',
+  'Auto Services',
+  'Other Appointment Business'
+];
+
+const NEED_OPTIONS = [
+  { id: 'test_line', label: 'Private Test Line Setup', desc: 'Receive a dedicated number configured for your business' },
+  { id: 'calendar', label: 'Calendar & EHR/CRM Integration', desc: 'Sync Google, Outlook, or booking software' },
+  { id: 'pricing', label: 'Pricing & Custom Minute Quota', desc: 'Discuss high-volume or practice group plans' },
+  { id: 'multilocation', label: 'Multi-Location / Enterprise', desc: 'Route calls across multiple offices or departments' },
+  { id: 'general', label: 'General Questions', desc: 'Ask about AI capabilities, tone, or compliance' },
+];
 
 export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) => {
   const [formData, setFormData] = useState({
@@ -12,15 +47,41 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
     businessName: '',
     email: '',
     phone: '',
-    businessType: 'Dental',
-    inquiryType: 'Custom Demo Line',
+    businessType: 'Dental Clinic',
     message: ''
   });
+
+  const [selectedNeeds, setSelectedNeeds] = useState<string[]>(['test_line']);
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+  const categoryRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (categoryRef.current && !categoryRef.current.contains(event.target as Node)) {
+        setIsCategoryOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const handleFieldChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const toggleNeed = (id: string) => {
+    setSelectedNeeds(prev => {
+      if (prev.includes(id)) {
+        // keep at least one selected or allow empty
+        return prev.filter(item => item !== id);
+      } else {
+        return [...prev, id];
+      }
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -29,8 +90,15 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
 
     setSubmitting(true);
 
+    const payload = {
+      ...formData,
+      needs: selectedNeeds.map(id => NEED_OPTIONS.find(o => o.id === id)?.label).filter(Boolean),
+      source: 'inquiry_section'
+    };
+
     trackEvent('lead_submitted', {
       ...formData,
+      inquiryNeeds: selectedNeeds.join(','),
       source: 'inquiry_section'
     });
 
@@ -41,7 +109,8 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
         lead_source: 'inquiry_section',
         email: formData.email,
         business_name: formData.businessName,
-        business_type: formData.businessType
+        business_type: formData.businessType,
+        inquiry_needs: selectedNeeds
       });
 
       if (typeof window.gtag === 'function') {
@@ -60,7 +129,7 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
       try {
         const existing = JSON.parse(localStorage.getItem('petra_inquiries') || '[]');
         existing.unshift({
-          ...formData,
+          ...payload,
           submittedAt: new Date().toISOString()
         });
         localStorage.setItem('petra_inquiries', JSON.stringify(existing.slice(0, 50)));
@@ -96,7 +165,7 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
           max-width: 1040px;
           margin: 0 auto;
           display: grid;
-          grid-template-columns: 1fr 1.25fr;
+          grid-template-columns: 1fr 1.3fr;
           gap: 48px;
           align-items: start;
         }
@@ -132,7 +201,7 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
           border-radius: 12px;
           color: var(--text-primary);
           font-size: 0.9375rem;
-          min-height: 90px;
+          min-height: 80px;
           resize: vertical;
           font-family: inherit;
           transition: border-color 0.2s, box-shadow 0.2s;
@@ -142,6 +211,145 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
           outline: none;
           border-color: var(--accent-blue);
           box-shadow: 0 0 0 3px var(--accent-blue-glow);
+        }
+
+        /* Custom Dropdown Styling */
+        .custom-dropdown-btn {
+          width: 100%;
+          padding: 12px 14px 12px 40px;
+          background: var(--bg-secondary);
+          border: 1px solid var(--border-subtle);
+          border-radius: 12px;
+          color: var(--text-primary);
+          font-size: 0.9375rem;
+          font-family: inherit;
+          text-align: left;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .custom-dropdown-btn:focus,
+        .custom-dropdown-btn.active {
+          outline: none;
+          border-color: var(--accent-blue);
+          box-shadow: 0 0 0 3px var(--accent-blue-glow);
+        }
+
+        .custom-dropdown-menu {
+          position: absolute;
+          top: calc(100% + 6px);
+          left: 0;
+          right: 0;
+          background: var(--bg-card);
+          border: 1px solid var(--border-glow);
+          border-radius: 14px;
+          box-shadow: var(--shadow-lg), 0 10px 30px rgba(0, 0, 0, 0.25);
+          backdrop-filter: blur(16px);
+          z-index: 50;
+          max-height: 250px;
+          overflow-y: auto;
+          padding: 6px;
+          animation: dropFade 0.2s ease;
+        }
+
+        @keyframes dropFade {
+          from { opacity: 0; transform: translateY(-6px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        .custom-dropdown-option {
+          width: 100%;
+          padding: 10px 14px;
+          background: transparent;
+          border: none;
+          border-radius: 8px;
+          color: var(--text-primary);
+          font-size: 0.9rem;
+          text-align: left;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          transition: background 0.15s, color 0.15s;
+        }
+
+        .custom-dropdown-option:hover {
+          background: var(--bg-secondary);
+          color: var(--accent-blue);
+        }
+
+        .custom-dropdown-option.selected {
+          background: rgba(37, 99, 235, 0.12);
+          color: var(--accent-blue);
+          font-weight: 600;
+        }
+
+        /* Checkbox Grid & Cards */
+        .checkbox-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+
+        .checkbox-card {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          padding: 10px 14px;
+          background: var(--bg-secondary);
+          border: 1px solid var(--border-subtle);
+          border-radius: 12px;
+          cursor: pointer;
+          user-select: none;
+          transition: all 0.2s ease;
+        }
+
+        .checkbox-card:hover {
+          border-color: rgba(37, 99, 235, 0.4);
+          background: var(--bg-card);
+        }
+
+        .checkbox-card.checked {
+          background: rgba(37, 99, 235, 0.08);
+          border-color: var(--accent-blue);
+          box-shadow: 0 0 0 1px var(--accent-blue);
+        }
+
+        .checkbox-indicator {
+          width: 18px;
+          height: 18px;
+          border-radius: 5px;
+          border: 1.5px solid var(--border-subtle);
+          background: var(--bg-card);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          margin-top: 2px;
+          transition: all 0.2s ease;
+        }
+
+        .checkbox-card.checked .checkbox-indicator {
+          background: var(--accent-blue);
+          border-color: var(--accent-blue);
+          color: #FFFFFF;
+        }
+
+        .checkbox-title {
+          font-size: 0.85rem;
+          font-weight: 600;
+          color: var(--text-primary);
+          line-height: 1.3;
+        }
+
+        .checkbox-desc {
+          font-size: 0.75rem;
+          color: var(--text-muted);
+          line-height: 1.3;
+          margin-top: 2px;
         }
 
         .inquiry-highlight-badge {
@@ -186,8 +394,11 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
           }
         }
 
-        @media (max-width: 540px) {
+        @media (max-width: 600px) {
           .inquiry-input-grid {
+            grid-template-columns: 1fr;
+          }
+          .checkbox-grid {
             grid-template-columns: 1fr;
           }
         }
@@ -211,7 +422,7 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
         {/* Inquiry Card Container */}
         <div className="inquiry-card">
           
-          {/* Left Column: What Happens Next & Value Commitments */}
+          {/* Left Column: Value Commitments */}
           <div>
             <div className="inquiry-highlight-badge">
               <Headphones size={13} />
@@ -235,7 +446,7 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
               lineHeight: 1.6,
               marginBottom: '28px'
             }}>
-              Whether you want a private test number, need custom multi-calendar routing, or want to discuss enterprise call volumes, we&apos;re here to help.
+              Whether you want a private test line, need multi-calendar routing, or want custom minutes for your practice group, we&apos;re ready to help.
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -273,10 +484,10 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
                 </div>
                 <div>
                   <h4 style={{ fontSize: '0.92rem', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>
-                    Zero Commitment & No Spam
+                    Zero Commitment & Strict Privacy
                   </h4>
                   <p style={{ fontSize: '0.825rem', color: 'var(--text-muted)', margin: '4px 0 0 0' }}>
-                    Test Petra risk-free with no credit card required and strict privacy standards.
+                    Test Petra risk-free with no credit card required and no spam guarantee.
                   </p>
                 </div>
               </div>
@@ -396,62 +607,104 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
                   </div>
                 </div>
 
-                {/* Row 3: Industry & Inquiry Type */}
-                <div className="inquiry-input-grid">
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
-                      Business Category
-                    </label>
-                    <div style={{ position: 'relative' }}>
-                      <Briefcase size={15} color="var(--text-muted)" style={{ position: 'absolute', left: '13px', top: '50%', transform: 'translateY(-50%)' }} />
-                      <select
-                        value={formData.businessType}
-                        onChange={(e) => handleFieldChange('businessType', e.target.value)}
-                        className="inquiry-input"
-                      >
-                        <option value="Dental">Dental Clinic</option>
-                        <option value="Medical">Medical Practice</option>
-                        <option value="Salon & Spa">Salon & Spa</option>
-                        <option value="Med Spa">Med Spa / Aesthetics</option>
-                        <option value="Legal">Law Practice</option>
-                        <option value="Real Estate">Real Estate</option>
-                        <option value="Home Services">Home Services / HVAC</option>
-                        <option value="Auto Services">Auto Services</option>
-                        <option value="Other">Other Appointment Business</option>
-                      </select>
+                {/* Row 3: Business Category (UI Adapted Custom Dropdown) */}
+                <div ref={categoryRef} style={{ position: 'relative' }}>
+                  <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
+                    Business Category
+                  </label>
+                  
+                  <button
+                    type="button"
+                    onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+                    className={`custom-dropdown-btn ${isCategoryOpen ? 'active' : ''}`}
+                    aria-haspopup="listbox"
+                    aria-expanded={isCategoryOpen}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <Briefcase size={15} color="var(--text-muted)" style={{ position: 'absolute', left: '13px' }} />
+                      <span>{formData.businessType}</span>
                     </div>
-                  </div>
+                    <ChevronDown 
+                      size={16} 
+                      color="var(--text-muted)" 
+                      style={{ 
+                        transform: isCategoryOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.2s ease'
+                      }} 
+                    />
+                  </button>
 
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
-                      What do you need?
-                    </label>
-                    <div style={{ position: 'relative' }}>
-                      <Sparkles size={15} color="var(--text-muted)" style={{ position: 'absolute', left: '13px', top: '50%', transform: 'translateY(-50%)' }} />
-                      <select
-                        value={formData.inquiryType}
-                        onChange={(e) => handleFieldChange('inquiryType', e.target.value)}
-                        className="inquiry-input"
-                      >
-                        <option value="Custom Demo Line">Private Test Line Setup</option>
-                        <option value="Pricing & Plans">Pricing & Custom Quota</option>
-                        <option value="Integration">Calendar & CRM Integration</option>
-                        <option value="Enterprise">Multi-Location Practice</option>
-                        <option value="General Question">General Question</option>
-                      </select>
+                  {isCategoryOpen && (
+                    <div className="custom-dropdown-menu" role="listbox">
+                      {BUSINESS_CATEGORIES.map((cat) => {
+                        const isSelected = formData.businessType === cat;
+                        return (
+                          <button
+                            type="button"
+                            key={cat}
+                            role="option"
+                            aria-selected={isSelected}
+                            onClick={() => {
+                              handleFieldChange('businessType', cat);
+                              setIsCategoryOpen(false);
+                            }}
+                            className={`custom-dropdown-option ${isSelected ? 'selected' : ''}`}
+                          >
+                            <span>{cat}</span>
+                            {isSelected && <Check size={14} color="var(--accent-blue)" />}
+                          </button>
+                        );
+                      })}
                     </div>
+                  )}
+                </div>
+
+                {/* Row 4: What do you need? (UI Adapted Checkbox Cards) */}
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '8px' }}>
+                    What do you need? (Select all that apply)
+                  </label>
+                  
+                  <div className="checkbox-grid">
+                    {NEED_OPTIONS.map((opt) => {
+                      const isChecked = selectedNeeds.includes(opt.id);
+                      return (
+                        <div
+                          key={opt.id}
+                          role="checkbox"
+                          aria-checked={isChecked}
+                          tabIndex={0}
+                          onClick={() => toggleNeed(opt.id)}
+                          onKeyDown={(e) => {
+                            if (e.key === ' ' || e.key === 'Enter') {
+                              e.preventDefault();
+                              toggleNeed(opt.id);
+                            }
+                          }}
+                          className={`checkbox-card ${isChecked ? 'checked' : ''}`}
+                        >
+                          <div className="checkbox-indicator">
+                            {isChecked && <Check size={12} strokeWidth={3} />}
+                          </div>
+                          <div>
+                            <div className="checkbox-title">{opt.label}</div>
+                            <div className="checkbox-desc">{opt.desc}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
 
-                {/* Row 4: Message */}
+                {/* Row 5: Message */}
                 <div>
                   <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
-                    Message or Special Requirements (Optional)
+                    Message or Practice Details (Optional)
                   </label>
                   <div style={{ position: 'relative' }}>
                     <MessageSquare size={15} color="var(--text-muted)" style={{ position: 'absolute', left: '13px', top: '14px' }} />
                     <textarea
-                      placeholder="Tell us about your practice, current call handling challenges, or preferred test times..."
+                      placeholder="Tell us about your current front-desk workflow, expected call hours, or specific questions..."
                       value={formData.message}
                       onChange={(e) => handleFieldChange('message', e.target.value)}
                       className="inquiry-textarea"
@@ -463,7 +716,7 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
                   type="submit"
                   disabled={submitting}
                   className="btn btn-primary btn-lg"
-                  style={{ width: '100%', marginTop: '6px', justifyContent: 'center' }}
+                  style={{ width: '100%', marginTop: '4px', justifyContent: 'center' }}
                   id="inquiry-submit-btn"
                 >
                   <Send size={18} />
@@ -492,7 +745,7 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
                 </h3>
 
                 <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: '24px' }}>
-                  Thank you, <strong>{formData.name}</strong>. We&apos;ve sent a confirmation to <strong>{formData.email}</strong>. Our onboarding team will configure your preview line for <strong>{formData.businessName}</strong> within 2 hours.
+                  Thank you, <strong>{formData.name}</strong>. We&apos;ve sent a confirmation to <strong>{formData.email}</strong>. Our team will configure your preview line for <strong>{formData.businessName}</strong> within 2 hours.
                 </p>
 
                 {onOpenDemo && (
