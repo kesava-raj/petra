@@ -103,13 +103,7 @@ export const IndustrySection: React.FC<IndustrySectionProps> = ({ onOpenDemo }) 
         </div>
 
         {/* Tab Pills */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-          gap: '10px',
-          marginBottom: '40px'
-        }}>
+        <div className="industry-tabs-container">
           {industries.map((ind) => {
             const TabIcon = ind.icon;
             const isSelected = ind.id === activeTab;
@@ -120,6 +114,7 @@ export const IndustrySection: React.FC<IndustrySectionProps> = ({ onOpenDemo }) 
                   setActiveTab(ind.id);
                   trackEvent('page_view', { industry_tab_selected: ind.id });
                 }}
+                className={`industry-tab-pill ${isSelected ? 'selected' : ''}`}
                 style={{
                   padding: '10px 18px',
                   borderRadius: '12px',
@@ -132,7 +127,8 @@ export const IndustrySection: React.FC<IndustrySectionProps> = ({ onOpenDemo }) 
                   alignItems: 'center',
                   gap: '8px',
                   cursor: 'pointer',
-                  transition: 'all 0.2s ease'
+                  transition: 'all 0.2s ease',
+                  flexShrink: 0
                 }}
               >
                 <TabIcon size={16} color={isSelected ? ind.color : '#94A3B8'} />
@@ -150,16 +146,11 @@ export const IndustrySection: React.FC<IndustrySectionProps> = ({ onOpenDemo }) 
           backdropFilter: 'blur(20px)',
           border: `1px solid ${activeIndustry.color}40`,
           borderRadius: '24px',
-          padding: 'clamp(24px, 4vw, 44px)',
+          padding: 'clamp(20px, 4vw, 44px)',
           boxShadow: `0 20px 50px rgba(0, 0, 0, 0.5), 0 0 35px ${activeIndustry.color}15`,
           position: 'relative'
         }}>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '36px',
-            alignItems: 'center'
-          }}>
+          <div className="industry-showcase-grid">
             {/* Left: Info */}
             <div>
               <div style={{
@@ -177,11 +168,11 @@ export const IndustrySection: React.FC<IndustrySectionProps> = ({ onOpenDemo }) 
                 <Icon size={28} />
               </div>
 
-              <h3 style={{ fontSize: '1.65rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '12px' }}>
+              <h3 style={{ fontSize: 'clamp(1.35rem, 3vw, 1.65rem)', fontWeight: 800, color: '#FFFFFF', marginBottom: '12px' }}>
                 {activeIndustry.headline}
               </h3>
 
-              <p style={{ fontSize: '1.05rem', color: '#CBD5E1', lineHeight: 1.6, marginBottom: '24px' }}>
+              <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.05rem)', color: '#CBD5E1', lineHeight: 1.6, marginBottom: '24px' }}>
                 {activeIndustry.description}
               </p>
 
@@ -201,8 +192,8 @@ export const IndustrySection: React.FC<IndustrySectionProps> = ({ onOpenDemo }) 
                   trackEvent('hero_cta_click', { source: `industry_${activeIndustry.id}` });
                   onOpenDemo();
                 }}
-                className="btn btn-primary"
-                style={{ padding: '12px 26px' }}
+                className="btn btn-primary industry-cta-btn"
+                style={{ padding: '12px 24px' }}
               >
                 <PhoneCall size={16} />
                 <span>Talk to Petra for {activeIndustry.name}</span>
@@ -267,6 +258,60 @@ export const IndustrySection: React.FC<IndustrySectionProps> = ({ onOpenDemo }) 
           <span>And more: Auto repair, chiropractic, wellness, veterinary, fitness studios, and appointment-based services.</span>
         </div>
       </div>
+
+      <style>{`
+        .industry-tabs-container {
+          display: flex;
+          justifyContent: center;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-bottom: 40px;
+        }
+
+        .industry-showcase-grid {
+          display: grid;
+          grid-template-columns: 1.15fr 0.85fr;
+          gap: 36px;
+          align-items: center;
+        }
+
+        .industry-cta-btn {
+          white-space: normal !important;
+          text-align: left;
+          line-height: 1.3;
+        }
+
+        @media (max-width: 900px) {
+          .industry-showcase-grid {
+            grid-template-columns: 1fr;
+            gap: 28px;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .industry-tabs-container {
+            justify-content: flex-start;
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            padding-bottom: 8px;
+            margin-bottom: 24px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+          }
+          .industry-tabs-container::-webkit-scrollbar {
+            display: none;
+          }
+          .industry-tab-pill {
+            padding: 8px 14px !important;
+            font-size: 0.85rem !important;
+          }
+          .industry-cta-btn {
+            width: 100% !important;
+            text-align: center;
+            justify-content: center;
+          }
+        }
+      `}</style>
     </section>
   );
 };

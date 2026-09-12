@@ -29,15 +29,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
       id="hero"
     >
       <div className="container">
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '48px',
-          alignItems: 'center'
-        }}>
+        <div className="hero-grid">
           
           {/* Left Column: Copy & CTAs */}
-          <div style={{ maxWidth: '620px' }}>
+          <div className="hero-copy-col">
             {/* Eyebrow */}
             <div className="eyebrow">
               <Sparkles size={14} />
@@ -45,46 +40,21 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
             </div>
 
             {/* Single Primary H1 */}
-            <h1 style={{
-              fontSize: 'clamp(2.5rem, 5vw, 3.8rem)',
-              fontWeight: 800,
-              lineHeight: 1.1,
-              marginBottom: '24px',
-              letterSpacing: '-0.03em',
-              background: 'linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 55%, #94A3B8 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
-            }}>
+            <h1 className="hero-heading">
               Never Miss a Customer Call Again.
             </h1>
 
             {/* Supporting Copy */}
-            <p style={{
-              fontSize: 'clamp(1.05rem, 2vw, 1.25rem)',
-              color: '#CBD5E1',
-              lineHeight: 1.6,
-              marginBottom: '36px'
-            }}>
+            <p className="hero-subheading">
               Meet Petra — an AI receptionist that answers calls, talks naturally with your customers, answers questions, and books appointments for your business, 24/7.
             </p>
 
             {/* CTA Group */}
-            <div style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '16px',
-              alignItems: 'center',
-              marginBottom: '18px'
-            }}>
+            <div className="hero-cta-group">
               <button
                 onClick={handlePrimaryCta}
-                className="btn btn-primary btn-lg btn-pulse"
+                className="btn btn-primary btn-lg btn-pulse hero-primary-btn"
                 id="hero-talk-to-petra"
-                style={{
-                  fontSize: '1.125rem',
-                  padding: '16px 36px',
-                  boxShadow: '0 0 30px rgba(59, 130, 246, 0.45)'
-                }}
               >
                 <PhoneCall size={20} />
                 <span>Talk to Petra</span>
@@ -92,7 +62,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
 
               <button
                 onClick={handleSecondaryCta}
-                className="btn btn-secondary btn-lg"
+                className="btn btn-secondary btn-lg hero-secondary-btn"
                 id="hero-see-how-it-works"
               >
                 <Play size={18} />
@@ -101,29 +71,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
             </div>
 
             {/* Supporting Microcopy */}
-            <p style={{
-              fontSize: '0.875rem',
-              color: '#94A3B8',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              fontWeight: 500
-            }}>
+            <p className="hero-microcopy">
               <CheckCircle2 size={16} color="#10B981" />
               <span>Try Petra yourself. It takes less than a minute.</span>
             </p>
 
             {/* Key trust bullets */}
-            <div style={{
-              marginTop: '36px',
-              paddingTop: '28px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '24px',
-              fontSize: '0.875rem',
-              color: '#94A3B8'
-            }}>
+            <div className="hero-trust-bullets">
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10B981' }}></span>
                 <span>Zero Hold Times</span>
@@ -140,17 +94,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
           </div>
 
           {/* Right Column: Hero Visual - Modern Smartphone showing active call with bubbles */}
-          <div style={{
-            position: 'relative',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}>
+          <div className="hero-visual-col">
             {/* Ambient Background Glow */}
             <div style={{
               position: 'absolute',
-              width: '380px',
-              height: '380px',
+              width: '340px',
+              height: '340px',
               borderRadius: '50%',
               background: 'radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, rgba(99, 102, 241, 0.15) 50%, transparent 70%)',
               filter: 'blur(50px)',
@@ -163,10 +112,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
               position: 'relative',
               zIndex: 1,
               width: '100%',
-              maxWidth: '340px',
+              maxWidth: '320px',
               background: 'linear-gradient(180deg, #111B33 0%, #080D1A 100%)',
-              borderRadius: '44px',
-              padding: '14px',
+              borderRadius: '40px',
+              padding: '12px',
               boxShadow: '0 25px 60px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.12), 0 0 35px rgba(59, 130, 246, 0.25)',
               border: '2px solid rgba(255, 255, 255, 0.1)'
             }}>
@@ -174,24 +123,24 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
               {/* Inner Screen */}
               <div style={{
                 background: 'radial-gradient(ellipse at top, #142145 0%, #0A1021 100%)',
-                borderRadius: '32px',
-                padding: '24px 20px',
+                borderRadius: '30px',
+                padding: '22px 18px',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 textAlign: 'center',
                 position: 'relative',
                 overflow: 'hidden',
-                minHeight: '440px',
+                minHeight: '410px',
                 justifyContent: 'space-between'
               }}>
                 {/* Dynamic Island / Speaker Notch */}
                 <div style={{
-                  width: '90px',
-                  height: '20px',
+                  width: '84px',
+                  height: '18px',
                   background: '#000000',
                   borderRadius: '20px',
-                  marginBottom: '16px'
+                  marginBottom: '14px'
                 }}></div>
 
                 {/* Call Header */}
@@ -210,7 +159,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
                   }}>
                     AI RECEPTIONIST
                   </div>
-                  <h3 style={{ fontSize: '1.65rem', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.02em' }}>
+                  <h3 style={{ fontSize: '1.55rem', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.02em' }}>
                     PETRA
                   </h3>
                   <div style={{
@@ -232,9 +181,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '5px',
-                  height: '70px',
-                  margin: '18px 0',
+                  gap: '4px',
+                  height: '60px',
+                  margin: '16px 0',
                   width: '100%'
                 }}>
                   {[45, 75, 30, 90, 60, 100, 70, 85, 40, 95, 55, 80, 50, 65].map((height, i) => (
@@ -252,18 +201,41 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
                   ))}
                 </div>
 
-                {/* Call Controls Mockup */}
+                {/* Key Realtime Status Card */}
+                <div style={{
+                  width: '100%',
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  borderRadius: '16px',
+                  padding: '12px 14px',
+                  textAlign: 'left',
+                  backdropFilter: 'blur(8px)'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+                    <span style={{ fontSize: '0.72rem', color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 700 }}>
+                      Active Task
+                    </span>
+                    <span style={{ fontSize: '0.72rem', color: '#10B981', fontWeight: 600 }}>
+                      Matching Schedule
+                    </span>
+                  </div>
+                  <p style={{ fontSize: '0.8125rem', color: '#F1F5F9', margin: 0, fontWeight: 500 }}>
+                    Reserving appointment for cleaning on Friday
+                  </p>
+                </div>
+
+                {/* Simulated In-Call Controls */}
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '18px',
-                  width: '100%',
-                  paddingTop: '12px'
+                  gap: '16px',
+                  marginTop: '16px',
+                  width: '100%'
                 }}>
                   <div style={{
-                    width: '44px',
-                    height: '44px',
+                    width: '40px',
+                    height: '40px',
                     borderRadius: '50%',
                     background: 'rgba(255, 255, 255, 0.08)',
                     display: 'flex',
@@ -274,21 +246,21 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
                     <Mic size={18} />
                   </div>
                   <div style={{
-                    width: '52px',
-                    height: '52px',
+                    width: '48px',
+                    height: '48px',
                     borderRadius: '50%',
                     background: '#EF4444',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     color: '#FFFFFF',
-                    boxShadow: '0 4px 15px rgba(239, 68, 68, 0.4)'
+                    boxShadow: '0 4px 16px rgba(239, 68, 68, 0.4)'
                   }}>
-                    <PhoneOff size={22} />
+                    <PhoneOff size={20} />
                   </div>
                   <div style={{
-                    width: '44px',
-                    height: '44px',
+                    width: '40px',
+                    height: '40px',
                     borderRadius: '50%',
                     background: 'rgba(255, 255, 255, 0.08)',
                     display: 'flex',
@@ -304,20 +276,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
             </div>
 
             {/* Floating Bubble 1: Customer */}
-            <div style={{
-              position: 'absolute',
-              top: '12%',
-              left: '-24px',
-              background: 'rgba(15, 23, 42, 0.88)',
-              backdropFilter: 'blur(16px)',
-              border: '1px solid rgba(255, 255, 255, 0.12)',
-              borderRadius: '16px',
-              padding: '12px 18px',
-              maxWidth: '220px',
-              boxShadow: '0 12px 30px rgba(0, 0, 0, 0.4)',
-              zIndex: 3,
-              animation: 'floatSlow 4s ease-in-out infinite'
-            }}>
+            <div className="hero-floating-bubble-1">
               <span style={{ fontSize: '0.7rem', color: '#94A3B8', fontWeight: 600, display: 'block', marginBottom: '2px' }}>
                 Customer
               </span>
@@ -327,20 +286,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
             </div>
 
             {/* Floating Bubble 2: Petra */}
-            <div style={{
-              position: 'absolute',
-              bottom: '14%',
-              right: '-24px',
-              background: 'linear-gradient(135deg, rgba(30, 58, 138, 0.85) 0%, rgba(49, 46, 129, 0.85) 100%)',
-              backdropFilter: 'blur(16px)',
-              border: '1px solid rgba(96, 165, 250, 0.3)',
-              borderRadius: '16px',
-              padding: '12px 18px',
-              maxWidth: '240px',
-              boxShadow: '0 12px 30px rgba(0, 0, 0, 0.45)',
-              zIndex: 3,
-              animation: 'floatSlow 4s ease-in-out infinite 2s'
-            }}>
+            <div className="hero-floating-bubble-2">
               <span style={{ fontSize: '0.7rem', color: '#93C5FD', fontWeight: 600, display: 'block', marginBottom: '2px' }}>
                 Petra (AI Receptionist)
               </span>
@@ -354,28 +300,165 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
         </div>
       </div>
 
-      {/* Hero CSS Keyframe Animations */}
+      {/* Hero CSS Keyframe Animations & Responsive Rules */}
       <style>{`
+        .hero-grid {
+          display: grid;
+          grid-template-columns: 1.15fr 0.85fr;
+          gap: 48px;
+          align-items: center;
+        }
+
+        .hero-copy-col {
+          max-width: 620px;
+        }
+
+        .hero-heading {
+          font-size: clamp(2.1rem, 4.5vw, 3.8rem);
+          font-weight: 800;
+          line-height: 1.1;
+          margin-bottom: 24px;
+          letter-spacing: -0.03em;
+          background: linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 55%, #94A3B8 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subheading {
+          font-size: clamp(1rem, 2vw, 1.25rem);
+          color: #CBD5E1;
+          line-height: 1.6;
+          margin-bottom: 32px;
+        }
+
+        .hero-cta-group {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 16px;
+          align-items: center;
+          margin-bottom: 18px;
+        }
+
+        .hero-microcopy {
+          font-size: 0.875rem;
+          color: #94A3B8;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-weight: 500;
+        }
+
+        .hero-trust-bullets {
+          margin-top: 36px;
+          padding-top: 28px;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          display: flex;
+          flex-wrap: wrap;
+          gap: 24px;
+          font-size: 0.875rem;
+          color: #94A3B8;
+        }
+
+        .hero-visual-col {
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .hero-floating-bubble-1 {
+          position: absolute;
+          top: 10%;
+          left: -18px;
+          background: rgba(15, 23, 42, 0.92);
+          backdrop-filter: blur(16px);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 16px;
+          padding: 12px 16px;
+          max-width: 210px;
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+          z-index: 3;
+          animation: floatSlow 4s ease-in-out infinite;
+        }
+
+        .hero-floating-bubble-2 {
+          position: absolute;
+          bottom: 12%;
+          right: -18px;
+          background: linear-gradient(135deg, rgba(30, 58, 138, 0.9) 0%, rgba(49, 46, 129, 0.9) 100%);
+          backdrop-filter: blur(16px);
+          border: 1px solid rgba(96, 165, 250, 0.35);
+          border-radius: 16px;
+          padding: 12px 16px;
+          max-width: 230px;
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+          z-index: 3;
+          animation: floatSlow 4s ease-in-out infinite 2s;
+        }
+
         @keyframes waveAnim {
           0% { height: 20%; }
           100% { height: 95%; }
         }
         @keyframes floatSlow {
           0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-8px); }
+          50% { transform: translateY(-6px); }
         }
         @keyframes pulse {
           0%, 100% { opacity: 1; transform: scale(1); }
           50% { opacity: 0.5; transform: scale(0.85); }
         }
-        @media (max-width: 900px) {
-          #hero [style*="left: -24px"] {
-            left: 5px !important;
-            top: 2% !important;
+
+        /* Tablet / iPad (768px - 1024px) */
+        @media (max-width: 1024px) {
+          .hero-grid {
+            grid-template-columns: 1fr;
+            gap: 48px;
+            text-align: center;
           }
-          #hero [style*="right: -24px"] {
-            right: 5px !important;
-            bottom: 2% !important;
+          .hero-copy-col {
+            max-width: 720px;
+            margin: 0 auto;
+          }
+          .hero-cta-group {
+            justify-content: center;
+          }
+          .hero-microcopy {
+            justify-content: center;
+          }
+          .hero-trust-bullets {
+            justify-content: center;
+          }
+        }
+
+        /* Mobile (< 640px) */
+        @media (max-width: 640px) {
+          .hero-grid {
+            gap: 36px;
+          }
+          .hero-cta-group {
+            flex-direction: column;
+            width: 100%;
+          }
+          .hero-cta-group .btn {
+            width: 100%;
+          }
+          .hero-trust-bullets {
+            gap: 14px;
+            flex-direction: column;
+            align-items: center;
+          }
+          .hero-floating-bubble-1 {
+            left: 4px;
+            top: 2%;
+            max-width: 170px;
+            padding: 8px 12px;
+          }
+          .hero-floating-bubble-2 {
+            right: 4px;
+            bottom: 2%;
+            max-width: 180px;
+            padding: 8px 12px;
           }
         }
       `}</style>

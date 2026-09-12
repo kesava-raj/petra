@@ -56,6 +56,8 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
         style={{
           width: '100%',
           maxWidth: '520px',
+          maxHeight: '92vh',
+          overflowY: 'auto',
           background: 'rgba(15, 23, 42, 0.95)',
           border: '1px solid rgba(59, 130, 246, 0.3)',
           borderRadius: '24px',

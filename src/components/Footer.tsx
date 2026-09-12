@@ -9,15 +9,9 @@ export const Footer: React.FC = () => {
       padding: '72px 0 36px 0'
     }}>
       <div className="container">
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '40px',
-          paddingBottom: '48px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.06)'
-        }}>
+        <div className="footer-grid">
           {/* Brand Column */}
-          <div style={{ gridColumn: 'span 2' }}>
+          <div className="footer-brand-col">
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
               <div style={{
                 width: '36px',
@@ -128,6 +122,36 @@ export const Footer: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <style>{`
+        .footer-grid {
+          display: grid;
+          grid-template-columns: 2fr 1fr 1fr 1fr;
+          gap: 40px;
+          padding-bottom: 48px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        @media (max-width: 960px) {
+          .footer-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+          }
+          .footer-brand-col {
+            grid-column: span 2;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .footer-grid {
+            grid-template-columns: 1fr;
+            gap: 28px;
+          }
+          .footer-brand-col {
+            grid-column: span 1;
+          }
+        }
+      `}</style>
     </footer>
   );
 };

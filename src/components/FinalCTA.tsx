@@ -62,7 +62,7 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenDemo }) => {
         </div>
 
         <h2 style={{
-          fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
+          fontSize: 'clamp(1.85rem, 4.5vw, 3.5rem)',
           fontWeight: 800,
           color: '#FFFFFF',
           lineHeight: 1.15,
@@ -73,7 +73,7 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenDemo }) => {
         </h2>
 
         <p style={{
-          fontSize: 'clamp(1.2rem, 3vw, 1.6rem)',
+          fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)',
           color: '#93C5FD',
           fontWeight: 600,
           marginBottom: '36px'
@@ -84,15 +84,13 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenDemo }) => {
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
           <button
             onClick={handleCta}
-            className="btn btn-primary btn-lg btn-pulse"
+            className="btn btn-primary btn-lg btn-pulse final-cta-btn"
             id="final-talk-to-petra"
             style={{
-              padding: '18px 48px',
-              fontSize: '1.25rem',
               boxShadow: '0 0 45px rgba(59, 130, 246, 0.5)'
             }}
           >
-            <PhoneCall size={24} />
+            <PhoneCall size={22} />
             <span>Talk to Petra</span>
           </button>
         </div>
@@ -110,6 +108,21 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenDemo }) => {
         </p>
 
       </div>
+
+      <style>{`
+        .final-cta-btn {
+          padding: 18px 48px;
+          font-size: 1.25rem;
+        }
+        @media (max-width: 640px) {
+          .final-cta-btn {
+            padding: 14px 28px;
+            font-size: 1.05rem;
+            width: 100%;
+            max-width: 320px;
+          }
+        }
+      `}</style>
     </section>
   );
 };

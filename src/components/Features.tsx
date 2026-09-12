@@ -66,19 +66,14 @@ export const Features: React.FC = () => {
         </div>
 
         {/* 6 Feature Cards Grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '24px'
-        }}>
+        <div className="features-grid">
           {features.map((feature, index) => {
             const IconComponent = feature.icon;
             return (
               <div
                 key={index}
-                className="glass-card"
+                className="glass-card feature-card"
                 style={{
-                  padding: '36px 28px',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '16px',
@@ -121,6 +116,43 @@ export const Features: React.FC = () => {
           })}
         </div>
       </div>
+
+      <style>{`
+        .features-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 24px;
+        }
+
+        .feature-card {
+          padding: 36px 28px;
+          transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .feature-card:hover {
+          transform: translateY(-4px);
+        }
+
+        @media (max-width: 1024px) {
+          .features-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+          }
+          .feature-card {
+            padding: 30px 24px;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .features-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+          .feature-card {
+            padding: 24px 20px;
+          }
+        }
+      `}</style>
     </section>
   );
 };

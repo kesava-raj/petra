@@ -537,11 +537,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
               <Sparkles size={14} color="#60A5FA" />
               Try saying...
             </h4>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-              gap: '10px'
-            }}>
+            <div className="demo-prompts-grid">
               {voiceConfig.suggestedPrompts.map((prompt, idx) => (
                 <button
                   key={idx}
@@ -580,7 +576,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
           </div>
 
           {/* Primary Action Controls */}
-          <div style={{
+          <div className="demo-action-controls" style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -758,6 +754,26 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
         )}
 
       </div>
+
+      <style>{`
+        .demo-prompts-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          gap: 10px;
+        }
+
+        @media (max-width: 580px) {
+          .demo-prompts-grid {
+            grid-template-columns: 1fr;
+          }
+          #voice-demo-start-call {
+            width: 100% !important;
+            max-width: 320px;
+            padding: 14px 24px !important;
+            font-size: 1.05rem !important;
+          }
+        }
+      `}</style>
     </section>
   );
 };

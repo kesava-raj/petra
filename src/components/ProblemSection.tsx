@@ -46,26 +46,20 @@ export const ProblemSection: React.FC = () => {
         </div>
 
         {/* 3 Large Cards */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '24px'
-        }}>
+        <div className="problem-grid">
           {problems.map((card, index) => {
             const IconComponent = card.icon;
             return (
               <div
                 key={index}
-                className="glass-card"
+                className="glass-card problem-card"
                 style={{
-                  padding: '36px 30px',
                   background: 'rgba(15, 23, 42, 0.7)',
                   position: 'relative',
                   overflow: 'hidden',
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  minHeight: '300px'
+                  justifyContent: 'space-between'
                 }}
               >
                 {/* Background glow overlay */}
@@ -94,7 +88,7 @@ export const ProblemSection: React.FC = () => {
                   </div>
 
                   <h3 style={{
-                    fontSize: '1.5rem',
+                    fontSize: '1.45rem',
                     fontWeight: 700,
                     color: '#FFFFFF',
                     lineHeight: 1.25,
@@ -104,7 +98,7 @@ export const ProblemSection: React.FC = () => {
                   </h3>
 
                   <p style={{
-                    fontSize: '0.98rem',
+                    fontSize: '0.96rem',
                     color: '#94A3B8',
                     lineHeight: 1.6
                   }}>
@@ -140,6 +134,45 @@ export const ProblemSection: React.FC = () => {
           })}
         </div>
       </div>
+
+      <style>{`
+        .problem-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 24px;
+        }
+
+        .problem-card {
+          padding: 36px 30px;
+          min-height: 300px;
+          transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .problem-card:hover {
+          transform: translateY(-4px);
+        }
+
+        @media (max-width: 1024px) {
+          .problem-grid {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+          }
+          .problem-card {
+            padding: 30px 24px;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .problem-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+          .problem-card {
+            padding: 24px 20px;
+            min-height: auto;
+          }
+        }
+      `}</style>
     </section>
   );
 };

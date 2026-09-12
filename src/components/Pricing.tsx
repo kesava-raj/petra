@@ -35,20 +35,14 @@ export const Pricing: React.FC<PricingProps> = ({ onSelectPlan, onOpenDemo }) =>
         </div>
 
         {/* Pricing Cards Grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))',
-          gap: '30px',
-          alignItems: 'stretch'
-        }}>
+        <div className="pricing-grid">
           {pricingConfig.tiers.map((tier) => {
             const isPopular = tier.isPopular;
             return (
               <div
                 key={tier.id}
-                className="glass-card"
+                className={`glass-card pricing-card ${isPopular ? 'popular-tier' : ''}`}
                 style={{
-                  padding: '40px 32px',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
@@ -76,7 +70,8 @@ export const Pricing: React.FC<PricingProps> = ({ onSelectPlan, onOpenDemo }) =>
                     fontWeight: 800,
                     letterSpacing: '0.08em',
                     textTransform: 'uppercase',
-                    boxShadow: '0 4px 15px rgba(59, 130, 246, 0.4)'
+                    boxShadow: '0 4px 15px rgba(59, 130, 246, 0.4)',
+                    whiteSpace: 'nowrap'
                   }}>
                     MOST POPULAR
                   </div>
@@ -152,6 +147,57 @@ export const Pricing: React.FC<PricingProps> = ({ onSelectPlan, onOpenDemo }) =>
           {pricingConfig.disclaimer}
         </p>
       </div>
+
+      <style>{`
+        .pricing-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 28px;
+          align-items: stretch;
+        }
+
+        .pricing-card {
+          padding: 40px 32px;
+          transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .pricing-card:hover {
+          transform: translateY(-4px);
+        }
+
+        /* Tablet (iPad & small laptops) */
+        @media (max-width: 1024px) {
+          .pricing-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+          }
+          .pricing-card {
+            padding: 32px 20px;
+          }
+        }
+
+        /* Small Tablet & Mobile */
+        @media (max-width: 860px) {
+          .pricing-grid {
+            grid-template-columns: 1fr;
+            max-width: 480px;
+            margin: 0 auto;
+            gap: 32px;
+          }
+          .pricing-card {
+            padding: 36px 28px;
+          }
+          .pricing-card.popular-tier {
+            order: -1; /* Feature the popular tier at the top on mobile */
+          }
+        }
+
+        @media (max-width: 480px) {
+          .pricing-card {
+            padding: 28px 20px;
+          }
+        }
+      `}</style>
     </section>
   );
 };

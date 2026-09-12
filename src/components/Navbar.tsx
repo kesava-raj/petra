@@ -115,12 +115,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
         </nav>
 
         {/* Primary Action Button */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <button
             onClick={handleCtaClick}
-            className="btn btn-primary"
+            className="btn btn-primary nav-cta-btn"
             style={{
-              padding: '10px 22px',
+              padding: '10px 20px',
               fontSize: '0.9375rem',
               display: 'flex',
               alignItems: 'center',
@@ -129,7 +129,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
             id="nav-talk-to-petra"
           >
             <Sparkles size={16} />
-            <span>Talk to Petra</span>
+            <span className="nav-cta-text">Talk to Petra</span>
           </button>
 
           {/* Mobile Menu Button */}
@@ -152,47 +152,61 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer & Overlay */}
       {mobileMenuOpen && (
-        <div style={{
-          position: 'absolute',
-          top: '100%',
-          left: 0,
-          right: 0,
-          background: 'rgba(8, 13, 26, 0.98)',
-          backdropFilter: 'blur(20px)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-          padding: '24px 20px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '18px',
-          zIndex: 99
-        }}>
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              style={{
-                fontSize: '1.05rem',
-                fontWeight: 600,
-                color: '#E2E8F0',
-                padding: '8px 0',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.05)'
-              }}
+        <>
+          <div
+            onClick={() => setMobileMenuOpen(false)}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              top: '70px',
+              background: 'rgba(0, 0, 0, 0.6)',
+              backdropFilter: 'blur(4px)',
+              zIndex: 98
+            }}
+          />
+          <div style={{
+            position: 'absolute',
+            top: '100%',
+            left: 0,
+            right: 0,
+            background: 'rgba(8, 13, 26, 0.98)',
+            backdropFilter: 'blur(24px)',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+            padding: '24px 20px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+            zIndex: 99,
+            boxShadow: '0 20px 40px rgba(0,0,0,0.8)'
+          }}>
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                style={{
+                  fontSize: '1.05rem',
+                  fontWeight: 600,
+                  color: '#E2E8F0',
+                  padding: '10px 0',
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.05)'
+                }}
+              >
+                {link.label}
+              </a>
+            ))}
+            <button
+              onClick={handleCtaClick}
+              className="btn btn-primary"
+              style={{ width: '100%', marginTop: '8px', justifyContent: 'center', padding: '14px' }}
             >
-              {link.label}
-            </a>
-          ))}
-          <button
-            onClick={handleCtaClick}
-            className="btn btn-primary"
-            style={{ width: '100%', marginTop: '8px', justifyContent: 'center' }}
-          >
-            <PhoneCall size={18} />
-            Talk to Petra
-          </button>
-        </div>
+              <PhoneCall size={18} />
+              Talk to Petra
+            </button>
+          </div>
+        </>
       )}
 
       <style>{`
@@ -207,6 +221,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
         @media (max-width: 899px) {
           .mobile-menu-toggle {
             display: flex !important;
+          }
+        }
+        @media (max-width: 520px) {
+          .nav-cta-text {
+            display: none;
+          }
+          .nav-cta-btn {
+            padding: 8px 12px !important;
           }
         }
       `}</style>

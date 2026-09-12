@@ -32,18 +32,13 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onOpenDemo }) => {
         </div>
 
         {/* Calculator Card Container */}
-        <div style={{
+        <div className="roi-calculator-card" style={{
           maxWidth: '860px',
           margin: '0 auto',
           background: 'rgba(15, 23, 42, 0.9)',
           border: '1px solid rgba(255, 255, 255, 0.12)',
           borderRadius: '28px',
-          padding: 'clamp(24px, 4vw, 44px)',
-          boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.7)',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '40px',
-          alignItems: 'center'
+          boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.7)'
         }}>
           {/* Left Column: Sliders */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
@@ -209,6 +204,31 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onOpenDemo }) => {
           </div>
         </div>
       </div>
+
+      <style>{`
+        .roi-calculator-card {
+          display: grid;
+          grid-template-columns: 1.15fr 0.85fr;
+          gap: 40px;
+          align-items: center;
+          padding: 44px;
+        }
+
+        @media (max-width: 860px) {
+          .roi-calculator-card {
+            grid-template-columns: 1fr;
+            gap: 32px;
+            padding: 32px 24px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .roi-calculator-card {
+            padding: 24px 16px;
+            border-radius: 20px;
+          }
+        }
+      `}</style>
     </section>
   );
 };
