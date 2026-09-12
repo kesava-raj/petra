@@ -24,6 +24,7 @@ import { initVisitorAttribution, getOrCreateVisitorId } from './utils/visitorTra
 
 export const App: React.FC = () => {
   const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<{ planId: string; billingCycle: 'monthly' | 'annual' } | null>(null);
 
   useEffect(() => {
     // 1. Initialize persistent first-party visitor ID cookie
@@ -44,7 +45,8 @@ export const App: React.FC = () => {
     }
   };
 
-  const handleSelectPlan = (_planId: string) => {
+  const handleSelectPlan = (planId: string, billingCycle: 'monthly' | 'annual' = 'annual') => {
+    setSelectedPlan({ planId, billingCycle });
     setIsLeadModalOpen(true);
   };
 
@@ -113,6 +115,7 @@ export const App: React.FC = () => {
       <LeadCaptureModal 
         isOpen={isLeadModalOpen} 
         onClose={() => setIsLeadModalOpen(false)} 
+        selectedPlan={selectedPlan}
       />
     </div>
   );

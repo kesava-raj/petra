@@ -7,9 +7,10 @@ import { captureEmailIntent, submitInquiry, getCachedUserDetails, cacheUserDetai
 interface LeadCaptureModalProps {
   isOpen: boolean;
   onClose: () => void;
+  selectedPlan?: { planId: string; billingCycle: 'monthly' | 'annual' } | null;
 }
 
-export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onClose }) => {
+export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onClose, selectedPlan }) => {
   const [formData, setFormData] = useState<LeadFormData>({
     name: '',
     businessName: '',
@@ -56,11 +57,16 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    trackEvent('lead_submitted', { ...formData });
+    trackEvent('lead_submitted', { 
+      ...formData,
+      planId: selectedPlan?.planId,
+      billingCycle: selectedPlan?.billingCycle
+    });
 
     submitInquiry({
       ...formData,
-      inquirySource: 'modal'
+      businessType: `${formData.businessType}${selectedPlan ? ` (Plan: ${selectedPlan.planId.toUpperCase()} ${selectedPlan.billingCycle.toUpperCase()})` : ''}`,
+      inquirySource: selectedPlan ? `pricing_${selectedPlan.planId}_${selectedPlan.billingCycle}` : 'modal'
     });
 
     setTimeout(() => {
@@ -72,6 +78,12 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
   const handleModalClose = () => {
     setIsSubmitted(false);
     onClose();
+  };
+
+  const formatPlanName = (id: string) => {
+    if (id === 'growth') return 'Growth ⭐';
+    if (id === 'pro') return 'Pro';
+    return 'Starter';
   };
 
   return (
@@ -155,6 +167,26 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
             <h3 id="lead-modal-title" style={{ fontSize: '1.65rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '8px' }}>
               Get Petra for Your Business
             </h3>
+
+            {selectedPlan && (
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '6px 14px',
+                borderRadius: '12px',
+                background: 'rgba(37, 99, 235, 0.1)',
+                border: '1px solid rgba(37, 99, 235, 0.25)',
+                color: 'var(--accent-blue)',
+                fontSize: '0.85rem',
+                fontWeight: 700,
+                marginBottom: '14px'
+              }}>
+                <span>Plan: <strong>{formatPlanName(selectedPlan.planId)}</strong></span>
+                <span>•</span>
+                <span>{selectedPlan.billingCycle === 'annual' ? 'Annual (2 Months Free 🎉)' : 'Monthly'}</span>
+              </div>
+            )}
 
             <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '24px', lineHeight: 1.5 }}>
               Provide your details and we&apos;ll configure a custom preview tailored to your appointment calendar and services.

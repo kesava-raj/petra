@@ -6,37 +6,45 @@ export interface PricingConfig {
 }
 
 export const pricingConfig: PricingConfig = {
-  disclaimer: "All plans include 24/7 coverage, instant call answering, and seamless appointment booking. Usage limits can be customized as your business grows.",
+  disclaimer: "All plans include 24/7 AI coverage, instant call answering, and automated appointment scheduling. Included minutes replenish monthly on both billing options.",
   tiers: [
     {
       id: "starter",
       name: "Starter",
-      price: 99,
-      period: "month",
-      description: "Ideal for small businesses needing dependable call coverage.",
+      monthlyPrice: 99,
+      annualPrice: 990,
+      monthlyEquivalent: 82.50,
+      annualSaving: 198,
+      includedMinutes: 300,
+      overageRate: 0.35,
+      description: "Ideal for small practices and solo entrepreneurs needing dependable 24/7 call coverage.",
       features: [
-        "24/7 AI Receptionist",
-        "Instant Call Answering",
-        "Appointment Booking Workflow",
-        "Basic Business Customization",
-        "Real-Time Call Notifications",
-        "Email & SMS Alert Summaries"
+        "300 included minutes / month",
+        "24/7 AI Receptionist coverage",
+        "Instant call answering & FAQs",
+        "Appointment booking workflow",
+        "Email & SMS alert summaries",
+        "$0.35/min additional overage"
       ],
       ctaText: "Get Started"
     },
     {
       id: "growth",
-      name: "Growth",
-      price: 199,
-      period: "month",
-      description: "Designed for growing practices with regular daily call volume.",
+      name: "Growth ⭐",
+      monthlyPrice: 199,
+      annualPrice: 1990,
+      monthlyEquivalent: 165.83,
+      annualSaving: 398,
+      includedMinutes: 750,
+      overageRate: 0.30,
+      description: "Designed for growing practices with regular daily call volume and appointment bookings.",
       features: [
+        "750 included minutes / month",
         "Everything in Starter",
-        "Higher Monthly Call Volume",
-        "Advanced Booking Workflows",
-        "Two-Way Calendar Integrations",
-        "Custom Business FAQs & Knowledge",
-        "Priority Customer Support"
+        "Two-way calendar sync (Google / Outlook)",
+        "Custom business FAQs & tone tuning",
+        "Live call transfer to staff",
+        "$0.30/min additional overage"
       ],
       isPopular: true,
       ctaText: "Get Started"
@@ -44,16 +52,20 @@ export const pricingConfig: PricingConfig = {
     {
       id: "pro",
       name: "Pro",
-      price: 399,
-      period: "month",
-      description: "For high-volume businesses requiring maximum flexibility.",
+      monthlyPrice: 399,
+      annualPrice: 3990,
+      monthlyEquivalent: 332.50,
+      annualSaving: 798,
+      includedMinutes: 1500,
+      overageRate: 0.25,
+      description: "For high-volume businesses requiring multi-department routing and deep CRM workflows.",
       features: [
+        "1,500 included minutes / month",
         "Everything in Growth",
-        "Highest Usage Limits",
-        "Multi-Department Workflows",
-        "Advanced CRM & Custom Webhooks",
-        "White-Glove Priority Onboarding",
-        "Dedicated Account Support"
+        "Multi-department call routing",
+        "Advanced CRM & custom webhook sync",
+        "White-glove priority onboarding",
+        "$0.25/min additional overage"
       ],
       ctaText: "Get Started"
     }

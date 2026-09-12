@@ -1,8 +1,12 @@
 export interface PricingTier {
   id: string;
   name: string;
-  price: number;
-  period: string;
+  monthlyPrice: number;
+  annualPrice: number;
+  monthlyEquivalent: number;
+  annualSaving: number;
+  includedMinutes: number;
+  overageRate: number;
   description: string;
   features: string[];
   isPopular?: boolean;
