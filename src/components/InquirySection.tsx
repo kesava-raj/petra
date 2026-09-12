@@ -10,6 +10,7 @@ import {
   MessageSquare, 
   Send, 
   Clock, 
+  CalendarCheck,
   ShieldCheck, 
   Headphones, 
   ChevronDown, 
@@ -165,8 +166,8 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
           max-width: 1040px;
           margin: 0 auto;
           display: grid;
-          grid-template-columns: 1fr 1.3fr;
-          gap: 48px;
+          grid-template-columns: 1.05fr 1.25fr;
+          gap: clamp(32px, 4vw, 48px);
           align-items: start;
         }
 
@@ -371,23 +372,65 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
         .inquiry-perk-item {
           display: flex;
           align-items: flex-start;
-          gap: 12px;
+          gap: 16px;
         }
 
         .inquiry-perk-icon {
-          width: 32px;
-          height: 32px;
-          border-radius: 8px;
-          background: rgba(37, 99, 235, 0.1);
-          color: var(--accent-blue);
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
           display: flex;
           align-items: center;
-          justifyContent: center;
+          justify-content: center;
           flex-shrink: 0;
-          margin-top: 2px;
+          margin-top: 1px;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        @media (max-width: 960px) {
+        .inquiry-perk-icon.blue {
+          background: rgba(37, 99, 235, 0.12);
+          border: 1px solid rgba(37, 99, 235, 0.25);
+          color: var(--accent-blue);
+          box-shadow: 0 4px 14px rgba(37, 99, 235, 0.12);
+        }
+
+        .inquiry-perk-icon.emerald {
+          background: rgba(16, 185, 129, 0.12);
+          border: 1px solid rgba(16, 185, 129, 0.25);
+          color: var(--accent-emerald);
+          box-shadow: 0 4px 14px rgba(16, 185, 129, 0.12);
+        }
+
+        .inquiry-perk-icon.indigo {
+          background: rgba(99, 102, 241, 0.12);
+          border: 1px solid rgba(99, 102, 241, 0.25);
+          color: var(--accent-indigo);
+          box-shadow: 0 4px 14px rgba(99, 102, 241, 0.12);
+        }
+
+        [data-theme="dark"] .inquiry-perk-icon.blue {
+          background: rgba(59, 130, 246, 0.16);
+          border-color: rgba(59, 130, 246, 0.35);
+          box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25);
+        }
+
+        [data-theme="dark"] .inquiry-perk-icon.emerald {
+          background: rgba(16, 185, 129, 0.16);
+          border-color: rgba(16, 185, 129, 0.35);
+          box-shadow: 0 4px 16px rgba(16, 185, 129, 0.25);
+        }
+
+        [data-theme="dark"] .inquiry-perk-icon.indigo {
+          background: rgba(99, 102, 241, 0.16);
+          border-color: rgba(99, 102, 241, 0.35);
+          box-shadow: 0 4px 16px rgba(99, 102, 241, 0.25);
+        }
+
+        .inquiry-perk-item:hover .inquiry-perk-icon {
+          transform: translateY(-2px);
+        }
+
+        @media (max-width: 980px) {
           .inquiry-card {
             grid-template-columns: 1fr;
             gap: 36px;
@@ -449,44 +492,44 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
               Whether you want a private test line, need multi-calendar routing, or want custom minutes for your practice group, we&apos;re ready to help.
             </p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
               <div className="inquiry-perk-item">
-                <div className="inquiry-perk-icon">
-                  <Clock size={16} />
+                <div className="inquiry-perk-icon blue">
+                  <Clock size={22} strokeWidth={2.2} />
                 </div>
-                <div>
-                  <h4 style={{ fontSize: '0.92rem', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>
-                    Fast 2-Hour Turnaround
+                <div style={{ minWidth: 0, flex: 1 }}>
+                  <h4 style={{ fontSize: '0.98rem', fontWeight: 700, color: 'var(--text-primary)', margin: 0, lineHeight: 1.35 }}>
+                    Fast 2&#8209;Hour Turnaround
                   </h4>
-                  <p style={{ fontSize: '0.825rem', color: 'var(--text-muted)', margin: '4px 0 0 0' }}>
+                  <p style={{ fontSize: '0.84rem', color: 'var(--text-muted)', margin: '4px 0 0 0', lineHeight: 1.55 }}>
                     Receive a personalized demo phone number configured with your practice hours and FAQs.
                   </p>
                 </div>
               </div>
 
               <div className="inquiry-perk-item">
-                <div className="inquiry-perk-icon">
-                  <CheckCircle2 size={16} color="var(--accent-emerald)" />
+                <div className="inquiry-perk-icon emerald">
+                  <CalendarCheck size={22} strokeWidth={2.2} />
                 </div>
-                <div>
-                  <h4 style={{ fontSize: '0.92rem', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>
+                <div style={{ minWidth: 0, flex: 1 }}>
+                  <h4 style={{ fontSize: '0.98rem', fontWeight: 700, color: 'var(--text-primary)', margin: 0, lineHeight: 1.35 }}>
                     Seamless Calendar Integration
                   </h4>
-                  <p style={{ fontSize: '0.825rem', color: 'var(--text-muted)', margin: '4px 0 0 0' }}>
+                  <p style={{ fontSize: '0.84rem', color: 'var(--text-muted)', margin: '4px 0 0 0', lineHeight: 1.55 }}>
                     Direct sync with Google Calendar, Outlook, and major practice scheduling systems.
                   </p>
                 </div>
               </div>
 
               <div className="inquiry-perk-item">
-                <div className="inquiry-perk-icon">
-                  <ShieldCheck size={16} />
+                <div className="inquiry-perk-icon indigo">
+                  <ShieldCheck size={22} strokeWidth={2.2} />
                 </div>
-                <div>
-                  <h4 style={{ fontSize: '0.92rem', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>
-                    Zero Commitment & Strict Privacy
+                <div style={{ minWidth: 0, flex: 1 }}>
+                  <h4 style={{ fontSize: '0.98rem', fontWeight: 700, color: 'var(--text-primary)', margin: 0, lineHeight: 1.35 }}>
+                    Zero Commitment &amp; Strict Privacy
                   </h4>
-                  <p style={{ fontSize: '0.825rem', color: 'var(--text-muted)', margin: '4px 0 0 0' }}>
+                  <p style={{ fontSize: '0.84rem', color: 'var(--text-muted)', margin: '4px 0 0 0', lineHeight: 1.55 }}>
                     Test Petra risk-free with no credit card required and no spam guarantee.
                   </p>
                 </div>
