@@ -28,13 +28,41 @@ export const IndustryStrip: React.FC = () => {
 
   return (
     <section 
+      className="industry-strip-section"
       style={{
         padding: '48px 0',
-        background: 'rgba(8, 13, 26, 0.95)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+        borderBottom: '1px solid var(--border-subtle)',
         position: 'relative'
       }}
     >
+      <style>{`
+        .industry-strip-section {
+          background: var(--bg-darkest);
+        }
+        .industry-strip-pill {
+          background: var(--bg-card);
+          border: 1px solid var(--border-subtle);
+          border-radius: 12px;
+          padding: 10px 18px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          transition: all 0.25s ease;
+          cursor: default;
+          box-shadow: var(--shadow-sm);
+        }
+        .industry-strip-pill:hover {
+          background: rgba(37, 99, 235, 0.1);
+          border-color: var(--accent-blue);
+          transform: translateY(-3px);
+          box-shadow: var(--shadow-md);
+        }
+        .industry-strip-pill-text {
+          font-size: 0.9rem;
+          font-weight: 600;
+          color: var(--text-primary);
+        }
+      `}</style>
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '28px' }}>
           <p style={{
@@ -42,7 +70,7 @@ export const IndustryStrip: React.FC = () => {
             textTransform: 'uppercase',
             letterSpacing: '0.1em',
             fontWeight: 700,
-            color: '#94A3B8'
+            color: 'var(--text-muted)'
           }}>
             Built for businesses that depend on appointments
           </p>
@@ -59,34 +87,9 @@ export const IndustryStrip: React.FC = () => {
           {industries.map((item, index) => {
             const IconComponent = item.icon;
             return (
-              <div
-                key={index}
-                style={{
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  borderRadius: '12px',
-                  padding: '10px 18px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  transition: 'all 0.25s ease',
-                  cursor: 'default'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(59, 130, 246, 0.12)';
-                  e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.35)';
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = '0 6px 18px rgba(59, 130, 246, 0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-              >
-                <IconComponent size={18} color="#60A5FA" />
-                <span style={{ fontSize: '0.9rem', fontWeight: 600, color: '#E2E8F0' }}>
+              <div key={index} className="industry-strip-pill">
+                <IconComponent size={18} color="var(--accent-blue)" style={{ flexShrink: 0 }} />
+                <span className="industry-strip-pill-text">
                   {item.name}
                 </span>
               </div>

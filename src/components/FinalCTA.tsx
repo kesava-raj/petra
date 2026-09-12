@@ -14,14 +14,22 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenDemo }) => {
 
   return (
     <section 
+      className="final-cta-section"
       style={{
         position: 'relative',
         padding: '100px 0',
         overflow: 'hidden',
-        background: 'linear-gradient(180deg, #080D1A 0%, #0F172A 50%, #080D1A 100%)',
-        borderTop: '1px solid rgba(255, 255, 255, 0.08)'
+        borderTop: '1px solid var(--border-subtle)'
       }}
     >
+      <style>{`
+        .final-cta-section {
+          background: linear-gradient(180deg, var(--bg-darkest) 0%, rgba(37, 99, 235, 0.08) 50%, var(--bg-darkest) 100%);
+        }
+        [data-theme="dark"] .final-cta-section {
+          background: linear-gradient(180deg, #080D1A 0%, #0F172A 50%, #080D1A 100%);
+        }
+      `}</style>
       {/* Background Radial Glow */}
       <div style={{
         position: 'absolute',
@@ -64,7 +72,7 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenDemo }) => {
         <h2 style={{
           fontSize: 'clamp(1.85rem, 4.5vw, 3.5rem)',
           fontWeight: 800,
-          color: '#FFFFFF',
+          color: 'var(--text-primary)',
           lineHeight: 1.15,
           letterSpacing: '-0.03em',
           marginBottom: '16px'
@@ -74,7 +82,7 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenDemo }) => {
 
         <p style={{
           fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)',
-          color: '#93C5FD',
+          color: 'var(--accent-blue)',
           fontWeight: 600,
           marginBottom: '36px'
         }}>
@@ -97,13 +105,13 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenDemo }) => {
 
         <p style={{
           fontSize: '0.9rem',
-          color: '#94A3B8',
+          color: 'var(--text-muted)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           gap: '8px'
         }}>
-          <CheckCircle2 size={16} color="#10B981" />
+          <CheckCircle2 size={16} color="var(--accent-emerald)" />
           <span>Experience Petra before you buy. Takes less than a minute.</span>
         </p>
 

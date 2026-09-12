@@ -604,10 +604,9 @@ button {
 }
 
 /* 6. Solution Section */
-[data-theme="light"] section[style*="THE SEAMLESS SOLUTION"],
-[data-theme="light"] section:has(.eyebrow:contains("THE SEAMLESS SOLUTION")),
-:root:not([data-theme="dark"]) section:has(.eyebrow:contains("THE SEAMLESS SOLUTION")) {
-  background: linear-gradient(180deg, rgba(241, 245, 249, 0.6) 0%, rgba(219, 234, 254, 0.25) 50%, rgba(241, 245, 249, 0.6) 100%) !important;
+[data-theme="light"] .solution-section,
+:root:not([data-theme="dark"]) .solution-section {
+  background: linear-gradient(180deg, #F8FAFC 0%, #EFF6FF 50%, #F8FAFC 100%) !important;
 }
 
 /* 7. How It Works */
@@ -644,21 +643,16 @@ button {
 }
 
 /* 8. Conversation Demo */
-[data-theme="light"] section:has(.eyebrow:contains("REAL-TIME SIMULATION")),
-:root:not([data-theme="dark"]) section:has(.eyebrow:contains("REAL-TIME SIMULATION")) {
+[data-theme="light"] .conversation-demo-section,
+:root:not([data-theme="dark"]) .conversation-demo-section {
   background: #F8FAFC !important;
 }
 
-[data-theme="light"] section:has(.eyebrow:contains("REAL-TIME SIMULATION")) div[style*="max-width: 740px"],
-:root:not([data-theme="dark"]) section:has(.eyebrow:contains("REAL-TIME SIMULATION")) div[style*="max-width: 740px"] {
+[data-theme="light"] .conversation-card,
+:root:not([data-theme="dark"]) .conversation-card {
   background: #FFFFFF !important;
-  border-color: rgba(15, 23, 42, 0.08) !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
   box-shadow: 0 12px 36px -4px rgba(15, 23, 42, 0.08) !important;
-}
-
-[data-theme="light"] section:has(.eyebrow:contains("REAL-TIME SIMULATION")) h4,
-:root:not([data-theme="dark"]) section:has(.eyebrow:contains("REAL-TIME SIMULATION")) h4 {
-  color: #0F172A !important;
 }
 
 /* 9. Features */
@@ -680,35 +674,42 @@ button {
 }
 
 /* 10. Booking Flow */
+[data-theme="light"] .booking-flow-section,
+:root:not([data-theme="dark"]) .booking-flow-section {
+  background: #FFFFFF !important;
+}
+
 [data-theme="light"] .booking-flow-node,
 :root:not([data-theme="dark"]) .booking-flow-node {
   background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
   box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06) !important;
 }
 
-[data-theme="light"] .booking-flow-node span,
-:root:not([data-theme="dark"]) .booking-flow-node span {
+[data-theme="light"] .booking-flow-node-text,
+:root:not([data-theme="dark"]) .booking-flow-node-text {
   color: #0F172A !important;
 }
 
-[data-theme="light"] section:has(.booking-flow-track) div[style*="max-width: 680px"],
-:root:not([data-theme="dark"]) section:has(.booking-flow-track) div[style*="max-width: 680px"] {
+[data-theme="light"] .booking-mockup-card,
+:root:not([data-theme="dark"]) .booking-mockup-card {
   background: #FFFFFF !important;
-  border-color: rgba(15, 23, 42, 0.08) !important;
+  border-color: rgba(37, 99, 235, 0.25) !important;
   box-shadow: 0 16px 40px -6px rgba(15, 23, 42, 0.08), 0 0 25px rgba(16, 185, 129, 0.1) !important;
 }
 
-[data-theme="light"] section:has(.booking-flow-track) h4,
-:root:not([data-theme="dark"]) section:has(.booking-flow-track) h4 {
-  color: #0F172A !important;
-}
-
-[data-theme="light"] section:has(.booking-flow-track) div[style*="Customer Name"] span[style*="font-size: 1.05rem"],
-:root:not([data-theme="dark"]) section:has(.booking-flow-track) div[style*="Customer Name"] span[style*="font-size: 1.05rem"] {
-  color: #0F172A !important;
+[data-theme="light"] .booking-mockup-detail,
+:root:not([data-theme="dark"]) .booking-mockup-detail {
+  background: #F8FAFC !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
 }
 
 /* 11. Industry Section */
+[data-theme="light"] .industry-section,
+:root:not([data-theme="dark"]) .industry-section {
+  background: #F8FAFC !important;
+}
+
 [data-theme="light"] .industry-tab-pill:not(.selected),
 :root:not([data-theme="dark"]) .industry-tab-pill:not(.selected) {
   background: #FFFFFF !important;
@@ -717,42 +718,23 @@ button {
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
 }
 
-[data-theme="light"] section#industries div[style*="max-width: 860px"],
-:root:not([data-theme="dark"]) section#industries div[style*="max-width: 860px"] {
+[data-theme="light"] .industry-showcase-card,
+:root:not([data-theme="dark"]) .industry-showcase-card {
   background: #FFFFFF !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
   box-shadow: 0 16px 40px -6px rgba(15, 23, 42, 0.08) !important;
 }
 
-[data-theme="light"] .industry-showcase-grid h3,
-:root:not([data-theme="dark"]) .industry-showcase-grid h3 {
-  color: #0F172A !important;
-}
-
-[data-theme="light"] .industry-showcase-grid p,
-:root:not([data-theme="dark"]) .industry-showcase-grid p {
-  color: #475569 !important;
-}
-
-[data-theme="light"] .industry-showcase-grid span[style*="color: #E2E8F0"],
-:root:not([data-theme="dark"]) .industry-showcase-grid span[style*="color: #E2E8F0"] {
-  color: #1E293B !important;
-}
-
-[data-theme="light"] .industry-showcase-grid div[style*="background: rgba(10, 15, 29, 0.8)"],
-:root:not([data-theme="dark"]) .industry-showcase-grid div[style*="background: rgba(10, 15, 29, 0.8)"] {
+[data-theme="light"] .industry-preview-panel,
+:root:not([data-theme="dark"]) .industry-preview-panel {
   background: #F8FAFC !important;
   border-color: rgba(15, 23, 42, 0.08) !important;
 }
 
-[data-theme="light"] .industry-showcase-grid div[style*="color: #FFFFFF"],
-:root:not([data-theme="dark"]) .industry-showcase-grid div[style*="color: #FFFFFF"] {
-  color: #0F172A !important;
-}
-
 /* 12. ROI Calculator */
-[data-theme="light"] #calculator,
-:root:not([data-theme="dark"]) #calculator {
-  background: #F8FAFC !important;
+[data-theme="light"] .roi-section,
+:root:not([data-theme="dark"]) .roi-section {
+  background: #FFFFFF !important;
 }
 
 [data-theme="light"] .roi-calculator-card,
@@ -760,29 +742,6 @@ button {
   background: #FFFFFF !important;
   border-color: rgba(15, 23, 42, 0.08) !important;
   box-shadow: 0 16px 40px -6px rgba(15, 23, 42, 0.08) !important;
-}
-
-[data-theme="light"] .roi-calculator-card label,
-:root:not([data-theme="dark"]) .roi-calculator-card label {
-  color: #1E293B !important;
-}
-
-[data-theme="light"] .roi-calculator-card div[style*="Estimated Potential Revenue"],
-:root:not([data-theme="dark"]) .roi-calculator-card div[style*="Estimated Potential Revenue"] {
-  background: linear-gradient(135deg, #EFF6FF 0%, #ECFDF5 100%) !important;
-  border-color: rgba(37, 99, 235, 0.25) !important;
-}
-
-[data-theme="light"] .roi-calculator-card span[style*="color: #93C5FD"],
-:root:not([data-theme="dark"]) .roi-calculator-card span[style*="color: #93C5FD"] {
-  color: #1E40AF !important;
-}
-
-[data-theme="light"] .roi-calculator-card div[style*="additional appointments"],
-:root:not([data-theme="dark"]) .roi-calculator-card div[style*="additional appointments"] {
-  background: #FFFFFF !important;
-  color: #1E293B !important;
-  border: 1px solid rgba(15, 23, 42, 0.08);
 }
 
 /* 13. Pricing */
@@ -799,26 +758,6 @@ button {
   box-shadow: 0 12px 36px -4px rgba(37, 99, 235, 0.16) !important;
 }
 
-[data-theme="light"] .pricing-card h3,
-:root:not([data-theme="dark"]) .pricing-card h3 {
-  color: #0F172A !important;
-}
-
-[data-theme="light"] .pricing-card span[style*="font-size: 3rem"],
-:root:not([data-theme="dark"]) .pricing-card span[style*="font-size: 3rem"] {
-  color: #0F172A !important;
-}
-
-[data-theme="light"] .pricing-card li span,
-:root:not([data-theme="dark"]) .pricing-card li span {
-  color: #334155 !important;
-}
-
-[data-theme="light"] #pricing p[style*="max-width: 720px"],
-:root:not([data-theme="dark"]) #pricing p[style*="max-width: 720px"] {
-  color: #64748B !important;
-}
-
 /* 14. FAQ */
 [data-theme="light"] #faq .glass-card,
 :root:not([data-theme="dark"]) #faq .glass-card {
@@ -827,33 +766,18 @@ button {
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
 }
 
-[data-theme="light"] #faq button,
-:root:not([data-theme="dark"]) #faq button {
-  color: #0F172A !important;
-}
-
-[data-theme="light"] #faq div[style*="padding: 0 24px 22px 24px"],
-:root:not([data-theme="dark"]) #faq div[style*="padding: 0 24px 22px 24px"] {
-  color: #475569 !important;
-}
-
 /* 15. Final CTA */
-[data-theme="light"] section:has(#final-talk-to-petra),
-:root:not([data-theme="dark"]) section:has(#final-talk-to-petra) {
-  background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 50%, #F8FAFC 100%) !important;
+[data-theme="light"] .final-cta-section,
+:root:not([data-theme="dark"]) .final-cta-section {
+  background: linear-gradient(180deg, #F8FAFC 0%, #EFF6FF 50%, #F8FAFC 100%) !important;
   border-top-color: rgba(15, 23, 42, 0.06) !important;
 }
 
-[data-theme="light"] section:has(#final-talk-to-petra) h2,
-:root:not([data-theme="dark"]) section:has(#final-talk-to-petra) h2 {
+[data-theme="light"] .final-cta-section h2,
+:root:not([data-theme="dark"]) .final-cta-section h2 {
   background: linear-gradient(135deg, #0F172A 0%, #1E293B 55%, #334155 100%) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
-}
-
-[data-theme="light"] section:has(#final-talk-to-petra) p[style*="Give them someone to answer"],
-:root:not([data-theme="dark"]) section:has(#final-talk-to-petra) p[style*="Give them someone to answer"] {
-  color: #2563EB !important;
 }
 
 /* 16. Accessibility Focus States */

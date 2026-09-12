@@ -293,14 +293,67 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
   return (
     <section 
       id="demo" 
-      className="section-padding" 
+      className="section-padding petra-voice-section" 
       style={{ 
         position: 'relative',
-        background: 'linear-gradient(180deg, #080D1A 0%, #0D1527 50%, #080D1A 100%)',
-        borderTop: '1px solid rgba(255, 255, 255, 0.05)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.05)'
+        borderTop: '1px solid var(--border-subtle)',
+        borderBottom: '1px solid var(--border-subtle)'
       }}
     >
+      <style>{`
+        .petra-voice-section {
+          background: linear-gradient(180deg, var(--bg-darkest) 0%, rgba(37, 99, 235, 0.05) 50%, var(--bg-darkest) 100%);
+        }
+        [data-theme="dark"] .petra-voice-section {
+          background: linear-gradient(180deg, #080D1A 0%, #0D1527 50%, #080D1A 100%);
+        }
+        .petra-voice-card {
+          max-width: 860px;
+          margin: 0 auto;
+          background: var(--bg-card);
+          backdrop-filter: blur(20px);
+          border: 1px solid var(--border-glow);
+          border-radius: 28px;
+          box-shadow: var(--shadow-lg), var(--shadow-glow);
+          padding: clamp(20px, 4vw, 40px);
+          position: relative;
+          overflow: hidden;
+        }
+        .petra-voice-visualizer {
+          margin: 28px 0;
+          padding: 24px;
+          background: var(--bg-secondary);
+          border-radius: 20px;
+          border: 1px solid var(--border-subtle);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+        }
+        .demo-prompt-pill {
+          background: var(--bg-secondary);
+          border: 1px solid var(--border-subtle);
+          border-radius: 12px;
+          padding: 12px 14px;
+          text-align: left;
+          color: var(--text-primary);
+          font-size: 0.875rem;
+          font-weight: 500;
+          transition: all 0.2s ease;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 8px;
+        }
+        .demo-prompt-pill:hover {
+          background: rgba(37, 99, 235, 0.12);
+          border-color: var(--accent-blue);
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-sm);
+        }
+      `}</style>
       <div className="container">
         {/* Section Header */}
         <div className="section-header">
@@ -318,18 +371,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
         </div>
 
         {/* Demo Interface Card */}
-        <div style={{
-          maxWidth: '860px',
-          margin: '0 auto',
-          background: 'rgba(15, 23, 42, 0.85)',
-          backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(59, 130, 246, 0.25)',
-          borderRadius: '28px',
-          boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 40px rgba(59, 130, 246, 0.15)',
-          padding: 'clamp(20px, 4vw, 40px)',
-          position: 'relative',
-          overflow: 'hidden'
-        }}>
+        <div className="petra-voice-card">
 
           {/* Top Status Bar */}
           <div style={{
@@ -339,7 +381,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
             flexWrap: 'wrap',
             gap: '16px',
             paddingBottom: '24px',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
+            borderBottom: '1px solid var(--border-subtle)'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <div style={{
@@ -356,7 +398,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
                 <PhoneCall size={20} />
               </div>
               <div>
-                <h4 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#FFFFFF', lineHeight: 1.1 }}>
+                <h4 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.1 }}>
                   Petra Voice Assistant
                 </h4>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
@@ -366,7 +408,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
                     borderRadius: '50%',
                     background: callStatus === 'connected' ? '#10B981' : callStatus === 'connecting' ? '#F59E0B' : '#64748B'
                   }} />
-                  <span style={{ fontSize: '0.8125rem', color: '#CBD5E1', fontWeight: 500 }}>
+                  <span style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', fontWeight: 500 }}>
                     {callStatus === 'idle' && 'Ready to connect'}
                     {callStatus === 'connecting' && 'Connecting to Petra...'}
                     {callStatus === 'connected' && (isSpeaking ? 'Petra is speaking...' : 'Petra is listening...')}
@@ -380,14 +422,14 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
             {/* Timer and Status Pill */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <div style={{
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                background: 'var(--bg-secondary)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '12px',
                 padding: '8px 16px',
                 fontFamily: 'monospace',
                 fontSize: '1rem',
                 fontWeight: 600,
-                color: callStatus === 'connected' ? '#60A5FA' : '#94A3B8',
+                color: callStatus === 'connected' ? 'var(--accent-blue)' : 'var(--text-muted)',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px'
@@ -405,18 +447,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
           </div>
 
           {/* Voice Waveform Visualizer Display */}
-          <div style={{
-            margin: '28px 0',
-            padding: '24px',
-            background: 'rgba(10, 16, 31, 0.7)',
-            borderRadius: '20px',
-            border: '1px solid rgba(255, 255, 255, 0.06)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            position: 'relative'
-          }}>
+          <div className="petra-voice-visualizer">
             <canvas 
               ref={canvasRef} 
               width={500} 
@@ -426,7 +457,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
 
             <p style={{ 
               fontSize: '0.9rem', 
-              color: callStatus === 'connected' ? '#60A5FA' : '#94A3B8', 
+              color: callStatus === 'connected' ? 'var(--accent-blue)' : 'var(--text-muted)', 
               marginTop: '12px',
               fontWeight: 500,
               textAlign: 'center'
@@ -542,34 +573,10 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
                 <button
                   key={idx}
                   onClick={() => handlePromptClick(prompt)}
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    borderRadius: '12px',
-                    padding: '12px 14px',
-                    textAlign: 'left',
-                    color: '#E2E8F0',
-                    fontSize: '0.875rem',
-                    transition: 'all 0.2s ease',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    gap: '8px'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(59, 130, 246, 0.12)';
-                    e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.35)';
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
-                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
+                  className="demo-prompt-pill"
                 >
                   <span>&ldquo;{prompt}&rdquo;</span>
-                  <ArrowRight size={14} color="#60A5FA" style={{ flexShrink: 0 }} />
+                  <ArrowRight size={14} color="var(--accent-blue)" style={{ flexShrink: 0 }} />
                 </button>
               ))}
             </div>

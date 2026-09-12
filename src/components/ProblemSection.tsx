@@ -54,12 +54,14 @@ export const ProblemSection: React.FC = () => {
                 key={index}
                 className="glass-card problem-card"
                 style={{
-                  background: 'rgba(15, 23, 42, 0.7)',
+                  background: 'var(--bg-card)',
                   position: 'relative',
                   overflow: 'hidden',
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'space-between'
+                  justifyContent: 'space-between',
+                  border: '1px solid var(--border-subtle)',
+                  boxShadow: 'var(--shadow-sm)'
                 }}
               >
                 {/* Background glow overlay */}
@@ -81,8 +83,9 @@ export const ProblemSection: React.FC = () => {
                     color: card.color,
                     padding: '4px 10px',
                     borderRadius: '8px',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    marginBottom: '20px'
+                    background: 'var(--bg-secondary)',
+                    marginBottom: '20px',
+                    border: '1px solid var(--border-subtle)'
                   }}>
                     {card.badge}
                   </div>
@@ -90,7 +93,7 @@ export const ProblemSection: React.FC = () => {
                   <h3 style={{
                     fontSize: '1.45rem',
                     fontWeight: 700,
-                    color: '#FFFFFF',
+                    color: 'var(--text-primary)',
                     lineHeight: 1.25,
                     marginBottom: '14px'
                   }}>
@@ -99,7 +102,7 @@ export const ProblemSection: React.FC = () => {
 
                   <p style={{
                     fontSize: '0.96rem',
-                    color: '#94A3B8',
+                    color: 'var(--text-secondary)',
                     lineHeight: 1.6
                   }}>
                     {card.description}
@@ -116,8 +119,8 @@ export const ProblemSection: React.FC = () => {
                     width: '46px',
                     height: '46px',
                     borderRadius: '12px',
-                    background: 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    background: `${card.color}15`,
+                    border: `1px solid ${card.color}35`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -125,7 +128,7 @@ export const ProblemSection: React.FC = () => {
                   }}>
                     <IconComponent size={22} />
                   </div>
-                  <span style={{ fontSize: '0.85rem', color: '#64748B', fontWeight: 600 }}>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 600 }}>
                     Impact: High
                   </span>
                 </div>

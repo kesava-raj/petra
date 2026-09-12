@@ -69,7 +69,10 @@ export const FAQ: React.FC = () => {
                 style={{
                   overflow: 'hidden',
                   transition: 'all 0.25s ease',
-                  border: isOpen ? '1px solid rgba(59, 130, 246, 0.35)' : '1px solid rgba(255, 255, 255, 0.08)'
+                  background: 'var(--bg-card)',
+                  border: isOpen ? '1px solid var(--accent-blue)' : '1px solid var(--border-subtle)',
+                  boxShadow: isOpen ? 'var(--shadow-md)' : 'var(--shadow-sm)',
+                  borderRadius: '16px'
                 }}
               >
                 <button
@@ -82,18 +85,20 @@ export const FAQ: React.FC = () => {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     textAlign: 'left',
-                    color: '#FFFFFF',
+                    color: 'var(--text-primary)',
                     fontSize: '1.05rem',
                     fontWeight: 700,
                     cursor: 'pointer',
-                    gap: '16px'
+                    gap: '16px',
+                    background: 'transparent',
+                    border: 'none'
                   }}
                 >
                   <span>{faq.question}</span>
                   <div style={{
                     transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                     transition: 'transform 0.25s ease',
-                    color: isOpen ? '#60A5FA' : '#94A3B8',
+                    color: isOpen ? 'var(--accent-blue)' : 'var(--text-muted)',
                     flexShrink: 0
                   }}>
                     <ChevronDown size={20} />
@@ -103,7 +108,7 @@ export const FAQ: React.FC = () => {
                 {isOpen && (
                   <div style={{
                     padding: '0 24px 22px 24px',
-                    color: '#94A3B8',
+                    color: 'var(--text-secondary)',
                     fontSize: '0.96rem',
                     lineHeight: 1.6
                   }}>

@@ -77,7 +77,10 @@ export const Features: React.FC = () => {
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '16px',
-                  position: 'relative'
+                  position: 'relative',
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-subtle)',
+                  boxShadow: 'var(--shadow-sm)'
                 }}
               >
                 <div style={{
@@ -98,7 +101,7 @@ export const Features: React.FC = () => {
                 <h3 style={{
                   fontSize: '1.35rem',
                   fontWeight: 700,
-                  color: '#FFFFFF',
+                  color: 'var(--text-primary)',
                   letterSpacing: '-0.02em'
                 }}>
                   {feature.title}
@@ -106,7 +109,7 @@ export const Features: React.FC = () => {
 
                 <p style={{
                   fontSize: '0.96rem',
-                  color: '#94A3B8',
+                  color: 'var(--text-secondary)',
                   lineHeight: 1.6
                 }}>
                   {feature.description}

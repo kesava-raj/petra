@@ -52,7 +52,96 @@ export const ConversationDemo: React.FC<ConversationDemoProps> = ({ onOpenVoiceD
   const isCompleted = visibleCount >= fullConversation.length;
 
   return (
-    <section className="section-padding" style={{ position: 'relative', background: 'rgba(8, 13, 26, 0.7)' }}>
+    <section className="section-padding conversation-demo-section" style={{ position: 'relative' }}>
+      <style>{`
+        .conversation-demo-section {
+          background: var(--bg-darkest);
+        }
+        .conversation-card {
+          max-width: 740px;
+          margin: 0 auto;
+          background: var(--bg-card);
+          backdrop-filter: blur(20px);
+          border: 1px solid var(--border-subtle);
+          border-radius: 24px;
+          padding: clamp(20px, 4vw, 36px);
+          box-shadow: var(--shadow-lg);
+        }
+        [data-theme="dark"] .conversation-card {
+          background: rgba(15, 23, 42, 0.85);
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+        .caller-bubble {
+          background: var(--bg-secondary);
+          border: 1px solid var(--border-subtle);
+          color: var(--text-primary);
+        }
+        .petra-bubble {
+          background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(99, 102, 241, 0.08) 100%);
+          border: 1px solid rgba(37, 99, 235, 0.3);
+          color: var(--text-primary);
+          box-shadow: 0 4px 16px rgba(37, 99, 235, 0.08);
+        }
+        [data-theme="dark"] .petra-bubble {
+          background: linear-gradient(135deg, rgba(37, 99, 235, 0.25) 0%, rgba(99, 102, 241, 0.2) 100%);
+          border: 1px solid rgba(96, 165, 250, 0.35);
+          color: #FFFFFF;
+          box-shadow: 0 4px 16px rgba(37, 99, 235, 0.15);
+        }
+        .conversation-replay-btn {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          background: var(--bg-secondary);
+          border: 1px solid var(--border-subtle);
+          border-radius: 8px;
+          padding: 6px 12px;
+          color: var(--text-secondary);
+          font-size: 0.8rem;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        .conversation-replay-btn:hover {
+          background: var(--bg-tertiary);
+          color: var(--text-primary);
+        }
+        .appointment-confirmed-banner {
+          margin-top: 16px;
+          background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(5, 150, 105, 0.2) 100%);
+          border: 1px solid rgba(16, 185, 129, 0.4);
+          border-radius: 16px;
+          padding: 20px 24px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 16px;
+          animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .appointment-confirmed-title {
+          font-size: 1.1rem;
+          color: var(--text-primary);
+          font-weight: 700;
+          margin: 0;
+        }
+        .appointment-confirmed-meta {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          font-size: 0.875rem;
+          color: var(--accent-emerald);
+          font-weight: 600;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(6px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleUp {
+          from { opacity: 0; transform: scale(0.96); }
+          to { opacity: 1; transform: scale(1); }
+        }
+      `}</style>
+
       <div className="container">
         <div className="section-header">
           <div className="eyebrow">
@@ -68,16 +157,7 @@ export const ConversationDemo: React.FC<ConversationDemoProps> = ({ onOpenVoiceD
         </div>
 
         {/* Conversation Box Interface */}
-        <div style={{
-          maxWidth: '740px',
-          margin: '0 auto',
-          background: 'rgba(15, 23, 42, 0.85)',
-          backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
-          borderRadius: '24px',
-          padding: ' clamp(20px, 4vw, 36px)',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
-        }}>
+        <div className="conversation-card">
 
           {/* Chat Header */}
           <div style={{
@@ -85,7 +165,7 @@ export const ConversationDemo: React.FC<ConversationDemoProps> = ({ onOpenVoiceD
             alignItems: 'center',
             justifyContent: 'space-between',
             paddingBottom: '20px',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+            borderBottom: '1px solid var(--border-subtle)',
             marginBottom: '24px'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -97,10 +177,10 @@ export const ConversationDemo: React.FC<ConversationDemoProps> = ({ onOpenVoiceD
                 boxShadow: '0 0 10px #10B981'
               }} />
               <div>
-                <h4 style={{ fontSize: '1.05rem', color: '#FFFFFF', fontWeight: 700, margin: 0 }}>
+                <h4 style={{ fontSize: '1.05rem', color: 'var(--text-primary)', fontWeight: 700, margin: 0 }}>
                   Active Call Transcript Simulation
                 </h4>
-                <span style={{ fontSize: '0.8rem', color: '#94A3B8' }}>
+                <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
                   Natural language booking flow
                 </span>
               </div>
@@ -108,18 +188,8 @@ export const ConversationDemo: React.FC<ConversationDemoProps> = ({ onOpenVoiceD
 
             <button
               onClick={restartSimulation}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                borderRadius: '8px',
-                padding: '6px 12px',
-                color: '#CBD5E1',
-                fontSize: '0.8rem',
-                cursor: 'pointer'
-              }}
+              className="conversation-replay-btn"
+              aria-label="Replay simulation"
             >
               <RotateCcw size={14} />
               <span>Replay</span>
@@ -144,25 +214,22 @@ export const ConversationDemo: React.FC<ConversationDemoProps> = ({ onOpenVoiceD
                     fontSize: '0.75rem',
                     fontWeight: 700,
                     letterSpacing: '0.05em',
-                    color: isPetra ? '#60A5FA' : '#94A3B8',
+                    color: isPetra ? 'var(--accent-blue)' : 'var(--text-muted)',
                     textTransform: 'uppercase',
                     marginBottom: '4px'
                   }}>
                     {isPetra ? 'Petra (AI Receptionist)' : 'Caller'}
                   </span>
-                  <div style={{
-                    maxWidth: '85%',
-                    padding: '14px 18px',
-                    borderRadius: isPetra ? '16px 16px 16px 4px' : '16px 16px 4px 16px',
-                    background: isPetra 
-                      ? 'linear-gradient(135deg, rgba(37, 99, 235, 0.25) 0%, rgba(99, 102, 241, 0.2) 100%)' 
-                      : 'rgba(255, 255, 255, 0.07)',
-                    border: `1px solid ${isPetra ? 'rgba(96, 165, 250, 0.35)' : 'rgba(255, 255, 255, 0.1)'}`,
-                    color: '#FFFFFF',
-                    fontSize: '0.98rem',
-                    lineHeight: 1.45,
-                    boxShadow: isPetra ? '0 4px 16px rgba(37, 99, 235, 0.15)' : 'none'
-                  }}>
+                  <div 
+                    className={isPetra ? 'petra-bubble' : 'caller-bubble'}
+                    style={{
+                      maxWidth: '85%',
+                      padding: '14px 18px',
+                      borderRadius: isPetra ? '16px 16px 16px 4px' : '16px 16px 4px 16px',
+                      fontSize: '0.98rem',
+                      lineHeight: 1.45
+                    }}
+                  >
                     {item.text}
                   </div>
                 </div>
@@ -171,19 +238,7 @@ export const ConversationDemo: React.FC<ConversationDemoProps> = ({ onOpenVoiceD
 
             {/* Appointment Confirmed Card */}
             {isCompleted && (
-              <div style={{
-                marginTop: '16px',
-                background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.25) 100%)',
-                border: '1px solid rgba(16, 185, 129, 0.45)',
-                borderRadius: '16px',
-                padding: '20px 24px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '16px',
-                animation: 'scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
-              }}>
+              <div className="appointment-confirmed-banner">
                 <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                   <div style={{
                     width: '44px',
@@ -198,15 +253,15 @@ export const ConversationDemo: React.FC<ConversationDemoProps> = ({ onOpenVoiceD
                     <CheckCircle2 size={24} />
                   </div>
                   <div>
-                    <h5 style={{ fontSize: '1.1rem', color: '#FFFFFF', fontWeight: 700, margin: 0 }}>
+                    <h5 className="appointment-confirmed-title">
                       ✓ Appointment Confirmed
                     </h5>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginTop: '4px' }}>
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.875rem', color: '#D1FAE5' }}>
+                      <span className="appointment-confirmed-meta">
                         <Calendar size={14} />
                         Thursday
                       </span>
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.875rem', color: '#D1FAE5' }}>
+                      <span className="appointment-confirmed-meta">
                         <Clock size={14} />
                         2:30 PM
                       </span>
@@ -217,10 +272,10 @@ export const ConversationDemo: React.FC<ConversationDemoProps> = ({ onOpenVoiceD
                 <div style={{
                   padding: '6px 14px',
                   borderRadius: '20px',
-                  background: 'rgba(16, 185, 129, 0.25)',
-                  color: '#A7F3D0',
+                  background: 'rgba(16, 185, 129, 0.2)',
+                  color: 'var(--accent-emerald)',
                   fontSize: '0.8rem',
-                  fontWeight: 600
+                  fontWeight: 700
                 }}>
                   Calendar Reserved
                 </div>
@@ -232,7 +287,7 @@ export const ConversationDemo: React.FC<ConversationDemoProps> = ({ onOpenVoiceD
           <div style={{
             marginTop: '32px',
             paddingTop: '24px',
-            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+            borderTop: '1px solid var(--border-subtle)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -240,10 +295,10 @@ export const ConversationDemo: React.FC<ConversationDemoProps> = ({ onOpenVoiceD
             gap: '16px'
           }}>
             <div>
-              <span style={{ fontSize: '0.9rem', color: '#FFFFFF', fontWeight: 600, display: 'block' }}>
+              <span style={{ fontSize: '0.9rem', color: 'var(--text-primary)', fontWeight: 600, display: 'block' }}>
                 Want to hear the real voice agent live?
               </span>
-              <span style={{ fontSize: '0.8rem', color: '#94A3B8' }}>
+              <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
                 Speak directly to Petra with your microphone.
               </span>
             </div>
@@ -263,17 +318,6 @@ export const ConversationDemo: React.FC<ConversationDemoProps> = ({ onOpenVoiceD
 
         </div>
       </div>
-
-      <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(6px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes scaleUp {
-          from { opacity: 0; transform: scale(0.96); }
-          to { opacity: 1; transform: scale(1); }
-        }
-      `}</style>
     </section>
   );
 };

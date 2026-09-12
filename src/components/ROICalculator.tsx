@@ -16,10 +16,89 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onOpenDemo }) => {
   const estimatedRevenue = Math.round(recoveredCalls * customerValue);
 
   return (
-    <section className="section-padding" id="calculator" style={{ position: 'relative', background: 'rgba(8, 13, 26, 0.85)' }}>
+    <section className="section-padding roi-section" id="calculator" style={{ position: 'relative' }}>
+      <style>{`
+        .roi-section {
+          background: var(--bg-primary);
+        }
+        .roi-calculator-card {
+          display: grid;
+          grid-template-columns: 1.15fr 0.85fr;
+          gap: 40px;
+          align-items: center;
+          padding: 44px;
+          max-width: 860px;
+          margin: 0 auto;
+          background: var(--bg-card);
+          border: 1px solid var(--border-subtle);
+          border-radius: 28px;
+          box-shadow: var(--shadow-lg);
+        }
+        .roi-label {
+          font-size: 0.9375rem;
+          font-weight: 600;
+          color: var(--text-primary);
+        }
+        .roi-output-card {
+          border-radius: 20px;
+          padding: 32px 24px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          background: linear-gradient(135deg, #EFF6FF 0%, #ECFDF5 100%);
+          border: 1px solid rgba(37, 99, 235, 0.25);
+          box-shadow: var(--shadow-md);
+        }
+        .roi-output-title {
+          font-size: 0.8125rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letterSpacing: 0.08em;
+          color: #1E40AF;
+          margin-bottom: 8px;
+        }
+        .roi-output-badge {
+          font-size: 0.9rem;
+          color: var(--text-primary);
+          margin-bottom: 20px;
+          padding: 8px 16px;
+          background: #FFFFFF;
+          border: 1px solid rgba(15, 23, 42, 0.08);
+          border-radius: 20px;
+          box-shadow: var(--shadow-sm);
+        }
+        [data-theme="dark"] .roi-output-card {
+          background: linear-gradient(135deg, rgba(30, 58, 138, 0.4) 0%, rgba(16, 185, 129, 0.15) 100%);
+          border: 1px solid rgba(59, 130, 246, 0.3);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        [data-theme="dark"] .roi-output-title {
+          color: #93C5FD;
+        }
+        [data-theme="dark"] .roi-output-badge {
+          background: rgba(255, 255, 255, 0.05);
+          border-color: rgba(255, 255, 255, 0.1);
+          color: #CBD5E1;
+        }
+        @media (max-width: 860px) {
+          .roi-calculator-card {
+            grid-template-columns: 1fr;
+            gap: 32px;
+            padding: 32px 24px;
+          }
+        }
+        @media (max-width: 480px) {
+          .roi-calculator-card {
+            padding: 24px 16px;
+            border-radius: 20px;
+          }
+        }
+      `}</style>
+
       <div className="container">
         <div className="section-header">
-          <div className="eyebrow" style={{ color: '#10B981', background: 'rgba(16, 185, 129, 0.1)', borderColor: 'rgba(16, 185, 129, 0.25)' }}>
+          <div className="eyebrow" style={{ color: 'var(--accent-emerald)', background: 'rgba(16, 185, 129, 0.1)', borderColor: 'rgba(16, 185, 129, 0.3)' }}>
             <TrendingUp size={14} />
             <span>ROI ESTIMATOR</span>
           </div>
@@ -32,24 +111,17 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onOpenDemo }) => {
         </div>
 
         {/* Calculator Card Container */}
-        <div className="roi-calculator-card" style={{
-          maxWidth: '860px',
-          margin: '0 auto',
-          background: 'rgba(15, 23, 42, 0.9)',
-          border: '1px solid rgba(255, 255, 255, 0.12)',
-          borderRadius: '28px',
-          boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.7)'
-        }}>
+        <div className="roi-calculator-card">
           {/* Left Column: Sliders */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
             
             {/* Input 1: Average Customer Value */}
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                <label htmlFor="customer-value" style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#CBD5E1' }}>
+                <label htmlFor="customer-value" className="roi-label">
                   Average Customer Value
                 </label>
-                <span style={{ fontSize: '1.05rem', fontWeight: 800, color: '#3B82F6' }}>
+                <span style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--accent-blue)' }}>
                   ${customerValue}
                 </span>
               </div>
@@ -63,13 +135,13 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onOpenDemo }) => {
                 onChange={(e) => setCustomerValue(Number(e.target.value))}
                 style={{
                   width: '100%',
-                  accentColor: '#3B82F6',
+                  accentColor: 'var(--accent-blue)',
                   height: '6px',
                   borderRadius: '3px',
                   cursor: 'pointer'
                 }}
               />
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#64748B', marginTop: '4px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px' }}>
                 <span>$50</span>
                 <span>$2,500+</span>
               </div>
@@ -78,10 +150,10 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onOpenDemo }) => {
             {/* Input 2: Missed Calls per Month */}
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                <label htmlFor="missed-calls" style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#CBD5E1' }}>
+                <label htmlFor="missed-calls" className="roi-label">
                   Missed Calls per Month
                 </label>
-                <span style={{ fontSize: '1.05rem', fontWeight: 800, color: '#F59E0B' }}>
+                <span style={{ fontSize: '1.1rem', fontWeight: 800, color: '#F59E0B' }}>
                   {missedCalls} calls
                 </span>
               </div>
@@ -101,7 +173,7 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onOpenDemo }) => {
                   cursor: 'pointer'
                 }}
               />
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#64748B', marginTop: '4px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px' }}>
                 <span>5</span>
                 <span>200 calls</span>
               </div>
@@ -110,10 +182,10 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onOpenDemo }) => {
             {/* Input 3: Estimated Conversion Rate */}
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                <label htmlFor="conversion-rate" style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#CBD5E1' }}>
+                <label htmlFor="conversion-rate" className="roi-label">
                   Estimated Booking Conversion Rate
                 </label>
-                <span style={{ fontSize: '1.05rem', fontWeight: 800, color: '#10B981' }}>
+                <span style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--accent-emerald)' }}>
                   {conversionRate}%
                 </span>
               </div>
@@ -127,13 +199,13 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onOpenDemo }) => {
                 onChange={(e) => setConversionRate(Number(e.target.value))}
                 style={{
                   width: '100%',
-                  accentColor: '#10B981',
+                  accentColor: 'var(--accent-emerald)',
                   height: '6px',
                   borderRadius: '3px',
                   cursor: 'pointer'
                 }}
               />
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#64748B', marginTop: '4px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px' }}>
                 <span>10%</span>
                 <span>75%</span>
               </div>
@@ -142,47 +214,24 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onOpenDemo }) => {
           </div>
 
           {/* Right Column: Output Card */}
-          <div style={{
-            background: 'linear-gradient(135deg, rgba(30, 58, 138, 0.4) 0%, rgba(16, 185, 129, 0.15) 100%)',
-            border: '1px solid rgba(59, 130, 246, 0.3)',
-            borderRadius: '20px',
-            padding: '32px 24px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            textAlign: 'center'
-          }}>
-            <span style={{
-              fontSize: '0.8125rem',
-              fontWeight: 700,
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              color: '#93C5FD',
-              marginBottom: '8px'
-            }}>
+          <div className="roi-output-card">
+            <span className="roi-output-title">
               Estimated Potential Revenue From Recovered Calls
             </span>
 
             <div style={{
               fontSize: 'clamp(2.6rem, 5vw, 3.8rem)',
               fontWeight: 800,
-              color: '#10B981',
+              color: 'var(--accent-emerald)',
               letterSpacing: '-0.03em',
               lineHeight: 1.1,
               margin: '12px 0'
             }}>
               ${estimatedRevenue.toLocaleString()}
-              <span style={{ fontSize: '1.1rem', color: '#CBD5E1', fontWeight: 600 }}>/mo</span>
+              <span style={{ fontSize: '1.1rem', color: 'var(--text-muted)', fontWeight: 600 }}>/mo</span>
             </div>
 
-            <div style={{
-              fontSize: '0.9rem',
-              color: '#CBD5E1',
-              marginBottom: '20px',
-              padding: '6px 14px',
-              background: 'rgba(255, 255, 255, 0.05)',
-              borderRadius: '20px'
-            }}>
+            <div className="roi-output-badge">
               ≈ <strong>{recoveredCalls}</strong> additional appointments scheduled every month
             </div>
 
@@ -198,37 +247,12 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onOpenDemo }) => {
               <span>See What Petra Can Do</span>
             </button>
 
-            <p style={{ fontSize: '0.75rem', color: '#64748B', lineHeight: 1.4, margin: 0 }}>
+            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: 1.4, margin: 0 }}>
               This calculator provides an illustrative estimate and does not guarantee revenue or conversion results.
             </p>
           </div>
         </div>
       </div>
-
-      <style>{`
-        .roi-calculator-card {
-          display: grid;
-          grid-template-columns: 1.15fr 0.85fr;
-          gap: 40px;
-          align-items: center;
-          padding: 44px;
-        }
-
-        @media (max-width: 860px) {
-          .roi-calculator-card {
-            grid-template-columns: 1fr;
-            gap: 32px;
-            padding: 32px 24px;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .roi-calculator-card {
-            padding: 24px 16px;
-            border-radius: 20px;
-          }
-        }
-      `}</style>
     </section>
   );
 };

@@ -43,19 +43,18 @@ export const Pricing: React.FC<PricingProps> = ({ onSelectPlan, onOpenDemo }) =>
                 key={tier.id}
                 className={`glass-card pricing-card ${isPopular ? 'popular-tier' : ''}`}
                 style={{
+                  background: 'var(--bg-card)',
+                  border: isPopular ? '2px solid var(--accent-blue)' : '1px solid var(--border-subtle)',
+                  borderRadius: '24px',
+                  padding: 'clamp(24px, 4vw, 36px)',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
                   position: 'relative',
-                  border: isPopular ? '2px solid #3B82F6' : '1px solid rgba(255, 255, 255, 0.08)',
-                  background: isPopular 
-                    ? 'linear-gradient(180deg, rgba(30, 58, 138, 0.25) 0%, rgba(15, 23, 42, 0.9) 100%)' 
-                    : 'rgba(15, 23, 42, 0.7)',
-                  boxShadow: isPopular ? '0 0 45px rgba(59, 130, 246, 0.25)' : 'none',
-                  borderRadius: '24px'
+                  boxShadow: isPopular ? 'var(--shadow-lg), var(--shadow-glow)' : 'var(--shadow-sm)'
                 }}
               >
-                {/* Popular Badge */}
+                {/* Most Popular Badge */}
                 {isPopular && (
                   <div style={{
                     position: 'absolute',
@@ -81,21 +80,21 @@ export const Pricing: React.FC<PricingProps> = ({ onSelectPlan, onOpenDemo }) =>
                   <h3 style={{
                     fontSize: '1.5rem',
                     fontWeight: 800,
-                    color: '#FFFFFF',
+                    color: 'var(--text-primary)',
                     marginBottom: '8px'
                   }}>
                     {tier.name}
                   </h3>
-                  <p style={{ fontSize: '0.9rem', color: '#94A3B8', minHeight: '44px', lineHeight: 1.5 }}>
+                  <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', minHeight: '44px', lineHeight: 1.5 }}>
                     {tier.description}
                   </p>
 
                   {/* Price */}
                   <div style={{ margin: '28px 0', display: 'flex', alignItems: 'baseline', gap: '6px' }}>
-                    <span style={{ fontSize: '3rem', fontWeight: 800, color: '#FFFFFF', lineHeight: 1 }}>
+                    <span style={{ fontSize: '3rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1 }}>
                       ${tier.price}
                     </span>
-                    <span style={{ fontSize: '1rem', color: '#94A3B8', fontWeight: 500 }}>
+                    <span style={{ fontSize: '1rem', color: 'var(--text-muted)', fontWeight: 500 }}>
                       /{tier.period}
                     </span>
                   </div>
@@ -103,16 +102,16 @@ export const Pricing: React.FC<PricingProps> = ({ onSelectPlan, onOpenDemo }) =>
                   {/* Feature Checklist */}
                   <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', display: 'flex', flexDirection: 'column', gap: '14px' }}>
                     {tier.features.map((feat, idx) => (
-                      <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.92rem', color: '#CBD5E1' }}>
+                      <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.92rem', color: 'var(--text-primary)' }}>
                         <div style={{
                           width: '20px',
                           height: '20px',
                           borderRadius: '50%',
-                          background: isPopular ? 'rgba(59, 130, 246, 0.2)' : 'rgba(255, 255, 255, 0.08)',
+                          background: isPopular ? 'rgba(59, 130, 246, 0.2)' : 'rgba(16, 185, 129, 0.15)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          color: isPopular ? '#60A5FA' : '#10B981',
+                          color: isPopular ? 'var(--accent-blue)' : 'var(--accent-emerald)',
                           flexShrink: 0
                         }}>
                           <Check size={12} strokeWidth={3} />
@@ -125,8 +124,8 @@ export const Pricing: React.FC<PricingProps> = ({ onSelectPlan, onOpenDemo }) =>
 
                 <button
                   onClick={() => handlePlanClick(tier.id)}
-                  className={`btn ${isPopular ? 'btn-primary' : 'btn-secondary'}`}
-                  style={{ width: '100%', padding: '14px 20px', fontSize: '1rem' }}
+                  className={`btn ${isPopular ? 'btn-primary' : 'btn-secondary'} btn-lg`}
+                  style={{ width: '100%', justifyContent: 'center' }}
                 >
                   <span>{tier.ctaText}</span>
                 </button>
@@ -135,17 +134,12 @@ export const Pricing: React.FC<PricingProps> = ({ onSelectPlan, onOpenDemo }) =>
           })}
         </div>
 
-        {/* Pricing Disclaimer */}
-        <p style={{
-          textAlign: 'center',
-          fontSize: '0.85rem',
-          color: '#64748B',
-          maxWidth: '720px',
-          margin: '36px auto 0 auto',
-          lineHeight: 1.5
-        }}>
-          {pricingConfig.disclaimer}
-        </p>
+        {/* Pricing Subtext & Guarantee */}
+        <div style={{ textAlign: 'center', marginTop: '48px' }}>
+          <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', maxWidth: '720px', margin: '0 auto', lineHeight: 1.6 }}>
+            {pricingConfig.disclaimer}
+          </p>
+        </div>
       </div>
 
       <style>{`

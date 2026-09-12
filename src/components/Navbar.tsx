@@ -39,9 +39,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
         position: 'sticky',
         top: 0,
         zIndex: 100,
-        backgroundColor: isScrolled ? 'rgba(8, 13, 26, 0.88)' : 'transparent',
+        backgroundColor: isScrolled ? 'var(--bg-glass-strong)' : 'transparent',
         backdropFilter: isScrolled ? 'blur(16px)' : 'none',
-        borderBottom: isScrolled ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid transparent',
+        WebkitBackdropFilter: isScrolled ? 'blur(16px)' : 'none',
+        borderBottom: isScrolled ? '1px solid var(--border-subtle)' : '1px solid transparent',
         transition: 'all 0.3s ease',
         padding: isScrolled ? '14px 0' : '20px 0'
       }}
@@ -71,15 +72,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
               fontFamily: 'var(--font-display)', 
               fontWeight: 800, 
               fontSize: '1.4rem', 
-              color: '#FFFFFF',
+              color: 'var(--text-primary)',
               letterSpacing: '-0.03em',
               lineHeight: 1
             }}>
-              Petra<span style={{ color: '#3B82F6' }}>.</span>
+              Petra<span style={{ color: 'var(--accent-blue)' }}>.</span>
             </span>
             <span style={{ 
               fontSize: '0.65rem', 
-              color: '#94A3B8', 
+              color: 'var(--text-muted)', 
               fontWeight: 600, 
               letterSpacing: '0.12em',
               textTransform: 'uppercase',
@@ -102,12 +103,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
               href={link.href}
               style={{
                 fontSize: '0.9375rem',
-                fontWeight: 500,
-                color: '#CBD5E1',
+                fontWeight: 600,
+                color: 'var(--text-secondary)',
                 transition: 'color 0.2s ease',
+                textDecoration: 'none'
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = '#60A5FA')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = '#CBD5E1')}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent-blue)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
             >
               {link.label}
             </a>
@@ -139,10 +141,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
             aria-label="Toggle navigation menu"
             style={{
               display: 'none',
-              background: 'rgba(255, 255, 255, 0.06)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '8px',
-              color: '#F8FAFC',
+              color: 'var(--text-primary)',
               padding: '8px',
               cursor: 'pointer'
             }}
@@ -171,15 +173,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
             top: '100%',
             left: 0,
             right: 0,
-            background: 'rgba(8, 13, 26, 0.98)',
+            background: 'var(--bg-card)',
             backdropFilter: 'blur(24px)',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+            borderBottom: '1px solid var(--border-subtle)',
             padding: '24px 20px',
             display: 'flex',
             flexDirection: 'column',
             gap: '16px',
             zIndex: 99,
-            boxShadow: '0 20px 40px rgba(0,0,0,0.8)'
+            boxShadow: 'var(--shadow-lg)'
           }}>
             {navLinks.map((link) => (
               <a
@@ -189,9 +191,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
                 style={{
                   fontSize: '1.05rem',
                   fontWeight: 600,
-                  color: '#E2E8F0',
+                  color: 'var(--text-primary)',
                   padding: '10px 0',
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.05)'
+                  borderBottom: '1px solid var(--border-subtle)',
+                  textDecoration: 'none'
                 }}
               >
                 {link.label}

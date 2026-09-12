@@ -86,7 +86,139 @@ export const IndustrySection: React.FC<IndustrySectionProps> = ({ onOpenDemo }) 
   const Icon = activeIndustry.icon;
 
   return (
-    <section className="section-padding" id="industries" style={{ position: 'relative' }}>
+    <section className="section-padding industry-section" id="industries" style={{ position: 'relative' }}>
+      <style>{`
+        .industry-section {
+          background: var(--bg-darkest);
+        }
+        .industry-tabs-container {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-bottom: 40px;
+        }
+        .industry-tab-pill {
+          padding: 10px 18px;
+          border-radius: 12px;
+          font-weight: 600;
+          font-size: 0.9375rem;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          flex-shrink: 0;
+          user-select: none;
+          background: var(--bg-card);
+          border: 1px solid var(--border-subtle);
+          color: var(--text-secondary);
+          box-shadow: var(--shadow-sm);
+        }
+        .industry-tab-pill:hover {
+          color: var(--text-primary);
+          border-color: var(--accent-blue);
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-md);
+        }
+        .industry-tab-pill.selected {
+          background: rgba(37, 99, 235, 0.12) !important;
+          border: 2px solid var(--accent-blue) !important;
+          color: var(--accent-blue) !important;
+          box-shadow: 0 4px 16px var(--accent-blue-glow) !important;
+        }
+        [data-theme="dark"] .industry-tab-pill {
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          color: #94A3B8;
+        }
+        [data-theme="dark"] .industry-tab-pill.selected {
+          background: rgba(59, 130, 246, 0.22) !important;
+          border-color: #3B82F6 !important;
+          color: #60A5FA !important;
+        }
+        .industry-showcase-card {
+          max-width: 860px;
+          margin: 0 auto;
+          background: var(--bg-card);
+          backdrop-filter: blur(20px);
+          border-radius: 24px;
+          padding: clamp(20px, 4vw, 44px);
+          box-shadow: var(--shadow-lg);
+          position: relative;
+        }
+        .industry-showcase-grid {
+          display: grid;
+          grid-template-columns: 1.15fr 0.85fr;
+          gap: 36px;
+          align-items: center;
+        }
+        .industry-preview-panel {
+          background: var(--bg-secondary);
+          border-radius: 18px;
+          border: 1px solid var(--border-subtle);
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+        }
+        .industry-preview-caller {
+          background: var(--bg-card);
+          border-radius: 12px;
+          padding: 12px 14px;
+          font-size: 0.9rem;
+          color: var(--text-primary);
+          border-left: 3px solid var(--accent-blue);
+          box-shadow: var(--shadow-sm);
+        }
+        .industry-preview-petra {
+          background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(99, 102, 241, 0.08) 100%);
+          border-radius: 12px;
+          padding: 12px 14px;
+          font-size: 0.9rem;
+          color: var(--text-primary);
+          box-shadow: var(--shadow-sm);
+        }
+        [data-theme="dark"] .industry-preview-petra {
+          background: rgba(30, 58, 138, 0.3);
+          color: #FFFFFF;
+        }
+        .industry-cta-btn {
+          white-space: normal !important;
+          text-align: left;
+          line-height: 1.3;
+        }
+        @media (max-width: 900px) {
+          .industry-showcase-grid {
+            grid-template-columns: 1fr;
+            gap: 28px;
+          }
+        }
+        @media (max-width: 640px) {
+          .industry-tabs-container {
+            justify-content: flex-start;
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            padding-bottom: 8px;
+            margin-bottom: 24px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+          }
+          .industry-tabs-container::-webkit-scrollbar {
+            display: none;
+          }
+          .industry-tab-pill {
+            padding: 8px 14px !important;
+            font-size: 0.85rem !important;
+          }
+          .industry-cta-btn {
+            width: 100% !important;
+            text-align: center;
+            justify-content: center;
+          }
+        }
+      `}</style>
+
       <div className="container">
         <div className="section-header">
           <div className="eyebrow">
@@ -115,23 +247,9 @@ export const IndustrySection: React.FC<IndustrySectionProps> = ({ onOpenDemo }) 
                   trackEvent('page_view', { industry_tab_selected: ind.id });
                 }}
                 className={`industry-tab-pill ${isSelected ? 'selected' : ''}`}
-                style={{
-                  padding: '10px 18px',
-                  borderRadius: '12px',
-                  background: isSelected ? 'rgba(59, 130, 246, 0.2)' : 'rgba(255, 255, 255, 0.04)',
-                  border: `1px solid ${isSelected ? '#3B82F6' : 'rgba(255, 255, 255, 0.08)'}`,
-                  color: isSelected ? '#FFFFFF' : '#94A3B8',
-                  fontWeight: 600,
-                  fontSize: '0.9375rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  flexShrink: 0
-                }}
+                aria-pressed={isSelected}
               >
-                <TabIcon size={16} color={isSelected ? ind.color : '#94A3B8'} />
+                <TabIcon size={16} color={isSelected ? ind.color : 'var(--text-muted)'} style={{ flexShrink: 0 }} />
                 <span>{ind.name}</span>
               </button>
             );
@@ -139,17 +257,13 @@ export const IndustrySection: React.FC<IndustrySectionProps> = ({ onOpenDemo }) 
         </div>
 
         {/* Active Industry Showcase Card */}
-        <div style={{
-          maxWidth: '860px',
-          margin: '0 auto',
-          background: 'rgba(15, 23, 42, 0.85)',
-          backdropFilter: 'blur(20px)',
-          border: `1px solid ${activeIndustry.color}40`,
-          borderRadius: '24px',
-          padding: 'clamp(20px, 4vw, 44px)',
-          boxShadow: `0 20px 50px rgba(0, 0, 0, 0.5), 0 0 35px ${activeIndustry.color}15`,
-          position: 'relative'
-        }}>
+        <div 
+          className="industry-showcase-card"
+          style={{
+            border: `1px solid ${activeIndustry.color}50`,
+            boxShadow: `var(--shadow-lg), 0 0 35px ${activeIndustry.color}15`
+          }}
+        >
           <div className="industry-showcase-grid">
             {/* Left: Info */}
             <div>
@@ -168,21 +282,21 @@ export const IndustrySection: React.FC<IndustrySectionProps> = ({ onOpenDemo }) 
                 <Icon size={28} />
               </div>
 
-              <h3 style={{ fontSize: 'clamp(1.35rem, 3vw, 1.65rem)', fontWeight: 800, color: '#FFFFFF', marginBottom: '12px' }}>
+              <h3 style={{ fontSize: 'clamp(1.35rem, 3vw, 1.65rem)', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '12px' }}>
                 {activeIndustry.headline}
               </h3>
 
-              <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.05rem)', color: '#CBD5E1', lineHeight: 1.6, marginBottom: '24px' }}>
+              <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.05rem)', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '24px' }}>
                 {activeIndustry.description}
               </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '28px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.9rem', color: '#E2E8F0' }}>
-                  <CheckCircle2 size={16} color="#10B981" />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.9rem', color: 'var(--text-primary)', fontWeight: 500 }}>
+                  <CheckCircle2 size={16} color="var(--accent-emerald)" style={{ flexShrink: 0 }} />
                   <span>Custom business knowledge & intake questions</span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.9rem', color: '#E2E8F0' }}>
-                  <CheckCircle2 size={16} color="#10B981" />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.9rem', color: 'var(--text-primary)', fontWeight: 500 }}>
+                  <CheckCircle2 size={16} color="var(--accent-emerald)" style={{ flexShrink: 0 }} />
                   <span>Instant slot confirmation with zero hold times</span>
                 </div>
               </div>
@@ -201,42 +315,23 @@ export const IndustrySection: React.FC<IndustrySectionProps> = ({ onOpenDemo }) 
             </div>
 
             {/* Right: Real Sample Snippet */}
-            <div style={{
-              background: 'rgba(10, 15, 29, 0.8)',
-              borderRadius: '18px',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              padding: '20px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '14px'
-            }}>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#94A3B8', letterSpacing: '0.05em' }}>
+            <div className="industry-preview-panel">
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.05em' }}>
                 LIVE CONVERSATION PREVIEW
               </span>
 
               {/* Customer Prompt */}
-              <div style={{
-                background: 'rgba(255, 255, 255, 0.05)',
-                borderRadius: '12px',
-                padding: '12px 14px',
-                fontSize: '0.9rem',
-                color: '#E2E8F0',
-                borderLeft: '3px solid #3B82F6'
-              }}>
-                <span style={{ fontSize: '0.7rem', color: '#93C5FD', display: 'block', fontWeight: 600 }}>Caller:</span>
+              <div className="industry-preview-caller">
+                <span style={{ fontSize: '0.7rem', color: 'var(--accent-blue)', display: 'block', fontWeight: 700 }}>Caller:</span>
                 {activeIndustry.exampleQuestion}
               </div>
 
               {/* Petra Reply */}
-              <div style={{
-                background: 'rgba(30, 58, 138, 0.25)',
-                borderRadius: '12px',
-                padding: '12px 14px',
-                fontSize: '0.9rem',
-                color: '#FFFFFF',
-                borderLeft: `3px solid ${activeIndustry.color}`
-              }}>
-                <span style={{ fontSize: '0.7rem', color: '#A5B4FC', display: 'block', fontWeight: 600 }}>Petra (AI Receptionist):</span>
+              <div 
+                className="industry-preview-petra"
+                style={{ borderLeft: `3px solid ${activeIndustry.color}` }}
+              >
+                <span style={{ fontSize: '0.7rem', color: 'var(--accent-indigo)', display: 'block', fontWeight: 700 }}>Petra (AI Receptionist):</span>
                 {activeIndustry.petraResponse}
               </div>
             </div>
@@ -251,67 +346,13 @@ export const IndustrySection: React.FC<IndustrySectionProps> = ({ onOpenDemo }) 
           alignItems: 'center',
           justifyContent: 'center',
           gap: '8px',
-          color: '#94A3B8',
+          color: 'var(--text-muted)',
           fontSize: '0.9375rem'
         }}>
-          <PlusCircle size={18} color="#60A5FA" />
+          <PlusCircle size={18} color="var(--accent-blue)" />
           <span>And more: Auto repair, chiropractic, wellness, veterinary, fitness studios, and appointment-based services.</span>
         </div>
       </div>
-
-      <style>{`
-        .industry-tabs-container {
-          display: flex;
-          justifyContent: center;
-          flex-wrap: wrap;
-          gap: 10px;
-          margin-bottom: 40px;
-        }
-
-        .industry-showcase-grid {
-          display: grid;
-          grid-template-columns: 1.15fr 0.85fr;
-          gap: 36px;
-          align-items: center;
-        }
-
-        .industry-cta-btn {
-          white-space: normal !important;
-          text-align: left;
-          line-height: 1.3;
-        }
-
-        @media (max-width: 900px) {
-          .industry-showcase-grid {
-            grid-template-columns: 1fr;
-            gap: 28px;
-          }
-        }
-
-        @media (max-width: 640px) {
-          .industry-tabs-container {
-            justify-content: flex-start;
-            overflow-x: auto;
-            flex-wrap: nowrap;
-            padding-bottom: 8px;
-            margin-bottom: 24px;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-          }
-          .industry-tabs-container::-webkit-scrollbar {
-            display: none;
-          }
-          .industry-tab-pill {
-            padding: 8px 14px !important;
-            font-size: 0.85rem !important;
-          }
-          .industry-cta-btn {
-            width: 100% !important;
-            text-align: center;
-            justify-content: center;
-          }
-        }
-      `}</style>
     </section>
   );
 };
