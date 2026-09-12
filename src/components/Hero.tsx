@@ -1,53 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { PhoneCall, Play, Sparkles, CheckCircle2, Mic, Volume2, PhoneOff } from 'lucide-react';
 import { trackEvent } from '../utils/analytics';
-import { captureEmailIntent, submitInquiry, getCachedUserDetails } from '../utils/visitorTracker';
 
 interface HeroProps {
   onOpenDemo: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
-  const [heroEmail, setHeroEmail] = useState('');
-  const [heroSubmitting, setHeroSubmitting] = useState(false);
-  const [heroSubmitted, setHeroSubmitted] = useState(false);
-
-  useEffect(() => {
-    const cached = getCachedUserDetails();
-    if (cached.email) {
-      setHeroEmail(cached.email);
-    }
-  }, []);
-
-  const handleHeroEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    setHeroEmail(val);
-    // Real-time email intent capture on valid typing pattern
-    captureEmailIntent(val, 'hero_inline');
-  };
-
-  const handleHeroEmailBlur = () => {
-    if (heroEmail.trim()) {
-      captureEmailIntent(heroEmail.trim(), 'hero_inline_blur');
-    }
-  };
-
-  const handleHeroInquirySubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!heroEmail.trim()) return;
-
-    setHeroSubmitting(true);
-    submitInquiry({
-      email: heroEmail.trim(),
-      inquirySource: 'hero_inline'
-    });
-
-    setTimeout(() => {
-      setHeroSubmitting(false);
-      setHeroSubmitted(true);
-    }, 400);
-  };
-
   const handlePrimaryCta = () => {
     trackEvent('hero_cta_click', { button: 'primary_talk_to_petra' });
     onOpenDemo();
@@ -109,44 +68,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
                 <Play size={18} />
                 <span>See How It Works</span>
               </button>
-            </div>
-
-            {/* Inline Quick Inquiry / Email Capture Bar */}
-            <div className="hero-inline-inquiry-box">
-              <p className="hero-inquiry-label">
-                Want a custom preview line configured for your business?
-              </p>
-              
-              {heroSubmitted ? (
-                <div className="hero-inquiry-success">
-                  <CheckCircle2 size={18} color="#10B981" />
-                  <span>Preview requested! We sent setup instructions to <strong>{heroEmail}</strong>.</span>
-                </div>
-              ) : (
-                <form onSubmit={handleHeroInquirySubmit} className="hero-inquiry-form">
-                  <div className="hero-inquiry-input-wrapper">
-                    <input
-                      type="email"
-                      required
-                      placeholder="Enter your work email..."
-                      value={heroEmail}
-                      onChange={handleHeroEmailChange}
-                      onBlur={handleHeroEmailBlur}
-                      className="hero-inquiry-input"
-                      id="hero-inquiry-email"
-                      aria-label="Work email for custom preview"
-                    />
-                  </div>
-                  <button 
-                    type="submit" 
-                    disabled={heroSubmitting}
-                    className="btn btn-primary hero-inquiry-submit-btn"
-                    id="hero-inquiry-submit"
-                  >
-                    <span>{heroSubmitting ? 'Sending...' : 'Get Test Line'}</span>
-                  </button>
-                </form>
-              )}
             </div>
 
             {/* Supporting Microcopy */}
@@ -415,68 +336,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
           flex-wrap: wrap;
           gap: 16px;
           align-items: center;
-          margin-bottom: 22px;
-        }
-
-        .hero-inline-inquiry-box {
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 16px;
-          padding: 16px 18px;
-          margin-bottom: 22px;
-          backdrop-filter: blur(10px);
-        }
-
-        .hero-inquiry-label {
-          font-size: 0.85rem;
-          color: #94A3B8;
-          font-weight: 600;
-          margin-bottom: 10px;
-        }
-
-        .hero-inquiry-form {
-          display: flex;
-          gap: 10px;
-          align-items: center;
-        }
-
-        .hero-inquiry-input-wrapper {
-          flex: 1;
-        }
-
-        .hero-inquiry-input {
-          width: 100%;
-          padding: 11px 16px;
-          background: rgba(15, 23, 42, 0.6);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          border-radius: 10px;
-          color: #FFFFFF;
-          font-size: 0.9rem;
-          transition: border-color 0.2s, box-shadow 0.2s;
-        }
-
-        .hero-inquiry-input:focus {
-          outline: none;
-          border-color: #3B82F6;
-          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
-        }
-
-        .hero-inquiry-submit-btn {
-          padding: 11px 20px;
-          font-size: 0.875rem;
-          white-space: nowrap;
-        }
-
-        .hero-inquiry-success {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          background: rgba(16, 185, 129, 0.12);
-          border: 1px solid rgba(16, 185, 129, 0.3);
-          border-radius: 10px;
-          padding: 10px 14px;
-          font-size: 0.875rem;
-          color: #10B981;
+          margin-bottom: 18px;
         }
 
         .hero-microcopy {
@@ -599,13 +459,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
             bottom: 2%;
             max-width: 180px;
             padding: 8px 12px;
-          }
-          .hero-inquiry-form {
-            flex-direction: column;
-            align-items: stretch;
-          }
-          .hero-inquiry-submit-btn {
-            width: 100%;
           }
         }
       `}</style>

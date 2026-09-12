@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Sparkles, CheckCircle2, User, Building, Mail, Phone, Briefcase, ArrowRight, ShieldCheck } from 'lucide-react';
 import { trackEvent } from '../utils/analytics';
-import { captureEmailIntent, submitInquiry, getCachedUserDetails, cacheUserDetails } from '../utils/visitorTracker';
 
 interface QuickInquirySectionProps {
   onOpenVoiceDemo?: () => void;
@@ -18,33 +17,8 @@ export const QuickInquirySection: React.FC<QuickInquirySectionProps> = ({ onOpen
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  useEffect(() => {
-    const cached = getCachedUserDetails();
-    setFormData(prev => ({
-      name: cached.name || prev.name,
-      businessName: cached.businessName || prev.businessName,
-      email: cached.email || prev.email,
-      phone: cached.phone || prev.phone,
-      businessType: prev.businessType
-    }));
-  }, []);
-
   const handleFieldChange = (field: string, value: string) => {
-    setFormData(prev => {
-      const updated = { ...prev, [field]: value };
-      cacheUserDetails({ [field]: value });
-      return updated;
-    });
-
-    if (field === 'email') {
-      captureEmailIntent(value, 'mid_funnel_inquiry');
-    }
-  };
-
-  const handleEmailBlur = () => {
-    if (formData.email.trim()) {
-      captureEmailIntent(formData.email.trim(), 'mid_funnel_inquiry_blur');
-    }
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -52,24 +26,54 @@ export const QuickInquirySection: React.FC<QuickInquirySectionProps> = ({ onOpen
     if (!formData.email.trim()) return;
 
     setSubmitting(true);
-    submitInquiry({
-      email: formData.email.trim(),
-      name: formData.name.trim(),
-      phone: formData.phone.trim(),
-      businessName: formData.businessName.trim(),
-      businessType: formData.businessType,
-      inquirySource: 'mid_funnel_section'
+
+    // Track analytics event
+    trackEvent('lead_submitted', {
+      ...formData,
+      source: 'landing_page_inquiry_section'
     });
 
-    trackEvent('inline_inquiry_submitted', {
-      businessType: formData.businessType,
-      source: 'mid_funnel_section'
-    });
+    // Dispatch to standard conversion trackers if present
+    if (typeof window !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'generate_lead',
+        lead_source: 'landing_page_inquiry_section',
+        email: formData.email,
+        business_name: formData.businessName,
+        business_type: formData.businessType
+      });
+
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'generate_lead', {
+          event_label: 'inquiry_section'
+        });
+      }
+
+      if (typeof window.fbq === 'function') {
+        window.fbq('track', 'Lead', {
+          content_name: 'Inquiry Form',
+          content_category: formData.businessType
+        });
+      }
+
+      // Store in local storage for records
+      try {
+        const existing = JSON.parse(localStorage.getItem('petra_inquiries') || '[]');
+        existing.unshift({
+          ...formData,
+          submittedAt: new Date().toISOString()
+        });
+        localStorage.setItem('petra_inquiries', JSON.stringify(existing.slice(0, 50)));
+      } catch {
+        // Fallback
+      }
+    }
 
     setTimeout(() => {
       setSubmitting(false);
       setSubmitted(true);
-    }, 500);
+    }, 600);
   };
 
   return (
@@ -154,11 +158,11 @@ export const QuickInquirySection: React.FC<QuickInquirySectionProps> = ({ onOpen
       <div className="container">
         <div className="quick-inquiry-card">
           
-          {/* Left Column: Context & Value Pitch */}
+          {/* Left Column: Value Pitch */}
           <div>
             <div className="quick-inquiry-pill">
               <Sparkles size={13} />
-              <span>CUSTOM VOICE DEMO</span>
+              <span>CUSTOM VOICE SETUP</span>
             </div>
 
             <h2 style={{
@@ -291,7 +295,6 @@ export const QuickInquirySection: React.FC<QuickInquirySectionProps> = ({ onOpen
                         placeholder="jordan@practice.com"
                         value={formData.email}
                         onChange={(e) => handleFieldChange('email', e.target.value)}
-                        onBlur={handleEmailBlur}
                         className="quick-inquiry-input"
                       />
                     </div>

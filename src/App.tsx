@@ -20,20 +20,13 @@ import { LeadCaptureModal } from './components/LeadCaptureModal';
 import { ThemeToggle } from './components/ThemeToggle';
 import { QuickInquirySection } from './components/QuickInquirySection';
 import { trackEvent, getStoredUTMParams } from './utils/analytics';
-import { initVisitorAttribution, getOrCreateVisitorId } from './utils/visitorTracker';
 
 export const App: React.FC = () => {
   const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<{ planId: string; billingCycle: 'monthly' | 'annual' } | null>(null);
 
   useEffect(() => {
-    // 1. Initialize persistent first-party visitor ID cookie
-    getOrCreateVisitorId();
-
-    // 2. Extract and store ad attribution (UTMs, gclid, fbclid, msclkid, referrer)
-    initVisitorAttribution();
-
-    // 3. Preserve UTMs and fire initial page_view analytics
+    // Preserve UTMs and fire initial page_view analytics
     const utms = getStoredUTMParams();
     trackEvent('page_view', { ...utms });
   }, []);

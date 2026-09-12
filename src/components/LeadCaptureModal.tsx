@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { X, CheckCircle2, Sparkles, Building, Mail, Phone, User, Briefcase } from 'lucide-react';
 import { LeadFormData } from '../types';
 import { trackEvent } from '../utils/analytics';
-import { captureEmailIntent, submitInquiry, getCachedUserDetails, cacheUserDetails } from '../utils/visitorTracker';
 
 interface LeadCaptureModalProps {
   isOpen: boolean;
@@ -21,53 +20,55 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
-    if (isOpen) {
-      const cached = getCachedUserDetails();
-      setFormData(prev => ({
-        name: cached.name || prev.name,
-        businessName: cached.businessName || prev.businessName,
-        email: cached.email || prev.email,
-        phone: cached.phone || prev.phone,
-        businessType: prev.businessType
-      }));
-    }
-  }, [isOpen]);
-
   if (!isOpen) return null;
 
   const handleFieldChange = (field: keyof LeadFormData, value: string) => {
-    setFormData(prev => {
-      const updated = { ...prev, [field]: value };
-      cacheUserDetails({ [field]: value });
-      return updated;
-    });
-
-    if (field === 'email') {
-      captureEmailIntent(value, 'modal');
-    }
-  };
-
-  const handleEmailBlur = () => {
-    if (formData.email.trim()) {
-      captureEmailIntent(formData.email.trim(), 'modal_blur');
-    }
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
     trackEvent('lead_submitted', { 
       ...formData,
       planId: selectedPlan?.planId,
       billingCycle: selectedPlan?.billingCycle
     });
 
-    submitInquiry({
-      ...formData,
-      businessType: `${formData.businessType}${selectedPlan ? ` (Plan: ${selectedPlan.planId.toUpperCase()} ${selectedPlan.billingCycle.toUpperCase()})` : ''}`,
-      inquirySource: selectedPlan ? `pricing_${selectedPlan.planId}_${selectedPlan.billingCycle}` : 'modal'
-    });
+    if (typeof window !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'generate_lead',
+        lead_source: selectedPlan ? `pricing_${selectedPlan.planId}_${selectedPlan.billingCycle}` : 'modal',
+        ...formData
+      });
+
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'generate_lead', {
+          event_label: selectedPlan ? `${selectedPlan.planId}_${selectedPlan.billingCycle}` : 'modal'
+        });
+      }
+
+      if (typeof window.fbq === 'function') {
+        window.fbq('track', 'Lead', {
+          content_name: 'Lead Capture Modal',
+          content_category: formData.businessType
+        });
+      }
+
+      try {
+        const existing = JSON.parse(localStorage.getItem('petra_inquiries') || '[]');
+        existing.unshift({
+          ...formData,
+          selectedPlan,
+          submittedAt: new Date().toISOString()
+        });
+        localStorage.setItem('petra_inquiries', JSON.stringify(existing.slice(0, 50)));
+      } catch {
+        // Fallback
+      }
+    }
 
     setTimeout(() => {
       setIsSubmitting(false);
@@ -204,7 +205,7 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
                     required
                     placeholder="Dr. Jordan Miller"
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) => handleFieldChange('name', e.target.value)}
                     className="lead-modal-input"
                     style={{
                       width: '100%',
@@ -230,7 +231,7 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
                     required
                     placeholder="Miller Dental Wellness"
                     value={formData.businessName}
-                    onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
+                    onChange={(e) => handleFieldChange('businessName', e.target.value)}
                     className="lead-modal-input"
                     style={{
                       width: '100%',
@@ -258,7 +259,6 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
                       placeholder="jordan@practice.com"
                       value={formData.email}
                       onChange={(e) => handleFieldChange('email', e.target.value)}
-                      onBlur={handleEmailBlur}
                       className="lead-modal-input"
                       style={{
                         width: '100%',
@@ -308,7 +308,7 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
                   <Briefcase size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
                   <select
                     value={formData.businessType}
-                    onChange={(e) => setFormData({ ...formData, businessType: e.target.value })}
+                    onChange={(e) => handleFieldChange('businessType', e.target.value)}
                     className="lead-modal-input"
                     style={{
                       width: '100%',
