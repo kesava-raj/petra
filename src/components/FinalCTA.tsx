@@ -103,21 +103,37 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenDemo }) => {
           </button>
         </div>
 
-        <p style={{
-          fontSize: '0.9rem',
-          color: 'var(--text-muted)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '8px'
-        }}>
-          <CheckCircle2 size={16} color="var(--accent-emerald)" />
-          <span>Experience Petra before you buy. Takes less than a minute.</span>
+        <p className="final-cta-microcopy">
+          <span className="final-cta-phrase">
+            <CheckCircle2 size={16} strokeWidth={2.2} color="var(--accent-emerald)" className="final-cta-icon" />
+            <span>Experience Petra before you buy.</span>
+          </span>{' '}
+          <span className="final-cta-phrase">
+            <span>Takes less than a minute.</span>
+          </span>
         </p>
 
       </div>
 
       <style>{`
+        .final-cta-microcopy {
+          font-size: 0.9375rem;
+          color: var(--text-muted);
+          text-align: center;
+          margin: 0 auto;
+          line-height: 1.5;
+        }
+        .final-cta-phrase {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          vertical-align: middle;
+          white-space: nowrap;
+        }
+        .final-cta-icon {
+          flex-shrink: 0;
+          display: inline-block;
+        }
         .final-cta-btn {
           padding: 18px 48px;
           font-size: 1.25rem;
@@ -128,6 +144,11 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenDemo }) => {
             font-size: 1.05rem;
             width: 100%;
             max-width: 320px;
+          }
+        }
+        @media (max-width: 360px) {
+          .final-cta-phrase {
+            white-space: normal;
           }
         }
       `}</style>
