@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, CheckCircle2, Sparkles, Building, Mail, Phone, User, Briefcase } from 'lucide-react';
 import { LeadFormData } from '../types';
 import { trackEvent } from '../utils/analytics';
+import { captureEmailIntent, submitInquiry, getCachedUserDetails, cacheUserDetails } from '../utils/visitorTracker';
 
 interface LeadCaptureModalProps {
   isOpen: boolean;
@@ -19,17 +20,53 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  useEffect(() => {
+    if (isOpen) {
+      const cached = getCachedUserDetails();
+      setFormData(prev => ({
+        name: cached.name || prev.name,
+        businessName: cached.businessName || prev.businessName,
+        email: cached.email || prev.email,
+        phone: cached.phone || prev.phone,
+        businessType: prev.businessType
+      }));
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
+
+  const handleFieldChange = (field: keyof LeadFormData, value: string) => {
+    setFormData(prev => {
+      const updated = { ...prev, [field]: value };
+      cacheUserDetails({ [field]: value });
+      return updated;
+    });
+
+    if (field === 'email') {
+      captureEmailIntent(value, 'modal');
+    }
+  };
+
+  const handleEmailBlur = () => {
+    if (formData.email.trim()) {
+      captureEmailIntent(formData.email.trim(), 'modal_blur');
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     trackEvent('lead_submitted', { ...formData });
 
+    submitInquiry({
+      ...formData,
+      inquirySource: 'modal'
+    });
+
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 800);
+    }, 600);
   };
 
   const handleModalClose = () => {
@@ -188,7 +225,8 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
                       required
                       placeholder="jordan@practice.com"
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onChange={(e) => handleFieldChange('email', e.target.value)}
+                      onBlur={handleEmailBlur}
                       className="lead-modal-input"
                       style={{
                         width: '100%',
@@ -214,7 +252,7 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
                       required
                       placeholder="(555) 019-2834"
                       value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      onChange={(e) => handleFieldChange('phone', e.target.value)}
                       className="lead-modal-input"
                       style={{
                         width: '100%',

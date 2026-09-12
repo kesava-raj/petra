@@ -20,6 +20,8 @@ export type AnalyticsEvent =
   | 'pricing_cta_click'
   | 'lead_form_start'
   | 'lead_submitted'
+  | 'inline_inquiry_submitted'
+  | 'email_intent_captured'
   | 'checkout_start'
   | 'subscription_started';
 

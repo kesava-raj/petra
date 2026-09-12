@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Calculator, DollarSign, ArrowRight, TrendingUp, PhoneCall } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Calculator, DollarSign, ArrowRight, TrendingUp, PhoneCall, CheckCircle2, Mail } from 'lucide-react';
 import { trackEvent } from '../utils/analytics';
+import { captureEmailIntent, submitInquiry, getCachedUserDetails } from '../utils/visitorTracker';
 
 interface ROICalculatorProps {
   onOpenDemo: () => void;
@@ -10,6 +11,47 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onOpenDemo }) => {
   const [customerValue, setCustomerValue] = useState<number>(250);
   const [missedCalls, setMissedCalls] = useState<number>(35);
   const [conversionRate, setConversionRate] = useState<number>(30);
+  const [roiEmail, setRoiEmail] = useState('');
+  const [roiSubmitting, setRoiSubmitting] = useState(false);
+  const [roiSubmitted, setRoiSubmitted] = useState(false);
+
+  useEffect(() => {
+    const cached = getCachedUserDetails();
+    if (cached.email) {
+      setRoiEmail(cached.email);
+    }
+  }, []);
+
+  const handleRoiEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setRoiEmail(val);
+    captureEmailIntent(val, 'roi_calculator');
+  };
+
+  const handleRoiEmailBlur = () => {
+    if (roiEmail.trim()) {
+      captureEmailIntent(roiEmail.trim(), 'roi_calculator_blur');
+    }
+  };
+
+  const handleRoiInquirySubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!roiEmail.trim()) return;
+
+    setRoiSubmitting(true);
+    submitInquiry({
+      email: roiEmail.trim(),
+      inquirySource: 'roi_calculator',
+      estimatedRevenue,
+      recoveredCalls,
+      customerValue
+    });
+
+    setTimeout(() => {
+      setRoiSubmitting(false);
+      setRoiSubmitted(true);
+    }, 400);
+  };
 
   // Revenue = Missed Calls * (Conversion Rate / 100) * Customer Value
   const recoveredCalls = Math.round(missedCalls * (conversionRate / 100));
@@ -80,6 +122,56 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onOpenDemo }) => {
           background: rgba(255, 255, 255, 0.05);
           border-color: rgba(255, 255, 255, 0.1);
           color: #CBD5E1;
+        }
+        .roi-inquiry-box {
+          width: 100%;
+          background: rgba(255, 255, 255, 0.75);
+          border: 1px solid rgba(37, 99, 235, 0.25);
+          border-radius: 14px;
+          padding: 14px 16px;
+          margin-bottom: 16px;
+          backdrop-filter: blur(8px);
+        }
+        [data-theme="dark"] .roi-inquiry-box {
+          background: rgba(15, 23, 42, 0.6);
+          border-color: rgba(255, 255, 255, 0.12);
+        }
+        .roi-inquiry-header {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 0.8125rem;
+          font-weight: 600;
+          color: var(--text-primary);
+          margin-bottom: 8px;
+          text-align: left;
+        }
+        .roi-inquiry-form {
+          display: flex;
+          gap: 8px;
+        }
+        .roi-inquiry-input {
+          flex: 1;
+          padding: 9px 12px;
+          border-radius: 8px;
+          border: 1px solid var(--border-subtle);
+          background: var(--bg-card);
+          color: var(--text-primary);
+          font-size: 0.85rem;
+        }
+        .roi-inquiry-btn {
+          padding: 9px 16px;
+          font-size: 0.85rem;
+          white-space: nowrap;
+        }
+        .roi-inquiry-success {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 0.85rem;
+          color: #10B981;
+          font-weight: 600;
+          padding: 4px 0;
         }
         @media (max-width: 860px) {
           .roi-calculator-card {
@@ -233,6 +325,41 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onOpenDemo }) => {
 
             <div className="roi-output-badge">
               ≈ <strong>{recoveredCalls}</strong> additional appointments scheduled every month
+            </div>
+
+            {/* Direct Email Inquiry: Send My Custom Breakdown */}
+            <div className="roi-inquiry-box">
+              <div className="roi-inquiry-header">
+                <Mail size={15} color="var(--accent-blue)" />
+                <span>Email me this revenue recovery plan</span>
+              </div>
+              
+              {roiSubmitted ? (
+                <div className="roi-inquiry-success">
+                  <CheckCircle2 size={16} color="#10B981" />
+                  <span>Report sent to <strong>{roiEmail}</strong>!</span>
+                </div>
+              ) : (
+                <form onSubmit={handleRoiInquirySubmit} className="roi-inquiry-form">
+                  <input
+                    type="email"
+                    required
+                    placeholder="Enter work email..."
+                    value={roiEmail}
+                    onChange={handleRoiEmailChange}
+                    onBlur={handleRoiEmailBlur}
+                    className="roi-inquiry-input"
+                    aria-label="Email for ROI calculation report"
+                  />
+                  <button 
+                    type="submit" 
+                    disabled={roiSubmitting}
+                    className="btn btn-secondary roi-inquiry-btn"
+                  >
+                    <span>{roiSubmitting ? 'Sending...' : 'Send Plan'}</span>
+                  </button>
+                </form>
+              )}
             </div>
 
             <button

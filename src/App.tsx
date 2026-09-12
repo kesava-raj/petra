@@ -18,13 +18,21 @@ import { Footer } from './components/Footer';
 import { MobileStickyCTA } from './components/MobileStickyCTA';
 import { LeadCaptureModal } from './components/LeadCaptureModal';
 import { ThemeToggle } from './components/ThemeToggle';
+import { QuickInquirySection } from './components/QuickInquirySection';
 import { trackEvent, getStoredUTMParams } from './utils/analytics';
+import { initVisitorAttribution, getOrCreateVisitorId } from './utils/visitorTracker';
 
 export const App: React.FC = () => {
   const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
 
   useEffect(() => {
-    // Preserve UTMs and fire initial page_view analytics
+    // 1. Initialize persistent first-party visitor ID cookie
+    getOrCreateVisitorId();
+
+    // 2. Extract and store ad attribution (UTMs, gclid, fbclid, msclkid, referrer)
+    initVisitorAttribution();
+
+    // 3. Preserve UTMs and fire initial page_view analytics
     const utms = getStoredUTMParams();
     trackEvent('page_view', { ...utms });
   }, []);
@@ -72,6 +80,9 @@ export const App: React.FC = () => {
 
         {/* 10. Appointment Booking Flow & Calendar Integration */}
         <BookingFlow />
+
+        {/* 10b. Mid-Funnel Direct Inquiry Form (Lead & Email Capture) */}
+        <QuickInquirySection onOpenVoiceDemo={scrollToDemo} />
 
         {/* 11. Industry Use Cases */}
         <IndustrySection onOpenDemo={scrollToDemo} />
