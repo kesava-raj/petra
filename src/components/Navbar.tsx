@@ -24,6 +24,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
     { label: 'Industries', href: '#industries' },
     { label: 'ROI Calculator', href: '#calculator' },
     { label: 'Pricing', href: '#pricing' },
+    { label: 'Inquiry', href: '#inquiry' },
     { label: 'FAQ', href: '#faq' },
   ];
 

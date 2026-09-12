@@ -112,6 +112,7 @@ export const Footer: React.FC = () => {
               <li><a href="#industries" className="footer-link">Industries</a></li>
               <li><a href="#calculator" className="footer-link">ROI Calculator</a></li>
               <li><a href="#pricing" className="footer-link">Pricing</a></li>
+              <li><a href="#inquiry" className="footer-link">Send Inquiry</a></li>
               <li><a href="#faq" className="footer-link">FAQ</a></li>
             </ul>
           </div>

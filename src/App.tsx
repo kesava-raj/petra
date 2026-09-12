@@ -18,7 +18,7 @@ import { Footer } from './components/Footer';
 import { MobileStickyCTA } from './components/MobileStickyCTA';
 import { LeadCaptureModal } from './components/LeadCaptureModal';
 import { ThemeToggle } from './components/ThemeToggle';
-import { QuickInquirySection } from './components/QuickInquirySection';
+import { InquirySection } from './components/InquirySection';
 import { trackEvent, getStoredUTMParams } from './utils/analytics';
 
 export const App: React.FC = () => {
@@ -76,9 +76,6 @@ export const App: React.FC = () => {
         {/* 10. Appointment Booking Flow & Calendar Integration */}
         <BookingFlow />
 
-        {/* 10b. Mid-Funnel Direct Inquiry Form (Lead & Email Capture) */}
-        <QuickInquirySection onOpenVoiceDemo={scrollToDemo} />
-
         {/* 11. Industry Use Cases */}
         <IndustrySection onOpenDemo={scrollToDemo} />
 
@@ -88,10 +85,13 @@ export const App: React.FC = () => {
         {/* 13. Pricing Preview */}
         <Pricing onSelectPlan={handleSelectPlan} onOpenDemo={scrollToDemo} />
 
-        {/* 14. FAQ */}
+        {/* 14. Dedicated Inquiry Section */}
+        <InquirySection onOpenDemo={scrollToDemo} />
+
+        {/* 15. FAQ */}
         <FAQ />
 
-        {/* 15. Final CTA */}
+        {/* 16. Final CTA */}
         <FinalCTA onOpenDemo={scrollToDemo} />
       </main>
 
