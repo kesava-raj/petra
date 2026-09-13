@@ -106,7 +106,7 @@ export const BookingFlow: React.FC = () => {
             A conversation can become an appointment.
           </h2>
           <p className="section-subtitle">
-            See how seamlessly Petra translates natural speech into a synchronized calendar reservation.
+            See how seamlessly Agent Pettra translates natural speech into a synchronized calendar reservation.
           </p>
         </div>
 
@@ -198,7 +198,7 @@ export const BookingFlow: React.FC = () => {
                   Appointment Reserved
                 </h4>
                 <p style={{ fontSize: '0.8125rem', color: '#10B981', margin: '2px 0 0 0', fontWeight: 600 }}>
-                  Confirmed via Petra Voice Assistant
+                  Confirmed via Agent Pettra Voice Assistant
                 </p>
               </div>
             </div>
@@ -280,10 +280,10 @@ export const BookingFlow: React.FC = () => {
           margin: '64px auto 0 auto'
         }}>
           <h3 style={{ fontSize: 'clamp(1.4rem, 3vw, 1.8rem)', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '12px' }}>
-            Petra works around your schedule.
+            Agent Pettra works around your schedule.
           </h3>
           <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-            Petra can be configured to work with your appointment availability and scheduling workflow.
+            Agent Pettra can be configured to work with your appointment availability and scheduling workflow.
           </p>
         </div>
       </div>

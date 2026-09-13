@@ -1,7 +1,7 @@
-# Petra — 24/7 AI Voice Receptionist
+# Agent Pettra — 24/7 AI Voice Receptionist
 
 > **Never Miss a Customer Call Again.**  
-> Petra is an AI-powered receptionist that answers calls, talks naturally with customers, answers business questions, and schedules appointments 24/7.
+> Agent Pettra is an AI-powered receptionist that answers calls, talks naturally with customers, answers business questions, and schedules appointments 24/7.
 
 Built for US-based appointment-driven businesses (Dental, Salons & Spas, Medical, Legal, Real Estate, Home Services, and more).
 
@@ -62,10 +62,10 @@ Copy `.env.example` to `.env` and fill in your Vapi credentials:
 ```env
 VITE_VAPI_PUBLIC_KEY=your_vapi_public_key_here
 VITE_VAPI_ASSISTANT_ID=your_vapi_assistant_id_here
-VITE_PETRA_PHONE_NUMBER=+18005557387
+VITE_AGENT_PETTRA_PHONE_NUMBER=+18005557387
 ```
 
-If keys are not provided, Petra gracefully runs in interactive preview mode so visitors can still test the conversational workflow.
+If keys are not provided, Agent Pettra gracefully runs in interactive preview mode so visitors can still test the conversational workflow.
 
 ---
 
@@ -81,4 +81,4 @@ The output will be in the `dist/` directory.
 
 ## 📄 License
 
-MIT © 2026 Petra.
+MIT © 2026 Agent Pettra.

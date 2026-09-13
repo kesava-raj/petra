@@ -57,14 +57,14 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
           setCallStatus('connected');
           setIsVapiActive(true);
           trackEvent('demo_start', { mode: 'vapi_live' });
-          addMessage('system', 'Connected to Petra AI Voice Agent');
+          addMessage('system', 'Connected to Agent Pettra AI Voice Agent');
         });
 
         vapi.on('call-end', () => {
           setCallStatus('ended');
           setIsSpeaking(false);
           trackEvent('demo_complete', { mode: 'vapi_live', duration: callDuration });
-          addMessage('system', 'Call completed. Thanks for talking with Petra!');
+          addMessage('system', 'Call completed. Thanks for talking with Agent Pettra!');
         });
 
         vapi.on('speech-start', () => {
@@ -84,7 +84,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
 
         vapi.on('error', (err: unknown) => {
           console.error('Vapi client error:', err);
-          setErrorMessage('Petra couldn’t connect right now. You can call Petra directly.');
+          setErrorMessage('Agent Pettra couldn’t connect right now. You can call Agent Pettra directly.');
           setCallStatus('error');
           trackEvent('demo_error', { error: String(err) });
         });
@@ -395,10 +395,10 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
             <span>LIVE INTERACTIVE EXPERIENCE</span>
           </div>
           <h2 className="section-title">
-            Don&apos;t Watch a Demo. Talk to Petra.
+            Don&apos;t Watch a Demo. Talk to Agent Pettra.
           </h2>
           <p className="section-subtitle">
-            Want to know what an AI receptionist actually sounds like? Call Petra and have a real conversation. 
+            Want to know what an AI receptionist actually sounds like? Call Agent Pettra and have a real conversation. 
             Ask questions, request an appointment, and experience the receptionist yourself.
           </p>
         </div>
@@ -432,7 +432,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
               </div>
               <div>
                 <h4 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.1 }}>
-                  Petra Voice Assistant
+                  Agent Pettra Voice Assistant
                 </h4>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
                   <span style={{
@@ -443,8 +443,8 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
                   }} />
                   <span style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', fontWeight: 500 }}>
                     {callStatus === 'idle' && 'Ready to connect'}
-                    {callStatus === 'connecting' && 'Connecting to Petra...'}
-                    {callStatus === 'connected' && (isSpeaking ? 'Petra is speaking...' : 'Petra is listening...')}
+                    {callStatus === 'connecting' && 'Connecting to Agent Pettra...'}
+                    {callStatus === 'connected' && (isSpeaking ? 'Agent Pettra is speaking...' : 'Agent Pettra is listening...')}
                     {callStatus === 'ended' && 'Call ended'}
                     {callStatus === 'error' && 'Connection unavailable'}
                   </span>
@@ -495,10 +495,10 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
               fontWeight: 500,
               textAlign: 'center'
             }}>
-              {callStatus === 'idle' && "Click 'Talk to Petra' below or select a suggested prompt."}
+              {callStatus === 'idle' && "Click 'Talk to Agent Pettra' below or select a suggested prompt."}
               {callStatus === 'connecting' && "Establishing secure audio connection..."}
-              {callStatus === 'connected' && (isSpeaking ? "Petra is speaking..." : "Petra is listening to you...")}
-              {callStatus === 'ended' && "Thanks for talking with Petra."}
+              {callStatus === 'connected' && (isSpeaking ? "Agent Pettra is speaking..." : "Agent Pettra is listening to you...")}
+              {callStatus === 'ended' && "Thanks for talking with Agent Pettra."}
               {callStatus === 'error' && errorMessage}
             </p>
           </div>
@@ -539,7 +539,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
                   }}
                 >
                   <div style={{ fontSize: '0.7rem', color: m.sender === 'customer' ? 'var(--accent-blue)' : 'var(--accent-indigo)', marginBottom: '2px', fontWeight: 600 }}>
-                    {m.sender === 'customer' ? 'You' : m.sender === 'petra' ? 'Petra' : 'System'} • {m.time}
+                    {m.sender === 'customer' ? 'You' : m.sender === 'petra' ? 'Agent Pettra' : 'System'} • {m.time}
                   </div>
                   <div style={{ color: 'var(--text-primary)', lineHeight: 1.4 }}>{m.text}</div>
                 </div>
@@ -637,7 +637,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
                 }}
               >
                 <PhoneCall size={22} />
-                <span>Talk to Petra</span>
+                <span>Talk to Agent Pettra</span>
               </button>
             ) : (
               <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
@@ -701,7 +701,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
             No forms. No waiting. No sales call.
           </p>
 
-          {/* Dedicated Fallback: Call Petra on Phone */}
+          {/* Dedicated Fallback: Call Agent Pettra on Phone */}
           <div style={{
             marginTop: '28px',
             padding: '16px 20px',
@@ -747,7 +747,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
         {callStatus === 'ended' && (
           <div className="petra-post-demo-card">
             <h3 className="petra-post-demo-title">
-              Imagine Petra Answering Your Business Calls.
+              Imagine Agent Pettra Answering Your Business Calls.
             </h3>
             <p className="petra-post-demo-desc">
               That same experience can be customized for your business, your services, your customers, and your appointment schedule.
@@ -761,7 +761,7 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
                 className="btn btn-primary btn-lg"
               >
                 <Calendar size={18} />
-                <span>Get Petra for My Business</span>
+                <span>Get Agent Pettra for My Business</span>
               </button>
               <a
                 href="#pricing"

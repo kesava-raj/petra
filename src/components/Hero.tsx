@@ -8,7 +8,7 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
   const handlePrimaryCta = () => {
-    trackEvent('hero_cta_click', { button: 'primary_talk_to_petra' });
+    trackEvent('hero_cta_click', { button: 'primary_talk_to_agent_pettra' });
     onOpenDemo();
   };
 
@@ -46,7 +46,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
 
             {/* Supporting Copy */}
             <p className="hero-subheading">
-              Meet Petra — an AI receptionist that answers calls, talks naturally with your customers, answers questions, and books appointments for your business, 24/7.
+              Meet Agent Pettra — an AI receptionist that answers calls, talks naturally with your customers, answers questions, and books appointments for your business, 24/7.
             </p>
 
             {/* CTA Group */}
@@ -54,10 +54,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
               <button
                 onClick={handlePrimaryCta}
                 className="btn btn-primary btn-lg btn-pulse hero-primary-btn"
-                id="hero-talk-to-petra"
+                id="hero-talk-to-agent-pettra"
               >
                 <PhoneCall size={20} />
-                <span>Talk to Petra</span>
+                <span>Talk to Agent Pettra</span>
               </button>
 
               <button
@@ -74,7 +74,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
             <p className="hero-microcopy">
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', verticalAlign: 'middle', whiteSpace: 'nowrap' }}>
                 <CheckCircle2 size={16} strokeWidth={2.2} color="#10B981" style={{ flexShrink: 0 }} />
-                <span>Try Petra yourself.</span>
+                <span>Try Agent Pettra yourself.</span>
               </span>{' '}
               <span style={{ whiteSpace: 'nowrap', verticalAlign: 'middle' }}>
                 It takes less than a minute.
@@ -165,7 +165,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
                     AI RECEPTIONIST
                   </div>
                   <h3 style={{ fontSize: '1.55rem', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.02em' }}>
-                    PETRA
+                    AGENT PETTRA
                   </h3>
                   <div style={{
                     display: 'flex',
@@ -290,10 +290,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
               </p>
             </div>
 
-            {/* Floating Bubble 2: Petra */}
+            {/* Floating Bubble 2: Agent Pettra */}
             <div className="hero-floating-bubble-2">
               <span style={{ fontSize: '0.7rem', color: '#93C5FD', fontWeight: 600, display: 'block', marginBottom: '2px' }}>
-                Petra (AI Receptionist)
+                Agent Pettra (AI Receptionist)
               </span>
               <p style={{ fontSize: '0.85rem', color: '#FFFFFF', fontWeight: 500, margin: 0 }}>
                 &ldquo;Absolutely. What day works best for you?&rdquo;

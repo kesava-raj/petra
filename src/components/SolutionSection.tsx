@@ -53,7 +53,7 @@ export const SolutionSection: React.FC<SolutionSectionProps> = ({ onOpenDemo }) 
           marginBottom: '20px',
           letterSpacing: '-0.025em'
         }}>
-          Let Petra Handle the Calls.
+          Let Agent Pettra Handle the Calls.
         </h2>
 
         <p style={{
@@ -64,7 +64,7 @@ export const SolutionSection: React.FC<SolutionSectionProps> = ({ onOpenDemo }) 
           maxWidth: '680px',
           margin: '0 auto 36px auto'
         }}>
-          Petra gives your customers someone to talk to — even when your team is busy, unavailable, or out of the office.
+          Agent Pettra gives your customers someone to talk to — even when your team is busy, unavailable, or out of the office.
         </p>
 
         <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
@@ -74,11 +74,11 @@ export const SolutionSection: React.FC<SolutionSectionProps> = ({ onOpenDemo }) 
               onOpenDemo();
             }}
             className="btn btn-primary btn-lg btn-pulse"
-            id="solution-talk-to-petra"
+            id="solution-talk-to-agent-pettra"
             style={{ padding: '16px 38px' }}
           >
             <PhoneCall size={20} />
-            <span>Talk to Petra</span>
+            <span>Talk to Agent Pettra</span>
           </button>
         </div>
 

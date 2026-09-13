@@ -244,7 +244,7 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onOpenDemo }) => {
               style={{ width: '100%', marginBottom: '16px' }}
             >
               <PhoneCall size={18} />
-              <span>See What Petra Can Do</span>
+              <span>See What Agent Pettra Can Do</span>
             </button>
 
             <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: 1.4, margin: 0 }}>

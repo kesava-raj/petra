@@ -20,15 +20,15 @@ export interface VoiceConfig {
 export const voiceConfig: VoiceConfig = {
   vapiPublicKey: import.meta.env.VITE_VAPI_PUBLIC_KEY || '',
   assistantId: import.meta.env.VITE_VAPI_ASSISTANT_ID || '',
-  phoneNumber: import.meta.env.VITE_PETRA_PHONE_NUMBER || '+18005557387',
-  displayPhoneNumber: '+1 (800) 555-PETRA',
+  phoneNumber: import.meta.env.VITE_AGENT_PETTRA_PHONE_NUMBER || import.meta.env.VITE_PETRA_PHONE_NUMBER || '+18005557387',
+  displayPhoneNumber: '+1 (800) 555-PETTRA',
   suggestedPrompts: [
     "I'd like to book an appointment.",
     "What services do you offer?",
     "Are you available Thursday afternoon?",
     "I need an appointment next week."
   ],
-  simulatedGreeting: "Hi! Thanks for calling. I'm Petra, your AI receptionist. How can I help you today?",
+  simulatedGreeting: "Hi! Thanks for calling. I'm Agent Pettra, your AI receptionist. How can I help you today?",
   simulatedResponses: [
     {
       trigger: /appointment|book|schedule/i,

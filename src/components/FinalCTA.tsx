@@ -93,20 +93,20 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenDemo }) => {
           <button
             onClick={handleCta}
             className="btn btn-primary btn-lg btn-pulse final-cta-btn"
-            id="final-talk-to-petra"
+            id="final-talk-to-agent-pettra"
             style={{
               boxShadow: '0 0 45px rgba(59, 130, 246, 0.5)'
             }}
           >
             <PhoneCall size={22} />
-            <span>Talk to Petra</span>
+            <span>Talk to Agent Pettra</span>
           </button>
         </div>
 
         <p className="final-cta-microcopy">
           <span className="final-cta-phrase">
             <CheckCircle2 size={16} strokeWidth={2.2} color="var(--accent-emerald)" className="final-cta-icon" />
-            <span>Experience Petra before you buy.</span>
+            <span>Experience Agent Pettra before you buy.</span>
           </span>{' '}
           <span className="final-cta-phrase">
             <span>Takes less than a minute.</span>

@@ -70,7 +70,7 @@ export const Footer: React.FC = () => {
                 color: 'var(--text-primary)',
                 letterSpacing: '-0.03em'
               }}>
-                Petra<span style={{ color: 'var(--accent-blue)' }}>.</span>
+                Agent Pettra<span style={{ color: 'var(--accent-blue)' }}>.</span>
               </span>
             </div>
 
@@ -81,7 +81,7 @@ export const Footer: React.FC = () => {
               maxWidth: '360px',
               marginBottom: '20px'
             }}>
-              Petra is an AI receptionist that helps businesses answer calls and book appointments 24/7.
+              Agent Pettra is an AI receptionist that helps businesses answer calls and book appointments 24/7.
             </p>
 
             <div style={{
@@ -123,9 +123,9 @@ export const Footer: React.FC = () => {
               Company
             </h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <li><a href="#" className="footer-link">About Petra</a></li>
+              <li><a href="#" className="footer-link">About Agent Pettra</a></li>
               <li><a href="#demo" className="footer-link">Voice Demo</a></li>
-              <li><a href="mailto:support@petra.ai" className="footer-link">Contact</a></li>
+              <li><a href="mailto:support@agentpettra.ai" className="footer-link">Contact</a></li>
             </ul>
           </div>
 
@@ -155,7 +155,7 @@ export const Footer: React.FC = () => {
           fontSize: '0.8125rem'
         }}>
           <div>
-            &copy; {new Date().getFullYear()} Petra AI Receptionist. All rights reserved.
+            &copy; {new Date().getFullYear()} Agent Pettra AI Receptionist. All rights reserved.
           </div>
           <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
             <span>SOC2 Compliant Architecture</span>

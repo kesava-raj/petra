@@ -13,7 +13,7 @@ export const Features: React.FC = () => {
   const features = [
     {
       title: '24/7 Call Answering',
-      description: 'Petra can answer calls whenever your customers need you — nights, weekends, and holidays included.',
+      description: 'Agent Pettra can answer calls whenever your customers need you — nights, weekends, and holidays included.',
       icon: Clock,
       color: '#3B82F6'
     },
@@ -25,19 +25,19 @@ export const Features: React.FC = () => {
     },
     {
       title: 'Appointment Booking',
-      description: 'Petra can help turn conversations into scheduled appointments when connected to your scheduling workflow.',
+      description: 'Agent Pettra can help turn conversations into scheduled appointments when connected to your scheduling workflow.',
       icon: CalendarCheck,
       color: '#10B981'
     },
     {
       title: 'Business Questions',
-      description: 'Configure Petra with information about your business, services, pricing policies, hours, and FAQs.',
+      description: 'Configure Agent Pettra with information about your business, services, pricing policies, hours, and FAQs.',
       icon: HelpCircle,
       color: '#06B6D4'
     },
     {
       title: 'Custom Voice Experience',
-      description: 'Configure Petra’s personality, greeting, and conversation style tailored around your unique brand.',
+      description: 'Configure Agent Pettra’s personality, greeting, and conversation style tailored around your unique brand.',
       icon: Sliders,
       color: '#F59E0B'
     },

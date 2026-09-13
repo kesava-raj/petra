@@ -52,7 +52,7 @@ export const App: React.FC = () => {
         {/* 2. Hero Section */}
         <Hero onOpenDemo={scrollToDemo} />
 
-        {/* 3. Live Petra Demo (The most important section) */}
+        {/* 3. Live Agent Pettra Demo (The most important section) */}
         <PetraVoiceDemo onOpenLeadModal={() => setIsLeadModalOpen(true)} />
 
         {/* 4. Trust / Industry Strip */}
@@ -64,7 +64,7 @@ export const App: React.FC = () => {
         {/* 6. Solution Section */}
         <SolutionSection onOpenDemo={scrollToDemo} />
 
-        {/* 7. How Petra Works */}
+        {/* 7. How Agent Pettra Works */}
         <HowItWorks />
 
         {/* 8. Interactive Conversation Demo */}

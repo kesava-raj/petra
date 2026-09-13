@@ -8,7 +8,7 @@ export const ThemeToggle: React.FC = () => {
 
   useEffect(() => {
     // Read saved preference or default to 'light'
-    const savedTheme = localStorage.getItem('petra-theme') as 'light' | 'dark' | null;
+    const savedTheme = (localStorage.getItem('agent-pettra-theme') || localStorage.getItem('petra-theme')) as 'light' | 'dark' | null;
     const initialTheme = savedTheme === 'dark' ? 'dark' : 'light';
     setTheme(initialTheme);
     document.documentElement.setAttribute('data-theme', initialTheme);
@@ -19,7 +19,7 @@ export const ThemeToggle: React.FC = () => {
   const toggleTheme = () => {
     const nextTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(nextTheme);
-    localStorage.setItem('petra-theme', nextTheme);
+    localStorage.setItem('agent-pettra-theme', nextTheme);
     document.documentElement.setAttribute('data-theme', nextTheme);
     document.body.setAttribute('data-theme', nextTheme);
   };

@@ -58,11 +58,11 @@ export function getStoredUTMParams(): UTMParameters {
   });
 
   if (hasNewParams) {
-    sessionStorage.setItem('petra_utm_params', JSON.stringify(currentParams));
+    sessionStorage.setItem('agent_pettra_utm_params', JSON.stringify(currentParams));
     return currentParams;
   }
 
-  const stored = sessionStorage.getItem('petra_utm_params');
+  const stored = sessionStorage.getItem('agent_pettra_utm_params') || sessionStorage.getItem('petra_utm_params');
   if (stored) {
     try {
       return JSON.parse(stored);
@@ -94,9 +94,9 @@ export function trackEvent(event: AnalyticsEvent, properties?: Record<string, un
     if (event === 'lead_submitted') {
       window.fbq('track', 'Lead', payload);
     } else if (event === 'demo_start') {
-      window.fbq('trackCustom', 'PetraDemoStart', payload);
+      window.fbq('trackCustom', 'AgentPettraDemoStart', payload);
     } else if (event === 'demo_complete') {
-      window.fbq('trackCustom', 'PetraDemoComplete', payload);
+      window.fbq('trackCustom', 'AgentPettraDemoComplete', payload);
     } else {
       window.fbq('trackCustom', event, payload);
     }

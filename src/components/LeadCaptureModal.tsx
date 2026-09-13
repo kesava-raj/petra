@@ -58,13 +58,13 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
       }
 
       try {
-        const existing = JSON.parse(localStorage.getItem('petra_inquiries') || '[]');
+        const existing = JSON.parse(localStorage.getItem('agent_pettra_inquiries') || localStorage.getItem('petra_inquiries') || '[]');
         existing.unshift({
           ...formData,
           selectedPlan,
           submittedAt: new Date().toISOString()
         });
-        localStorage.setItem('petra_inquiries', JSON.stringify(existing.slice(0, 50)));
+        localStorage.setItem('agent_pettra_inquiries', JSON.stringify(existing.slice(0, 50)));
       } catch {
         // Fallback
       }
@@ -166,7 +166,7 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
             </div>
 
             <h3 id="lead-modal-title" style={{ fontSize: '1.65rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '8px' }}>
-              Get Petra for Your Business
+              Get Agent Pettra for Your Business
             </h3>
 
             {selectedPlan && (
@@ -339,7 +339,7 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
                 className="btn btn-primary btn-lg"
                 style={{ width: '100%', marginTop: '8px', padding: '14px' }}
               >
-                <span>{isSubmitting ? 'Configuring Preview...' : 'See How Petra Can Work for My Business'}</span>
+                <span>{isSubmitting ? 'Configuring Preview...' : 'See How Agent Pettra Can Work for My Business'}</span>
               </button>
             </form>
           </div>

@@ -230,7 +230,7 @@ export const IndustrySection: React.FC<IndustrySectionProps> = ({ onOpenDemo }) 
           </h2>
           <p className="section-subtitle">
             Whether you run a private clinic, a luxury salon, or a multi-location practice, 
-            Petra adapts to your exact business vocabulary and booking rules.
+            Agent Pettra adapts to your exact business vocabulary and booking rules.
           </p>
         </div>
 
@@ -310,7 +310,7 @@ export const IndustrySection: React.FC<IndustrySectionProps> = ({ onOpenDemo }) 
                 style={{ padding: '12px 24px' }}
               >
                 <PhoneCall size={16} />
-                <span>Talk to Petra for {activeIndustry.name}</span>
+                <span>Talk to Agent Pettra for {activeIndustry.name}</span>
               </button>
             </div>
 
@@ -326,12 +326,12 @@ export const IndustrySection: React.FC<IndustrySectionProps> = ({ onOpenDemo }) 
                 {activeIndustry.exampleQuestion}
               </div>
 
-              {/* Petra Reply */}
+              {/* Agent Pettra Reply */}
               <div 
                 className="industry-preview-petra"
                 style={{ borderLeft: `3px solid ${activeIndustry.color}` }}
               >
-                <span style={{ fontSize: '0.7rem', color: 'var(--accent-indigo)', display: 'block', fontWeight: 700 }}>Petra (AI Receptionist):</span>
+                <span style={{ fontSize: '0.7rem', color: 'var(--accent-indigo)', display: 'block', fontWeight: 700 }}>Agent Pettra (AI Receptionist):</span>
                 {activeIndustry.petraResponse}
               </div>
             </div>

@@ -7,32 +7,32 @@ export const FAQ: React.FC = () => {
 
   const faqs: FAQItem[] = [
     {
-      question: "Is Petra a real person?",
-      answer: "No. Petra is an AI voice receptionist designed to communicate naturally with callers using conversational intelligence."
+      question: "Is Agent Pettra a real person?",
+      answer: "No. Agent Pettra is an AI voice receptionist designed to communicate naturally with callers using conversational intelligence."
     },
     {
-      question: "Can Petra book appointments?",
-      answer: "Yes, when connected to a supported scheduling or calendar workflow. Petra checks real-time slot availability, books the time, and sends confirmation alerts."
+      question: "Can Agent Pettra book appointments?",
+      answer: "Yes, when connected to a supported scheduling or calendar workflow. Agent Pettra checks real-time slot availability, books the time, and sends confirmation alerts."
     },
     {
-      question: "Can I customize Petra?",
-      answer: "Yes. Petra can be configured around your business information, services, pricing policies, FAQs, tone of voice, and custom booking workflows."
+      question: "Can I customize Agent Pettra?",
+      answer: "Yes. Agent Pettra can be configured around your business information, services, pricing policies, FAQs, tone of voice, and custom booking workflows."
     },
     {
-      question: "Does Petra work after business hours?",
-      answer: "Petra can be available 24/7, allowing your business to answer calls, qualify leads, and schedule appointments beyond normal operating hours."
+      question: "Does Agent Pettra work after business hours?",
+      answer: "Agent Pettra can be available 24/7, allowing your business to answer calls, qualify leads, and schedule appointments beyond normal operating hours."
     },
     {
-      question: "Can customers call Petra?",
-      answer: "Yes. Petra can operate through a connected business phone number or phone forwarding from your existing office line."
+      question: "Can customers call Agent Pettra?",
+      answer: "Yes. Agent Pettra can operate through a connected business phone number or phone forwarding from your existing office line."
     },
     {
-      question: "Can I try Petra before subscribing?",
-      answer: "Yes! This landing page provides a live interactive experience so you can talk to Petra and test her voice and booking flow before deciding."
+      question: "Can I try Agent Pettra before subscribing?",
+      answer: "Yes! This landing page provides a live interactive experience so you can talk to Agent Pettra and test her voice and booking flow before deciding."
     },
     {
-      question: "What happens if Petra cannot handle a request?",
-      answer: "Petra follows your configured fallback workflow for situations outside her capabilities — such as taking a detailed callback message, sending an instant SMS summary to your team, or routing to voicemail."
+      question: "What happens if Agent Pettra cannot handle a request?",
+      answer: "Agent Pettra follows your configured fallback workflow for situations outside her capabilities — such as taking a detailed callback message, sending an instant SMS summary to your team, or routing to voicemail."
     }
   ];
 
@@ -51,7 +51,7 @@ export const FAQ: React.FC = () => {
             <span>GOT QUESTIONS?</span>
           </div>
           <h2 className="section-title">
-            Questions? Petra has answers.
+            Questions? Agent Pettra has answers.
           </h2>
           <p className="section-subtitle">
             Everything you need to know about setting up and working with your AI receptionist.

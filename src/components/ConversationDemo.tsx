@@ -149,10 +149,10 @@ export const ConversationDemo: React.FC<ConversationDemoProps> = ({ onOpenVoiceD
             <span>REAL-TIME SIMULATION</span>
           </div>
           <h2 className="section-title">
-            See Petra in Action.
+            See Agent Pettra in Action.
           </h2>
           <p className="section-subtitle">
-            Watch how naturally Petra converses, understands nuances, and books appointments seamlessly.
+            Watch how naturally Agent Pettra converses, understands nuances, and books appointments seamlessly.
           </p>
         </div>
 
@@ -218,7 +218,7 @@ export const ConversationDemo: React.FC<ConversationDemoProps> = ({ onOpenVoiceD
                     textTransform: 'uppercase',
                     marginBottom: '4px'
                   }}>
-                    {isPetra ? 'Petra (AI Receptionist)' : 'Caller'}
+                    {isPetra ? 'Agent Pettra (AI Receptionist)' : 'Caller'}
                   </span>
                   <div 
                     className={isPetra ? 'petra-bubble' : 'caller-bubble'}
@@ -299,7 +299,7 @@ export const ConversationDemo: React.FC<ConversationDemoProps> = ({ onOpenVoiceD
                 Want to hear the real voice agent live?
               </span>
               <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                Speak directly to Petra with your microphone.
+                Speak directly to Agent Pettra with your microphone.
               </span>
             </div>
 
@@ -312,7 +312,7 @@ export const ConversationDemo: React.FC<ConversationDemoProps> = ({ onOpenVoiceD
               style={{ padding: '12px 24px', fontSize: '0.9375rem' }}
             >
               <PhoneCall size={16} />
-              <span>Talk to Petra Now</span>
+              <span>Talk to Agent Pettra Now</span>
             </button>
           </div>
 

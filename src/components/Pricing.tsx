@@ -282,7 +282,7 @@ export const Pricing: React.FC<PricingProps> = ({ onSelectPlan, onOpenDemo }) =>
             <div className="pricing-annual-banner">
               <Gift size={16} color="var(--accent-emerald)" />
               <span>
-                <strong>Get 12 months of Petra for the price of 10.</strong> Pay for 10 months upfront, get 2 full months free.
+                <strong>Get 12 months of Agent Pettra for the price of 10.</strong> Pay for 10 months upfront, get 2 full months free.
               </span>
             </div>
           )}

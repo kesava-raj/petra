@@ -13,16 +13,16 @@ export const HowItWorks: React.FC = () => {
     },
     {
       number: '02',
-      title: 'Petra Answers',
-      description: 'Petra answers instantly without hold times and starts a natural, warm conversation.',
+      title: 'Agent Pettra Answers',
+      description: 'Agent Pettra answers instantly without hold times and starts a natural, warm conversation.',
       icon: Waves,
       color: '#06B6D4',
       subtext: 'Instant Pickup'
     },
     {
       number: '03',
-      title: 'Petra Understands',
-      description: 'Petra understands what the caller needs, answers questions, and qualifies availability.',
+      title: 'Agent Pettra Understands',
+      description: 'Agent Pettra understands what the caller needs, answers questions, and qualifies availability.',
       icon: Bot,
       color: '#6366F1',
       subtext: 'Active Intelligence'
@@ -30,7 +30,7 @@ export const HowItWorks: React.FC = () => {
     {
       number: '04',
       title: 'Appointment Booked',
-      description: 'Petra checks real-time slots, reserves the calendar time, and sends SMS confirmation.',
+      description: 'Agent Pettra checks real-time slots, reserves the calendar time, and sends SMS confirmation.',
       icon: CalendarCheck,
       color: '#10B981',
       subtext: 'Calendar Synced'

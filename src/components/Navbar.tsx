@@ -53,7 +53,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
         <a 
           href="#" 
           style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}
-          aria-label="Petra AI Homepage"
+          aria-label="Agent Pettra AI Homepage"
         >
           <div style={{
             width: '38px',
@@ -77,7 +77,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
               letterSpacing: '-0.03em',
               lineHeight: 1
             }}>
-              Petra<span style={{ color: 'var(--accent-blue)' }}>.</span>
+              Agent Pettra<span style={{ color: 'var(--accent-blue)' }}>.</span>
             </span>
             <span style={{ 
               fontSize: '0.65rem', 
@@ -129,10 +129,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
               alignItems: 'center',
               gap: '8px'
             }}
-            id="nav-talk-to-petra"
+            id="nav-talk-to-agent-pettra"
           >
             <Sparkles size={16} />
-            <span className="nav-cta-text">Talk to Petra</span>
+            <span className="nav-cta-text">Talk to Agent Pettra</span>
           </button>
 
           {/* Mobile Menu Button */}
@@ -207,7 +207,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
               style={{ width: '100%', marginTop: '8px', justifyContent: 'center', padding: '14px' }}
             >
               <PhoneCall size={18} />
-              Talk to Petra
+              Talk to Agent Pettra
             </button>
           </div>
         </>

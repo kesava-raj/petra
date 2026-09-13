@@ -128,12 +128,12 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
       }
 
       try {
-        const existing = JSON.parse(localStorage.getItem('petra_inquiries') || '[]');
+        const existing = JSON.parse(localStorage.getItem('agent_pettra_inquiries') || localStorage.getItem('petra_inquiries') || '[]');
         existing.unshift({
           ...payload,
           submittedAt: new Date().toISOString()
         });
-        localStorage.setItem('petra_inquiries', JSON.stringify(existing.slice(0, 50)));
+        localStorage.setItem('agent_pettra_inquiries', JSON.stringify(existing.slice(0, 50)));
       } catch {
         // Fallback
       }
@@ -530,7 +530,7 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
                     Zero Commitment &amp; Strict Privacy
                   </h4>
                   <p style={{ fontSize: '0.84rem', color: 'var(--text-muted)', margin: '4px 0 0 0', lineHeight: 1.55 }}>
-                    Test Petra risk-free with no credit card required and no spam guarantee.
+                    Test Agent Pettra risk-free with no credit card required and no spam guarantee.
                   </p>
                 </div>
               </div>
@@ -539,7 +539,7 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
             {onOpenDemo && (
               <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: '1px solid var(--border-subtle)' }}>
                 <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '10px' }}>
-                  Want to hear Petra right now?
+                  Want to hear Agent Pettra right now?
                 </p>
                 <button
                   type="button"
