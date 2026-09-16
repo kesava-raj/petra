@@ -1,6 +1,7 @@
 import React from 'react';
 import { PhoneCall, Play, Sparkles, CheckCircle2, Mic, Volume2, PhoneOff } from 'lucide-react';
 import { trackEvent } from '../utils/analytics';
+import { StatsStrip } from './StatsStrip';
 
 interface HeroProps {
   onOpenDemo: () => void;
@@ -165,7 +166,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
                     AI RECEPTIONIST
                   </div>
                   <h3 style={{ fontSize: '1.55rem', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.02em' }}>
-                    AGENT PETTRA
+                    PETTRA
                   </h3>
                   <div style={{
                     display: 'flex',
@@ -290,10 +291,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
               </p>
             </div>
 
-            {/* Floating Bubble 2: Agent Pettra */}
+            {/* Floating Bubble 2: Pettra */}
             <div className="hero-floating-bubble-2">
               <span style={{ fontSize: '0.7rem', color: '#93C5FD', fontWeight: 600, display: 'block', marginBottom: '2px' }}>
-                Agent Pettra (AI Receptionist)
+                Pettra (AI Receptionist)
               </span>
               <p style={{ fontSize: '0.85rem', color: '#FFFFFF', fontWeight: 500, margin: 0 }}>
                 &ldquo;Absolutely. What day works best for you?&rdquo;
@@ -302,6 +303,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
 
           </div>
 
+        </div>
+
+        {/* User-Requested Stats Strip Banner */}
+        <div className="hero-stats-wrapper">
+          <StatsStrip />
         </div>
       </div>
 
@@ -312,6 +318,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
           grid-template-columns: 1.15fr 0.85fr;
           gap: 48px;
           align-items: center;
+        }
+
+        .hero-stats-wrapper {
+          margin-top: 64px;
+          position: relative;
+          z-index: 2;
         }
 
         .hero-copy-col {
@@ -371,14 +383,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
 
         .hero-floating-bubble-1 {
           position: absolute;
-          top: 10%;
-          left: -18px;
+          top: 6%;
+          left: -32px;
           background: rgba(15, 23, 42, 0.92);
           backdrop-filter: blur(16px);
           border: 1px solid rgba(255, 255, 255, 0.12);
           border-radius: 16px;
           padding: 12px 16px;
-          max-width: 210px;
+          max-width: 195px;
           box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
           z-index: 3;
           animation: floatSlow 4s ease-in-out infinite;
@@ -387,7 +399,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
         .hero-floating-bubble-2 {
           position: absolute;
           bottom: 12%;
-          right: -18px;
+          right: -24px;
           background: linear-gradient(135deg, rgba(30, 58, 138, 0.9) 0%, rgba(49, 46, 129, 0.9) 100%);
           backdrop-filter: blur(16px);
           border: 1px solid rgba(96, 165, 250, 0.35);
@@ -452,9 +464,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
             align-items: center;
           }
           .hero-floating-bubble-1 {
-            left: 4px;
-            top: 2%;
-            max-width: 170px;
+            left: 0;
+            top: -16px;
+            max-width: 175px;
             padding: 8px 12px;
           }
           .hero-floating-bubble-2 {
@@ -462,6 +474,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
             bottom: 2%;
             max-width: 180px;
             padding: 8px 12px;
+          }
+          .hero-stats-wrapper {
+            margin-top: 36px;
           }
         }
       `}</style>
