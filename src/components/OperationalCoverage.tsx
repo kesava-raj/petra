@@ -187,7 +187,8 @@ export const OperationalCoverage: React.FC = () => {
           margin-bottom: 20px;
         }
 
-        [data-theme="light"] .op-coverage-headline {
+        [data-theme="light"] .op-coverage-headline,
+        :root:not([data-theme="dark"]) .op-coverage-headline {
           color: #0F172A;
         }
 
@@ -195,6 +196,14 @@ export const OperationalCoverage: React.FC = () => {
           background: linear-gradient(135deg, #38BDF8 0%, #34D399 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
+        }
+
+        [data-theme="light"] .op-gradient-text,
+        :root:not([data-theme="dark"]) .op-gradient-text {
+          background: none !important;
+          -webkit-background-clip: initial !important;
+          -webkit-text-fill-color: #0F172A !important;
+          color: #0F172A !important;
         }
 
         .op-coverage-grid {
