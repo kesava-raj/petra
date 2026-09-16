@@ -5,6 +5,7 @@ import { PetraVoiceDemo } from './components/PetraVoiceDemo';
 import { IndustryStrip } from './components/IndustryStrip';
 import { ProblemSection } from './components/ProblemSection';
 import { SolutionSection } from './components/SolutionSection';
+import { OperationalCoverage } from './components/OperationalCoverage';
 import { HowItWorks } from './components/HowItWorks';
 import { ConversationDemo } from './components/ConversationDemo';
 import { Features } from './components/Features';
@@ -63,6 +64,9 @@ export const App: React.FC = () => {
 
         {/* 6. Solution Section */}
         <SolutionSection onOpenDemo={scrollToDemo} />
+
+        {/* 6b. Operational Coverage ("Agent Pettra does not just talk. It runs the operation.") */}
+        <OperationalCoverage />
 
         {/* 7. How Agent Pettra Works */}
         <HowItWorks />
