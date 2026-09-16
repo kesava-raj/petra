@@ -6,6 +6,7 @@ import { IndustryStrip } from './components/IndustryStrip';
 import { ProblemSection } from './components/ProblemSection';
 import { SolutionSection } from './components/SolutionSection';
 import { OperationalCoverage } from './components/OperationalCoverage';
+import { BenchmarkComparison } from './components/BenchmarkComparison';
 import { HowItWorks } from './components/HowItWorks';
 import { ConversationDemo } from './components/ConversationDemo';
 import { Features } from './components/Features';
@@ -67,6 +68,9 @@ export const App: React.FC = () => {
 
         {/* 6b. Operational Coverage ("Agent Pettra does not just talk. It runs the operation.") */}
         <OperationalCoverage />
+
+        {/* 6c. Performance Benchmarks & Why Teams Pick Agent Pettra */}
+        <BenchmarkComparison />
 
         {/* 7. How Agent Pettra Works */}
         <HowItWorks />
