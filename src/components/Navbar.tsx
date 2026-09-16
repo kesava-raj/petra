@@ -44,8 +44,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
         backdropFilter: isScrolled ? 'blur(16px)' : 'none',
         WebkitBackdropFilter: isScrolled ? 'blur(16px)' : 'none',
         borderBottom: isScrolled ? '1px solid var(--border-subtle)' : '1px solid transparent',
-        transition: 'all 0.3s ease',
-        padding: isScrolled ? '14px 0' : '20px 0'
+        transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+        paddingTop: isScrolled ? 'calc(12px + env(safe-area-inset-top, 0px))' : 'calc(18px + env(safe-area-inset-top, 0px))',
+        paddingBottom: isScrolled ? '12px' : '18px'
       }}
     >
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -163,9 +164,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
             style={{
               position: 'fixed',
               inset: 0,
-              top: '70px',
+              top: '64px',
               background: 'rgba(0, 0, 0, 0.6)',
-              backdropFilter: 'blur(4px)',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
               zIndex: 98
             }}
           />
@@ -176,12 +178,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
             right: 0,
             background: 'var(--bg-card)',
             backdropFilter: 'blur(24px)',
+            WebkitBackdropFilter: 'blur(24px)',
             borderBottom: '1px solid var(--border-subtle)',
-            padding: '24px 20px',
+            padding: '24px 20px calc(24px + env(safe-area-inset-bottom, 0px)) 20px',
             display: 'flex',
             flexDirection: 'column',
             gap: '16px',
             zIndex: 99,
+            maxHeight: 'calc(100dvh - 70px)',
+            overflowY: 'auto',
+            WebkitOverflowScrolling: 'touch',
             boxShadow: 'var(--shadow-lg)'
           }}>
             {navLinks.map((link) => (

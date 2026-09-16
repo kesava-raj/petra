@@ -94,10 +94,11 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
       zIndex: 200,
       background: 'rgba(0, 0, 0, 0.75)',
       backdropFilter: 'blur(12px)',
+      WebkitBackdropFilter: 'blur(12px)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '16px'
+      padding: 'max(16px, env(safe-area-inset-top, 16px)) max(16px, env(safe-area-inset-right, 16px)) max(16px, env(safe-area-inset-bottom, 16px)) max(16px, env(safe-area-inset-left, 16px))'
     }}>
       <style>{`
         .lead-modal-fields-row {
@@ -124,12 +125,13 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
         style={{
           width: '100%',
           maxWidth: '520px',
-          maxHeight: '92vh',
+          maxHeight: '92dvh',
           overflowY: 'auto',
+          WebkitOverflowScrolling: 'touch',
           background: 'var(--bg-card)',
           border: '1px solid var(--border-glow)',
           borderRadius: '24px',
-          padding: 'clamp(24px, 4vw, 36px)',
+          padding: 'clamp(22px, 4vw, 36px)',
           boxShadow: 'var(--shadow-lg), var(--shadow-glow)',
           position: 'relative'
         }}

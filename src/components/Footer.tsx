@@ -6,7 +6,10 @@ export const Footer: React.FC = () => {
     <footer style={{
       background: 'var(--bg-secondary)',
       borderTop: '1px solid var(--border-subtle)',
-      padding: '72px 0 36px 0'
+      paddingTop: '72px',
+      paddingBottom: 'calc(36px + env(safe-area-inset-bottom, 0px))',
+      paddingLeft: 'env(safe-area-inset-left, 0px)',
+      paddingRight: 'env(safe-area-inset-right, 0px)'
     }}>
       <style>{`
         .footer-link {

@@ -103,8 +103,12 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 86px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -115,7 +119,30 @@ body {
   overflow-x: hidden;
   position: relative;
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100dvh;
+  width: 100%;
+  transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Modern Smooth Scrollbar for Windows, Linux & Chrome/Firefox */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-darkest);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.35);
+  border-radius: 9999px;
+  border: 2px solid var(--bg-darkest);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.65);
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.35) transparent;
 }
 
 /* Ambient Background Glows */
@@ -161,6 +188,8 @@ a {
   color: inherit;
   text-decoration: none;
   transition: color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 button {
@@ -169,37 +198,63 @@ button {
   background: none;
   cursor: pointer;
   outline: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-/* Layout Utilities */
+input, select, textarea {
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent unwanted zoom on iOS Safari (<16px auto-zoom bug) */
+@media (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Smooth GPU Acceleration on Interactive Cards */
+.btn, .glass-card, .hiw-card, .op-coverage-card, .benchmark-chart-card, 
+.pricing-card, .roi-calculator-card, .industry-showcase-card, .lead-modal-card {
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Layout Utilities with Safe Area Support */
 .container {
   width: 100%;
   max-width: 1240px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding-left: max(24px, env(safe-area-inset-left, 24px));
+  padding-right: max(24px, env(safe-area-inset-right, 24px));
   position: relative;
   z-index: 1;
 }
 
 .section-padding {
-  padding: 96px 0;
+  padding: 88px 0;
 }
 
 @media (max-width: 1024px) {
   .section-padding {
-    padding: 72px 0;
+    padding: 68px 0;
   }
   .container {
-    padding: 0 20px;
+    padding-left: max(20px, env(safe-area-inset-left, 20px));
+    padding-right: max(20px, env(safe-area-inset-right, 20px));
   }
 }
 
 @media (max-width: 640px) {
   .section-padding {
-    padding: 48px 0;
+    padding: 44px 0;
   }
   .container {
-    padding: 0 16px;
+    padding-left: max(16px, env(safe-area-inset-left, 16px));
+    padding-right: max(16px, env(safe-area-inset-right, 16px));
   }
 }
 

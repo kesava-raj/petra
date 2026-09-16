@@ -479,6 +479,19 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
             margin-top: 36px;
           }
         }
+
+        @media (max-width: 420px) {
+          .hero-floating-bubble-1 {
+            display: none;
+          }
+          .hero-floating-bubble-2 {
+            position: relative;
+            right: auto;
+            bottom: auto;
+            margin-top: 14px;
+            max-width: 260px;
+          }
+        }
       `}</style>
     </section>
   );

@@ -31,12 +31,14 @@ export const MobileStickyCTA: React.FC<MobileStickyCTAProps> = ({ onOpenDemo }) 
       aria-label="Quick voice call action"
       style={{
         position: 'fixed',
-        bottom: '20px',
-        left: '16px',
-        right: '16px',
+        bottom: 'calc(16px + env(safe-area-inset-bottom, 0px))',
+        left: 'calc(16px + env(safe-area-inset-left, 0px))',
+        right: 'calc(16px + env(safe-area-inset-right, 0px))',
+        maxWidth: '460px',
+        margin: '0 auto',
         zIndex: 90,
         display: 'none',
-        animation: 'slideUp 0.3s ease-out'
+        animation: 'slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
       }}
     >
       <button
