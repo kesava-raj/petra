@@ -73,7 +73,7 @@ export const App: React.FC = () => {
         <BenchmarkComparison />
 
         {/* 7. How Agent Pettra Works */}
-        <HowItWorks />
+        <HowItWorks onOpenDemo={scrollToDemo} />
 
         {/* 8. Interactive Conversation Demo */}
         <ConversationDemo onOpenVoiceDemo={scrollToDemo} />
