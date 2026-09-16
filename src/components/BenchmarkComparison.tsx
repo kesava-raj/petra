@@ -128,19 +128,6 @@ export const BenchmarkComparison: React.FC = () => {
                 strokeWidth="1.5" 
               />
 
-              {/* Center Target Reticle */}
-              <g className="chart-reticle" transform="translate(320, 185)">
-                <path d="M-18 -18 H-6 V-18" stroke="#94A3B8" strokeWidth="2" fill="none" />
-                <path d="M-18 -18 V-6 H-18" stroke="#94A3B8" strokeWidth="2" fill="none" />
-                <path d="M18 -18 H6 V-18" stroke="#94A3B8" strokeWidth="2" fill="none" />
-                <path d="M18 -18 V-6 H18" stroke="#94A3B8" strokeWidth="2" fill="none" />
-                <path d="M-18 18 H-6 V18" stroke="#94A3B8" strokeWidth="2" fill="none" />
-                <path d="M-18 18 V6 H-18" stroke="#94A3B8" strokeWidth="2" fill="none" />
-                <path d="M18 18 H6 V18" stroke="#94A3B8" strokeWidth="2" fill="none" />
-                <path d="M18 18 V6 H18" stroke="#94A3B8" strokeWidth="2" fill="none" />
-                <circle cx="0" cy="0" r="2.5" fill="#94A3B8" />
-              </g>
-
               {/* Competitor Benchmark Cluster Dots (around 1.7s, score 82-84%) */}
               <g className="competitor-cluster" transform="translate(0, 0)">
                 <circle cx="480" cy="242" r="4.5" fill="#94A3B8" opacity="0.85" />
