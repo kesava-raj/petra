@@ -188,7 +188,7 @@ export const Footer: React.FC = () => {
               <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="footer-link">LinkedIn</a></li>
               <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="footer-link">Instagram</a></li>
               <li><a href="https://x.com" target="_blank" rel="noopener noreferrer" className="footer-link">X (Twitter)</a></li>
-              <li><a href="mailto:support@agentpettra.ai" className="footer-link">Contact Support</a></li>
+              <li><a href="mailto:support@agentpettra.com" className="footer-link">Contact Support</a></li>
             </ul>
           </div>
         </div>

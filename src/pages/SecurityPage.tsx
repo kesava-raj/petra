@@ -162,7 +162,7 @@ export const SecurityPage: React.FC<SecurityPageProps> = ({ onOpenDemo }) => {
               <ArrowRight size={18} />
             </button>
             <a 
-              href="mailto:security@agentpettra.ai"
+              href="mailto:security@agentpettra.com"
               className="btn btn-secondary"
               style={{ padding: '14px 28px', fontSize: '1.05rem', textDecoration: 'none' }}
             >
@@ -633,11 +633,11 @@ export const SecurityPage: React.FC<SecurityPageProps> = ({ onOpenDemo }) => {
               <ArrowRight size={18} />
             </button>
             <a 
-              href="mailto:security@agentpettra.ai"
+              href="mailto:security@agentpettra.com"
               className="btn btn-secondary"
               style={{ padding: '14px 32px', fontSize: '1.05rem', textDecoration: 'none' }}
             >
-              <span>Email: security@agentpettra.ai</span>
+              <span>Email: security@agentpettra.com</span>
             </a>
           </div>
         </div>

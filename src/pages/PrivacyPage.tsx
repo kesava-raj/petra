@@ -437,7 +437,7 @@ export const PrivacyPage: React.FC = () => {
               <div style={{ background: 'var(--bg-secondary)', borderRadius: 'var(--radius-md)', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <Mail size={18} style={{ color: 'var(--accent-blue)' }} />
                 <span style={{ fontSize: '0.92rem', color: 'var(--text-primary)' }}>
-                  To submit a privacy request, please contact: <a href="mailto:privacy@agentpettra.ai" style={{ color: 'var(--accent-blue)', fontWeight: 600, textDecoration: 'none' }}>privacy@agentpettra.ai</a>
+                  To submit a privacy request, please contact: <a href="mailto:privacy@agentpettra.com" style={{ color: 'var(--accent-blue)', fontWeight: 600, textDecoration: 'none' }}>privacy@agentpettra.com</a>
                 </span>
               </div>
             </section>
@@ -509,7 +509,7 @@ export const PrivacyPage: React.FC = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <Mail size={16} style={{ color: 'var(--accent-blue)' }} />
-                    <span>Email: <a href="mailto:privacy@agentpettra.ai" style={{ color: 'var(--accent-blue)', textDecoration: 'none', fontWeight: 600 }}>privacy@agentpettra.ai</a></span>
+                    <span>Email: <a href="mailto:privacy@agentpettra.com" style={{ color: 'var(--accent-blue)', textDecoration: 'none', fontWeight: 600 }}>privacy@agentpettra.com</a></span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
                     <MapPin size={16} style={{ color: 'var(--accent-blue)', marginTop: '3px' }} />

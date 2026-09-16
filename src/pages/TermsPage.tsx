@@ -466,7 +466,7 @@ export const TermsPage: React.FC = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <Mail size={16} style={{ color: 'var(--accent-blue)' }} />
-                    <span>Email: <a href="mailto:legal@agentpettra.ai" style={{ color: 'var(--accent-blue)', textDecoration: 'none', fontWeight: 600 }}>legal@agentpettra.ai</a></span>
+                    <span>Email: <a href="mailto:legal@agentpettra.com" style={{ color: 'var(--accent-blue)', textDecoration: 'none', fontWeight: 600 }}>legal@agentpettra.com</a></span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
                     <MapPin size={16} style={{ color: 'var(--accent-blue)', marginTop: '3px' }} />
