@@ -56,19 +56,21 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
           style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}
           aria-label="Agent Pettra AI Homepage"
         >
-          <div style={{
-            width: '38px',
-            height: '38px',
-            borderRadius: '10px',
-            background: 'linear-gradient(135deg, #3B82F6, #6366F1)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#FFFFFF',
-            boxShadow: '0 0 16px rgba(59, 130, 246, 0.4)'
-          }}>
-            <PhoneCall size={19} />
-          </div>
+          <img 
+            src="/logo.png" 
+            alt="Agent Pettra Logo" 
+            className="navbar-brand-logo"
+            width={40}
+            height={40}
+            style={{
+              width: 'clamp(34px, 3.8vw, 42px)',
+              height: 'clamp(34px, 3.8vw, 42px)',
+              objectFit: 'contain',
+              flexShrink: 0,
+              filter: 'drop-shadow(0 3px 10px rgba(99, 102, 241, 0.35))',
+              transition: 'transform 0.2s ease'
+            }}
+          />
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span style={{ 
               fontFamily: 'var(--font-display)', 

@@ -54,18 +54,19 @@ export const Footer: React.FC = () => {
           {/* Brand Column */}
           <div className="footer-brand-col">
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-              <div style={{
-                width: '36px',
-                height: '36px',
-                borderRadius: '10px',
-                background: 'linear-gradient(135deg, #3B82F6, #6366F1)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#FFFFFF'
-              }}>
-                <PhoneCall size={18} />
-              </div>
+              <img 
+                src="/logo.png" 
+                alt="Agent Pettra Logo" 
+                width={36}
+                height={36}
+                style={{
+                  width: '36px',
+                  height: '36px',
+                  objectFit: 'contain',
+                  flexShrink: 0,
+                  filter: 'drop-shadow(0 2px 8px rgba(99, 102, 241, 0.3))'
+                }}
+              />
               <span style={{
                 fontFamily: 'var(--font-display)',
                 fontWeight: 800,

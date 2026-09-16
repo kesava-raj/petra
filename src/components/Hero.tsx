@@ -150,7 +150,20 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
                 }}></div>
 
                 {/* Call Header */}
-                <div>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <img 
+                    src="/logo.png" 
+                    alt="Agent Pettra" 
+                    width={44}
+                    height={44}
+                    style={{
+                      width: '44px',
+                      height: '44px',
+                      objectFit: 'contain',
+                      marginBottom: '10px',
+                      filter: 'drop-shadow(0 4px 14px rgba(99, 102, 241, 0.4))'
+                    }}
+                  />
                   <div style={{
                     display: 'inline-block',
                     padding: '4px 10px',

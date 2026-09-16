@@ -417,19 +417,19 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
             borderBottom: '1px solid var(--border-subtle)'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div style={{
-                width: '42px',
-                height: '42px',
-                borderRadius: '12px',
-                background: 'linear-gradient(135deg, #3B82F6, #6366F1)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#FFFFFF',
-                boxShadow: '0 0 20px rgba(59, 130, 246, 0.4)'
-              }}>
-                <PhoneCall size={20} />
-              </div>
+              <img 
+                src="/logo.png" 
+                alt="Agent Pettra Logo" 
+                width={44}
+                height={44}
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  objectFit: 'contain',
+                  flexShrink: 0,
+                  filter: 'drop-shadow(0 4px 14px rgba(99, 102, 241, 0.4))'
+                }}
+              />
               <div>
                 <h4 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.1 }}>
                   Agent Pettra Voice Assistant
