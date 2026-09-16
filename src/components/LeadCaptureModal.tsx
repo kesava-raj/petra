@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, CheckCircle2, Sparkles, Building, Mail, Phone, User, Briefcase } from 'lucide-react';
 import { LeadFormData } from '../types';
 import { trackEvent } from '../utils/analytics';
+import { submitLeadToGoogleSheet } from '../services/leadService';
 
 interface LeadCaptureModalProps {
   isOpen: boolean;
@@ -56,19 +57,23 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
           content_category: formData.businessType
         });
       }
-
-      try {
-        const existing = JSON.parse(localStorage.getItem('agent_pettra_inquiries') || localStorage.getItem('petra_inquiries') || '[]');
-        existing.unshift({
-          ...formData,
-          selectedPlan,
-          submittedAt: new Date().toISOString()
-        });
-        localStorage.setItem('agent_pettra_inquiries', JSON.stringify(existing.slice(0, 50)));
-      } catch {
-        // Fallback
-      }
     }
+
+    const planText = selectedPlan 
+      ? `${formatPlanName(selectedPlan.planId)} (${selectedPlan.billingCycle})`
+      : 'General Inquiry / Demo Request';
+
+    // Submit live to Google Sheets (with automatic localStorage backup)
+    submitLeadToGoogleSheet({
+      source: 'lead_modal',
+      name: formData.name,
+      businessName: formData.businessName,
+      email: formData.email,
+      phone: formData.phone,
+      businessType: formData.businessType,
+      needsOrPlan: `Plan: ${planText}`,
+      message: 'Submitted via Plan Selection / Get Started modal'
+    });
 
     setTimeout(() => {
       setIsSubmitting(false);

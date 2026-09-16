@@ -17,6 +17,7 @@ import {
   Check 
 } from 'lucide-react';
 import { trackEvent } from '../utils/analytics';
+import { submitLeadToGoogleSheet } from '../services/leadService';
 
 interface InquirySectionProps {
   onOpenDemo?: () => void;
@@ -91,9 +92,10 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
 
     setSubmitting(true);
 
+    const needsList = selectedNeeds.map(id => NEED_OPTIONS.find(o => o.id === id)?.label).filter(Boolean);
     const payload = {
       ...formData,
-      needs: selectedNeeds.map(id => NEED_OPTIONS.find(o => o.id === id)?.label).filter(Boolean),
+      needs: needsList,
       source: 'inquiry_section'
     };
 
@@ -126,18 +128,19 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
           content_category: formData.businessType
         });
       }
-
-      try {
-        const existing = JSON.parse(localStorage.getItem('agent_pettra_inquiries') || localStorage.getItem('petra_inquiries') || '[]');
-        existing.unshift({
-          ...payload,
-          submittedAt: new Date().toISOString()
-        });
-        localStorage.setItem('agent_pettra_inquiries', JSON.stringify(existing.slice(0, 50)));
-      } catch {
-        // Fallback
-      }
     }
+
+    // Submit live to Google Sheets (with automatic localStorage backup)
+    submitLeadToGoogleSheet({
+      source: 'inquiry_section',
+      name: formData.name,
+      businessName: formData.businessName,
+      email: formData.email,
+      phone: formData.phone,
+      businessType: formData.businessType,
+      needsOrPlan: needsList.join(', '),
+      message: formData.message
+    });
 
     setTimeout(() => {
       setSubmitting(false);
