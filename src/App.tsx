@@ -21,22 +21,37 @@ import { MobileStickyCTA } from './components/MobileStickyCTA';
 import { LeadCaptureModal } from './components/LeadCaptureModal';
 import { ThemeToggle } from './components/ThemeToggle';
 import { InquirySection } from './components/InquirySection';
+import { AboutPage } from './pages/AboutPage';
+import { PrivacyPage } from './pages/PrivacyPage';
+import { TermsPage } from './pages/TermsPage';
+import { SecurityPage } from './pages/SecurityPage';
 import { trackEvent, getStoredUTMParams } from './utils/analytics';
+import { useCurrentRoute, navigateTo, getCurrentRoute } from './utils/navigation';
 
 export const App: React.FC = () => {
   const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<{ planId: string; billingCycle: 'monthly' | 'annual' } | null>(null);
+  const currentRoute = useCurrentRoute();
 
   useEffect(() => {
     // Preserve UTMs and fire initial page_view analytics
     const utms = getStoredUTMParams();
-    trackEvent('page_view', { ...utms });
-  }, []);
+    trackEvent('page_view', { ...utms, route: currentRoute });
+
+    if (currentRoute === '/') {
+      document.title = 'Agent Pettra | AI Receptionist for Modern Businesses';
+    }
+  }, [currentRoute]);
 
   const scrollToDemo = () => {
-    const el = document.getElementById('demo');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+    const route = getCurrentRoute();
+    if (route !== '/') {
+      navigateTo('/#demo');
+    } else {
+      const el = document.getElementById('demo');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -51,59 +66,68 @@ export const App: React.FC = () => {
       <Navbar onOpenDemo={scrollToDemo} />
 
       <main style={{ flex: 1 }}>
-        {/* 2. Hero Section */}
-        <Hero onOpenDemo={scrollToDemo} />
+        {currentRoute === '/about' && <AboutPage onOpenDemo={scrollToDemo} />}
+        {currentRoute === '/privacy' && <PrivacyPage />}
+        {currentRoute === '/terms' && <TermsPage />}
+        {currentRoute === '/security' && <SecurityPage onOpenDemo={scrollToDemo} />}
 
-        {/* 3. Live Agent Pettra Demo (The most important section) */}
-        <PetraVoiceDemo onOpenLeadModal={() => setIsLeadModalOpen(true)} />
+        {currentRoute === '/' && (
+          <>
+            {/* 2. Hero Section */}
+            <Hero onOpenDemo={scrollToDemo} />
 
-        {/* 4. Trust / Industry Strip */}
-        <IndustryStrip />
+            {/* 3. Live Agent Pettra Demo (The most important section) */}
+            <PetraVoiceDemo onOpenLeadModal={() => setIsLeadModalOpen(true)} />
 
-        {/* 5. Problem Section */}
-        <ProblemSection />
+            {/* 4. Trust / Industry Strip */}
+            <IndustryStrip />
 
-        {/* 6. Solution Section */}
-        <SolutionSection onOpenDemo={scrollToDemo} />
+            {/* 5. Problem Section */}
+            <ProblemSection />
 
-        {/* 6b. Operational Coverage ("Agent Pettra does not just talk. It runs the operation.") */}
-        <OperationalCoverage />
+            {/* 6. Solution Section */}
+            <SolutionSection onOpenDemo={scrollToDemo} />
 
-        {/* 6c. Performance Benchmarks & Why Teams Pick Agent Pettra */}
-        <BenchmarkComparison />
+            {/* 6b. Operational Coverage ("Agent Pettra does not just talk. It runs the operation.") */}
+            <OperationalCoverage />
 
-        {/* 7. How Agent Pettra Works */}
-        <HowItWorks onOpenDemo={scrollToDemo} />
+            {/* 6c. Performance Benchmarks & Why Teams Pick Agent Pettra */}
+            <BenchmarkComparison />
 
-        {/* 8. Interactive Conversation Demo */}
-        <ConversationDemo onOpenVoiceDemo={scrollToDemo} />
+            {/* 7. How Agent Pettra Works */}
+            <HowItWorks onOpenDemo={scrollToDemo} />
 
-        {/* 9. Features */}
-        <Features />
+            {/* 8. Interactive Conversation Demo */}
+            <ConversationDemo onOpenVoiceDemo={scrollToDemo} />
 
-        {/* 10. Appointment Booking Flow & Calendar Integration */}
-        <BookingFlow />
+            {/* 9. Features */}
+            <Features />
 
-        {/* 11. Industry Use Cases */}
-        <IndustrySection onOpenDemo={scrollToDemo} />
+            {/* 10. Appointment Booking Flow & Calendar Integration */}
+            <BookingFlow />
 
-        {/* 12. ROI Calculator */}
-        <ROICalculator onOpenDemo={scrollToDemo} />
+            {/* 11. Industry Use Cases */}
+            <IndustrySection onOpenDemo={scrollToDemo} />
 
-        {/* 13. Pricing Preview */}
-        <Pricing onSelectPlan={handleSelectPlan} onOpenDemo={scrollToDemo} />
+            {/* 12. ROI Calculator */}
+            <ROICalculator onOpenDemo={scrollToDemo} />
 
-        {/* 14. Dedicated Inquiry Section */}
-        <InquirySection onOpenDemo={scrollToDemo} />
+            {/* 13. Pricing Preview */}
+            <Pricing onSelectPlan={handleSelectPlan} onOpenDemo={scrollToDemo} />
 
-        {/* 15. FAQ */}
-        <FAQ />
+            {/* 14. Dedicated Inquiry Section */}
+            <InquirySection onOpenDemo={scrollToDemo} />
 
-        {/* 16. Final CTA */}
-        <FinalCTA onOpenDemo={scrollToDemo} />
+            {/* 15. FAQ */}
+            <FAQ />
+
+            {/* 16. Final CTA */}
+            <FinalCTA onOpenDemo={scrollToDemo} />
+          </>
+        )}
       </main>
 
-      {/* 16. Footer */}
+      {/* Footer */}
       <Footer />
 
       {/* Mobile Sticky CTA */}
@@ -123,3 +147,4 @@ export const App: React.FC = () => {
 };
 
 export default App;
+

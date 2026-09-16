@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PhoneCall, Menu, X, Sparkles } from 'lucide-react';
 import { trackEvent } from '../utils/analytics';
+import { navigateTo, useCurrentRoute } from '../utils/navigation';
 
 interface NavbarProps {
   onOpenDemo: () => void;
@@ -9,6 +10,7 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const currentRoute = useCurrentRoute();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +21,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
   }, []);
 
   const navLinks = [
+    { label: 'About', href: '/about' },
     { label: 'How It Works', href: '#how-it-works' },
     { label: 'Features', href: '#features' },
     { label: 'Industries', href: '#industries' },
@@ -27,6 +30,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
     { label: 'Inquiry', href: '#inquiry' },
     { label: 'FAQ', href: '#faq' },
   ];
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    navigateTo(href);
+  };
 
   const handleCtaClick = () => {
     trackEvent('hero_cta_click', { source: 'navbar' });
@@ -52,7 +61,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         {/* Brand Logo */}
         <a 
-          href="#" 
+          href="/" 
+          onClick={(e) => {
+            e.preventDefault();
+            navigateTo('/');
+          }}
           style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}
           aria-label="Agent Pettra AI Homepage"
         >
@@ -105,15 +118,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
             <a
               key={link.label}
               href={link.href}
+              onClick={(e) => handleNavClick(e, link.href)}
               style={{
                 fontSize: '0.9375rem',
                 fontWeight: 600,
-                color: 'var(--text-secondary)',
+                color: currentRoute === link.href ? 'var(--accent-blue)' : 'var(--text-secondary)',
                 transition: 'color 0.2s ease',
                 textDecoration: 'none'
               }}
               onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent-blue)')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = currentRoute === link.href ? 'var(--accent-blue)' : 'var(--text-secondary)')}
             >
               {link.label}
             </a>
@@ -196,11 +210,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
               <a
                 key={link.label}
                 href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(e) => handleNavClick(e, link.href)}
                 style={{
                   fontSize: '1.05rem',
                   fontWeight: 600,
-                  color: 'var(--text-primary)',
+                  color: currentRoute === link.href ? 'var(--accent-blue)' : 'var(--text-primary)',
                   padding: '10px 0',
                   borderBottom: '1px solid var(--border-subtle)',
                   textDecoration: 'none'
