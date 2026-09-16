@@ -43,16 +43,13 @@ export const ThemeToggle: React.FC = () => {
             <Sun size={20} className="theme-icon sun-icon" />
           )}
         </div>
-        <span className="theme-toggle-label">
-          {isLight ? 'Dark' : 'Light'}
-        </span>
       </button>
 
       <style>{`
         .floating-theme-toggle-wrapper {
           position: fixed;
-          bottom: 28px;
-          right: 28px;
+          bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+          right: calc(24px + env(safe-area-inset-right, 0px));
           z-index: 99;
           animation: floatIn 0.3s ease-out;
         }
@@ -60,12 +57,12 @@ export const ThemeToggle: React.FC = () => {
         .floating-theme-toggle {
           display: flex;
           align-items: center;
-          gap: 8px;
-          padding: 10px 16px;
-          border-radius: 9999px;
+          justify-content: center;
+          width: 44px;
+          height: 44px;
+          padding: 0;
+          border-radius: 50%;
           cursor: pointer;
-          font-weight: 600;
-          font-size: 0.875rem;
           transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
           backdrop-filter: blur(16px);
           -webkit-backdrop-filter: blur(16px);
@@ -84,7 +81,7 @@ export const ThemeToggle: React.FC = () => {
           background: #FFFFFF;
           border-color: rgba(37, 99, 235, 0.4);
           box-shadow: 0 6px 24px rgba(37, 99, 235, 0.2);
-          transform: translateY(-2px);
+          transform: translateY(-2px) scale(1.04);
           color: #2563EB;
         }
 
@@ -100,7 +97,7 @@ export const ThemeToggle: React.FC = () => {
           background: rgba(22, 33, 62, 0.95);
           border-color: rgba(59, 130, 246, 0.5);
           box-shadow: 0 6px 28px rgba(59, 130, 246, 0.4);
-          transform: translateY(-2px);
+          transform: translateY(-2px) scale(1.04);
           color: #60A5FA;
         }
 
@@ -135,12 +132,12 @@ export const ThemeToggle: React.FC = () => {
         /* Responsive placement on mobile so it doesn't overlap MobileStickyCTA */
         @media (max-width: 899px) {
           .floating-theme-toggle-wrapper {
-            bottom: 86px;
-            right: 16px;
+            bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+            right: calc(16px + env(safe-area-inset-right, 0px));
           }
           .floating-theme-toggle {
-            padding: 8px 14px;
-            font-size: 0.8125rem;
+            width: 42px;
+            height: 42px;
           }
         }
       `}</style>
