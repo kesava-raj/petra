@@ -634,6 +634,36 @@ export const BenchmarkComparison: React.FC = () => {
             font-size: 0.78rem;
           }
         }
+
+        @media (max-width: 640px) {
+          .benchmark-section {
+            padding: 48px 0;
+          }
+          .benchmark-chart-card {
+            padding: 20px 14px;
+            border-radius: 20px;
+          }
+          .chart-canvas-wrapper {
+            padding: 10px 4px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+          }
+          .benchmark-svg-chart {
+            min-width: 500px;
+          }
+          .benchmark-legend {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+          }
+          .why-pick-card {
+            padding: 22px 16px;
+            border-radius: 20px;
+          }
+          .comparison-box {
+            padding: 22px 16px;
+          }
+        }
       `}</style>
     </section>
   );

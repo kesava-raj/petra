@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileText, ArrowRight } from 'lucide-react';
+import { Sparkles, FileText } from 'lucide-react';
 
 interface HowItWorksProps {
   onOpenDemo?: () => void;
@@ -38,16 +38,11 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenDemo }) => {
       />
 
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-        {/* Header with Reticle and CTA */}
+        {/* Header with Eyebrow and CTA */}
         <div className="hiw-header">
-          {/* Target Reticle Bracket Icon */}
-          <div className="hiw-reticle" aria-hidden="true">
-            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-              <path d="M4 12V6C4 4.89543 4.89543 4 6 4H12" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" />
-              <path d="M32 12V6C32 4.89543 31.1046 4 30 4H24" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" />
-              <path d="M4 24V30C4 31.1046 4.89543 32 6 32H12" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" />
-              <path d="M32 24V30C32 31.1046 31.1046 32 30 32H24" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" />
-            </svg>
+          <div className="eyebrow" style={{ marginBottom: '14px' }}>
+            <Sparkles size={14} />
+            <span>HOW IT WORKS</span>
           </div>
 
           <h2 className="hiw-main-title">
@@ -175,47 +170,42 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenDemo }) => {
       <style>{`
         .hiw-section {
           background: var(--bg-darkest);
+          padding-top: 56px;
+          padding-bottom: 72px;
         }
 
         /* Header */
         .hiw-header {
           text-align: center;
           max-width: 680px;
-          margin: 0 auto 56px auto;
+          margin: 0 auto 38px auto;
           display: flex;
           flex-direction: column;
           align-items: center;
         }
 
-        .hiw-reticle {
-          margin-bottom: 20px;
-          opacity: 0.9;
-        }
-
-        [data-theme="light"] .hiw-reticle svg path {
-          stroke: #0F172A;
-        }
-
         .hiw-main-title {
-          font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+          font-size: clamp(2rem, 4.5vw, 3.2rem);
           font-weight: 850;
           color: #FFFFFF;
           letter-spacing: -0.025em;
-          margin-bottom: 12px;
+          margin-bottom: 10px;
           line-height: 1.15;
         }
 
-        [data-theme="light"] .hiw-main-title {
+        [data-theme="light"] .hiw-main-title,
+        :root:not([data-theme="dark"]) .hiw-main-title {
           color: #0F172A;
         }
 
         .hiw-subtitle {
           font-size: 1.05rem;
           color: #94A3B8;
-          margin-bottom: 28px;
+          margin-bottom: 22px;
         }
 
-        [data-theme="light"] .hiw-subtitle {
+        [data-theme="light"] .hiw-subtitle,
+        :root:not([data-theme="dark"]) .hiw-subtitle {
           color: #475569;
         }
 
@@ -223,34 +213,38 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenDemo }) => {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          padding: 12px 36px;
+          padding: 11px 34px;
           border-radius: 9999px;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          background: linear-gradient(135deg, rgba(99, 102, 241, 0.22) 0%, rgba(168, 85, 247, 0.22) 100%);
+          border: 1px solid rgba(168, 85, 247, 0.4);
           color: #FFFFFF;
           font-size: 0.85rem;
           font-weight: 750;
-          letter-spacing: 0.1em;
+          letter-spacing: 0.08em;
           cursor: pointer;
           transition: all 0.25s ease;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        [data-theme="light"] .hiw-start-btn {
-          background: #0F172A;
-          color: #FFFFFF;
-          border-color: #0F172A;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
         }
 
         .hiw-start-btn:hover {
-          background: rgba(255, 255, 255, 0.16);
-          border-color: rgba(255, 255, 255, 0.4);
+          background: linear-gradient(135deg, rgba(99, 102, 241, 0.35) 0%, rgba(168, 85, 247, 0.35) 100%);
+          border-color: rgba(168, 85, 247, 0.6);
           transform: translateY(-2px);
-          box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 6px 20px rgba(168, 85, 247, 0.3);
         }
 
-        [data-theme="light"] .hiw-start-btn:hover {
-          background: #1E293B;
+        [data-theme="light"] .hiw-start-btn,
+        :root:not([data-theme="dark"]) .hiw-start-btn {
+          background: linear-gradient(135deg, #2563EB 0%, #4F46E5 100%);
+          color: #FFFFFF;
+          border: 1px solid rgba(37, 99, 235, 0.3);
+          box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+        }
+
+        [data-theme="light"] .hiw-start-btn:hover,
+        :root:not([data-theme="dark"]) .hiw-start-btn:hover {
+          background: linear-gradient(135deg, #1D4ED8 0%, #4338CA 100%);
+          box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
           transform: translateY(-2px);
         }
 
@@ -496,24 +490,58 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenDemo }) => {
         }
 
         /* Responsive */
-        @media (max-width: 1024px) {
+        @media (max-width: 1040px) and (min-width: 769px) {
           .hiw-cards-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+          }
+          .hiw-card {
+            padding: 26px 18px;
+          }
+          .hiw-card-title {
+            font-size: 1.25rem;
           }
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
+          .hiw-section {
+            padding: 44px 0 54px 0;
+          }
+          .hiw-header {
+            margin-bottom: 28px;
+          }
+          .hiw-main-title {
+            font-size: clamp(1.85rem, 5vw, 2.4rem);
+          }
           .hiw-cards-grid {
             grid-template-columns: 1fr;
-            gap: 18px;
+            max-width: 480px;
+            margin: 0 auto;
+            gap: 20px;
           }
           .hiw-card {
             padding: 28px 22px;
           }
           .hiw-card-desc {
             min-height: auto;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
+          }
+          .hiw-visual-stage {
+            height: 140px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .hiw-section {
+            padding: 36px 0 44px 0;
+          }
+          .hiw-card {
+            padding: 22px 16px;
+            border-radius: 18px;
+          }
+          .hiw-start-btn {
+            width: 100%;
+            max-width: 260px;
           }
         }
       `}</style>

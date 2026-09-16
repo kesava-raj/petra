@@ -364,6 +364,16 @@ export const OperationalCoverage: React.FC = () => {
             padding: 28px 24px;
           }
         }
+
+        @media (max-width: 640px) {
+          .op-coverage-section {
+            padding: 48px 0;
+          }
+          .op-coverage-card {
+            padding: 22px 18px;
+            border-radius: 20px;
+          }
+        }
       `}</style>
     </section>
   );
