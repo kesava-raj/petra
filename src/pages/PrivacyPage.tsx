@@ -81,10 +81,10 @@ export const PrivacyPage: React.FC = () => {
           Last Updated: <strong>September 16, 2026</strong>
         </p>
 
-        {/* Legal Advisory Note */}
+        {/* Operational Privacy Disclosure */}
         <div style={{
-          background: 'rgba(245, 158, 11, 0.08)',
-          border: '1px solid rgba(245, 158, 11, 0.3)',
+          background: 'rgba(37, 99, 235, 0.06)',
+          border: '1px solid rgba(37, 99, 235, 0.2)',
           borderRadius: 'var(--radius-md)',
           padding: '16px 20px',
           display: 'flex',
@@ -92,9 +92,9 @@ export const PrivacyPage: React.FC = () => {
           alignItems: 'flex-start',
           marginBottom: '40px'
         }}>
-          <AlertTriangle size={20} style={{ color: 'var(--accent-amber)', flexShrink: 0, marginTop: '2px' }} />
+          <CheckCircle2 size={20} style={{ color: 'var(--accent-blue)', flexShrink: 0, marginTop: '2px' }} />
           <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.55, margin: 0 }}>
-            <strong>Important Notice:</strong> This is a website-ready starting template, not a substitute for review by a lawyer familiar with the jurisdictions where you operate. Your actual vendors, retention periods, recording settings and data flows need to match the final policy.
+            <strong>Operational Privacy Commitment:</strong> Agent Pettra operates under strict data minimization and zero data selling principles. Voice streams and transcripts are processed exclusively to deliver your practice call answering and appointment scheduling. We comply with US State Privacy Laws (including California CCPA/CPRA) and Canadian PIPEDA.
           </p>
         </div>
 

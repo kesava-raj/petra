@@ -25,6 +25,20 @@ import { AboutPage } from './pages/AboutPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { TermsPage } from './pages/TermsPage';
 import { SecurityPage } from './pages/SecurityPage';
+import { DentalPage } from './pages/DentalPage';
+import { MedicalPage } from './pages/MedicalPage';
+import { SalonsPage } from './pages/SalonsPage';
+import { SpasPage } from './pages/SpasPage';
+import { MedSpaPage } from './pages/MedSpaPage';
+import { LegalPage } from './pages/LegalPage';
+import { RealEstatePage } from './pages/RealEstatePage';
+import { HomeServicesPage } from './pages/HomeServicesPage';
+import { AutoServicesPage } from './pages/AutoServicesPage';
+import { WellnessPage } from './pages/WellnessPage';
+import { PricingPage } from './pages/PricingPage';
+import { IntegrationsPage } from './pages/IntegrationsPage';
+import { CustomersPage } from './pages/CustomersPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 import { trackEvent, getStoredUTMParams } from './utils/analytics';
 import { useCurrentRoute, navigateTo, getCurrentRoute } from './utils/navigation';
 
@@ -39,7 +53,7 @@ export const App: React.FC = () => {
     trackEvent('page_view', { ...utms, route: currentRoute });
 
     if (currentRoute === '/') {
-      document.title = 'Agent Pettra | AI Receptionist for Modern Businesses';
+      document.title = 'AI Receptionist for Appointment Booking | Agent Pettra';
     }
   }, [currentRoute]);
 
@@ -66,10 +80,24 @@ export const App: React.FC = () => {
       <Navbar onOpenDemo={scrollToDemo} />
 
       <main style={{ flex: 1 }}>
+        {currentRoute === '/industries/dental' && <DentalPage onOpenDemo={scrollToDemo} />}
+        {currentRoute === '/industries/medical' && <MedicalPage onOpenDemo={scrollToDemo} />}
+        {currentRoute === '/industries/salons' && <SalonsPage onOpenDemo={scrollToDemo} />}
+        {currentRoute === '/industries/spas' && <SpasPage onOpenDemo={scrollToDemo} />}
+        {currentRoute === '/industries/med-spa' && <MedSpaPage onOpenDemo={scrollToDemo} />}
+        {currentRoute === '/industries/legal' && <LegalPage onOpenDemo={scrollToDemo} />}
+        {currentRoute === '/industries/real-estate' && <RealEstatePage onOpenDemo={scrollToDemo} />}
+        {currentRoute === '/industries/home-services' && <HomeServicesPage onOpenDemo={scrollToDemo} />}
+        {currentRoute === '/industries/auto-services' && <AutoServicesPage onOpenDemo={scrollToDemo} />}
+        {currentRoute === '/industries/wellness' && <WellnessPage onOpenDemo={scrollToDemo} />}
+        {currentRoute === '/pricing' && <PricingPage onSelectPlan={handleSelectPlan} />}
+        {currentRoute === '/integrations' && <IntegrationsPage onOpenDemo={scrollToDemo} />}
+        {currentRoute === '/customers' && <CustomersPage onOpenDemo={scrollToDemo} />}
         {currentRoute === '/about' && <AboutPage onOpenDemo={scrollToDemo} />}
         {currentRoute === '/privacy' && <PrivacyPage />}
         {currentRoute === '/terms' && <TermsPage />}
         {currentRoute === '/security' && <SecurityPage onOpenDemo={scrollToDemo} />}
+        {currentRoute === '/404' && <NotFoundPage />}
 
         {currentRoute === '/' && (
           <>

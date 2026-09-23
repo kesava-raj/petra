@@ -9,22 +9,30 @@ import {
   HeartPulse, 
   Activity, 
   Smile, 
-  Flower2 
+  Flower2,
+  ChevronRight
 } from 'lucide-react';
+import { navigateTo } from '../utils/navigation';
+import { trackEvent } from '../utils/analytics';
 
 export const IndustryStrip: React.FC = () => {
   const industries = [
-    { name: 'Dental Clinics', icon: Smile },
-    { name: 'Medical Practices', icon: Stethoscope },
-    { name: 'Hair & Beauty Salons', icon: Scissors },
-    { name: 'Luxury Spas', icon: Flower2 },
-    { name: 'Med Spas', icon: Sparkles },
-    { name: 'Law Firms', icon: Scale },
-    { name: 'Real Estate', icon: Home },
-    { name: 'Home Services', icon: Wrench },
-    { name: 'Auto Services', icon: Activity },
-    { name: 'Wellness Clinics', icon: HeartPulse }
+    { name: 'Dental Clinics', icon: Smile, path: '/industries/dental' },
+    { name: 'Medical Practices', icon: Stethoscope, path: '/industries/medical' },
+    { name: 'Hair & Beauty Salons', icon: Scissors, path: '/industries/salons' },
+    { name: 'Luxury Spas', icon: Flower2, path: '/industries/spas' },
+    { name: 'Med Spas', icon: Sparkles, path: '/industries/med-spa' },
+    { name: 'Law Firms', icon: Scale, path: '/industries/legal' },
+    { name: 'Real Estate', icon: Home, path: '/industries/real-estate' },
+    { name: 'Home Services', icon: Wrench, path: '/industries/home-services' },
+    { name: 'Auto Services', icon: Activity, path: '/industries/auto-services' },
+    { name: 'Wellness Clinics', icon: HeartPulse, path: '/industries/wellness' }
   ];
+
+  const handlePillClick = (path: string, name: string) => {
+    trackEvent('industry_page_view', { industry: name, source: 'industry_strip' });
+    navigateTo(path);
+  };
 
   return (
     <section 
@@ -48,8 +56,9 @@ export const IndustryStrip: React.FC = () => {
           align-items: center;
           gap: 10px;
           transition: all 0.25s ease;
-          cursor: default;
+          cursor: pointer;
           box-shadow: var(--shadow-sm);
+          text-decoration: none;
         }
         .industry-strip-pill:hover {
           background: rgba(37, 99, 235, 0.1);
@@ -57,10 +66,20 @@ export const IndustryStrip: React.FC = () => {
           transform: translateY(-3px);
           box-shadow: var(--shadow-md);
         }
+        .industry-strip-pill:hover .industry-strip-arrow {
+          opacity: 1;
+          transform: translateX(2px);
+        }
         .industry-strip-pill-text {
           font-size: 0.9rem;
           font-weight: 600;
           color: var(--text-primary);
+        }
+        .industry-strip-arrow {
+          opacity: 0;
+          transition: all 0.2s ease;
+          color: var(--accent-blue);
+          margin-left: 2px;
         }
       `}</style>
       <div className="container">
@@ -72,11 +91,11 @@ export const IndustryStrip: React.FC = () => {
             fontWeight: 700,
             color: 'var(--text-muted)'
           }}>
-            Built for businesses that depend on appointments
+            Explore dedicated workflows built for appointment-driven businesses
           </p>
         </div>
 
-        {/* Industry Cards Grid / Marquee */}
+        {/* Industry Cards Grid */}
         <div style={{
           display: 'flex',
           flexWrap: 'wrap',
@@ -87,12 +106,19 @@ export const IndustryStrip: React.FC = () => {
           {industries.map((item, index) => {
             const IconComponent = item.icon;
             return (
-              <div key={index} className="industry-strip-pill">
+              <button
+                key={index} 
+                onClick={() => handlePillClick(item.path, item.name)}
+                className="industry-strip-pill"
+                type="button"
+                aria-label={`View AI Receptionist for ${item.name}`}
+              >
                 <IconComponent size={18} color="var(--accent-blue)" style={{ flexShrink: 0 }} />
                 <span className="industry-strip-pill-text">
                   {item.name}
                 </span>
-              </div>
+                <ChevronRight size={14} className="industry-strip-arrow" />
+              </button>
             );
           })}
         </div>

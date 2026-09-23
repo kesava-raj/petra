@@ -125,70 +125,76 @@ export const Footer: React.FC = () => {
               fontWeight: 600
             }}>
               <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981' }}></span>
-              <span>Systems Operational • 99.99% Uptime</span>
+              <span>All Systems Operational • Voice Engine Live</span>
             </div>
           </div>
 
-          {/* 1. Company Links */}
+          {/* 1. Industries */}
+          <div>
+            <h4 style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-primary)', marginBottom: '16px' }}>
+              Industries
+            </h4>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <li><a href="/industries/dental" onClick={(e) => handleLinkClick(e, '/industries/dental')} className="footer-link">Dental Clinics</a></li>
+              <li><a href="/industries/medical" onClick={(e) => handleLinkClick(e, '/industries/medical')} className="footer-link">Medical Practices</a></li>
+              <li><a href="/industries/salons" onClick={(e) => handleLinkClick(e, '/industries/salons')} className="footer-link">Hair & Beauty Salons</a></li>
+              <li><a href="/industries/spas" onClick={(e) => handleLinkClick(e, '/industries/spas')} className="footer-link">Luxury Spas</a></li>
+              <li><a href="/industries/med-spa" onClick={(e) => handleLinkClick(e, '/industries/med-spa')} className="footer-link">Med Spas & Aesthetics</a></li>
+              <li><a href="/industries/legal" onClick={(e) => handleLinkClick(e, '/industries/legal')} className="footer-link">Law Firms</a></li>
+              <li><a href="/industries/real-estate" onClick={(e) => handleLinkClick(e, '/industries/real-estate')} className="footer-link">Real Estate</a></li>
+              <li><a href="/industries/home-services" onClick={(e) => handleLinkClick(e, '/industries/home-services')} className="footer-link">Home Services & HVAC</a></li>
+              <li><a href="/industries/auto-services" onClick={(e) => handleLinkClick(e, '/industries/auto-services')} className="footer-link">Auto Services</a></li>
+              <li><a href="/industries/wellness" onClick={(e) => handleLinkClick(e, '/industries/wellness')} className="footer-link">Wellness Clinics & PT</a></li>
+            </ul>
+          </div>
+
+          {/* 2. Product & Stack */}
+          <div>
+            <h4 style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-primary)', marginBottom: '16px' }}>
+              Product & Stack
+            </h4>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <li><a href="/pricing" onClick={(e) => handleLinkClick(e, '/pricing')} className="footer-link">Pricing & Minutes</a></li>
+              <li><a href="/integrations" onClick={(e) => handleLinkClick(e, '/integrations')} className="footer-link">Integrations Directory</a></li>
+              <li><a href="/customers" onClick={(e) => handleLinkClick(e, '/customers')} className="footer-link">Customer Case Studies</a></li>
+              <li><a href="#demo" onClick={(e) => handleLinkClick(e, '#demo')} className="footer-link">Live Voice Demo</a></li>
+            </ul>
+          </div>
+
+          {/* 3. Company & Trust */}
           <div>
             <h4 style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-primary)', marginBottom: '16px' }}>
               Company
             </h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <li><a href="/about" onClick={(e) => handleLinkClick(e, '/about')} className="footer-link">About Agent Pettra</a></li>
-              <li><a href="#how-it-works" onClick={(e) => handleLinkClick(e, '#how-it-works')} className="footer-link">How Pettra works</a></li>
-              <li><a href="#inquiry" onClick={(e) => handleLinkClick(e, '#inquiry')} className="footer-link">Contact</a></li>
+              <li><a href="/security" onClick={(e) => handleLinkClick(e, '/security')} className="footer-link">Trust & Security Center</a></li>
+              <li><a href="#inquiry" onClick={(e) => handleLinkClick(e, '#inquiry')} className="footer-link">Request Demo Line</a></li>
             </ul>
           </div>
 
-          {/* 2. Product Links */}
+          {/* 4. Legal */}
           <div>
             <h4 style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-primary)', marginBottom: '16px' }}>
-              Product
-            </h4>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <li><a href="#demo" onClick={(e) => handleLinkClick(e, '#demo')} className="footer-link">AI Receptionist</a></li>
-              <li><a href="#features" onClick={(e) => handleLinkClick(e, '#features')} className="footer-link">Features</a></li>
-              <li><a href="#pricing" onClick={(e) => handleLinkClick(e, '#pricing')} className="footer-link">Pricing</a></li>
-              <li><a href="#industries" onClick={(e) => handleLinkClick(e, '#industries')} className="footer-link">Industries</a></li>
-            </ul>
-          </div>
-
-          {/* 3. Legal Links */}
-          <div>
-            <h4 style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-primary)', marginBottom: '16px' }}>
-              Legal
+              Legal & Privacy
             </h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <li><a href="/privacy" onClick={(e) => handleLinkClick(e, '/privacy')} className="footer-link">Privacy Policy</a></li>
               <li><a href="/terms" onClick={(e) => handleLinkClick(e, '/terms')} className="footer-link">Terms of Service</a></li>
-              <li><a href="/security" onClick={(e) => handleLinkClick(e, '/security')} className="footer-link">Security & Telephony</a></li>
-              <li><a href="/privacy#cookies" onClick={(e) => handleLinkClick(e, '/privacy#cookies')} className="footer-link">Cookie Policy</a></li>
-            </ul>
-          </div>
-
-          {/* 4. Trust Links */}
-          <div>
-            <h4 style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-primary)', marginBottom: '16px' }}>
-              Trust
-            </h4>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <li><a href="/security#security-by-design" onClick={(e) => handleLinkClick(e, '/security#security-by-design')} className="footer-link">Security-first Architecture</a></li>
+              <li><a href="/security#ai-transparency" onClick={(e) => handleLinkClick(e, '/security#ai-transparency')} className="footer-link">FTC AI Transparency</a></li>
               <li><a href="/privacy#no-data-selling" onClick={(e) => handleLinkClick(e, '/privacy#no-data-selling')} className="footer-link">Zero Data Selling</a></li>
-              <li><a href="/security#ai-transparency" onClick={(e) => handleLinkClick(e, '/security#ai-transparency')} className="footer-link">AI Transparency</a></li>
             </ul>
           </div>
 
-          {/* 5. Connect Links */}
+          {/* 5. Contact */}
           <div>
             <h4 style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-primary)', marginBottom: '16px' }}>
-              Connect
+              Contact
             </h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="footer-link">LinkedIn</a></li>
-              <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="footer-link">Instagram</a></li>
-              <li><a href="https://x.com" target="_blank" rel="noopener noreferrer" className="footer-link">X (Twitter)</a></li>
-              <li><a href="mailto:support@agentpettra.com" className="footer-link">Contact Support</a></li>
+              <li><a href="tel:+18557388721" className="footer-link">+1 (855) 738-8721</a></li>
+              <li><a href="mailto:support@agentpettra.com" className="footer-link">support@agentpettra.com</a></li>
+              <li><a href="/about#team" onClick={(e) => handleLinkClick(e, '/about#team')} className="footer-link">North America Offices</a></li>
             </ul>
           </div>
         </div>

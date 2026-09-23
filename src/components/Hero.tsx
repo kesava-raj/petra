@@ -37,17 +37,17 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
             {/* Eyebrow */}
             <div className="eyebrow">
               <Sparkles size={14} />
-              <span>YOUR 24/7 AI RECEPTIONIST</span>
+              <span>24/7 AI RECEPTIONIST FOR APPOINTMENT-LED BUSINESSES</span>
             </div>
 
             {/* Single Primary H1 */}
             <h1 className="hero-heading">
-              Never Miss a Customer Call Again.
+              Turn missed calls into booked appointments.
             </h1>
 
             {/* Supporting Copy */}
             <p className="hero-subheading">
-              Meet Agent Pettra — an AI receptionist that answers calls, talks naturally with your customers, answers questions, and books appointments for your business, 24/7.
+              Agent Pettra answers routine calls, handles common questions, books into your calendar, and transfers complex callers with context, even when your team is busy or offline.
             </p>
 
             {/* CTA Group */}
@@ -58,7 +58,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
                 id="hero-talk-to-agent-pettra"
               >
                 <PhoneCall size={20} />
-                <span>Talk to Agent Pettra</span>
+                <span>Call the Live Demo</span>
               </button>
 
               <button
@@ -67,7 +67,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
                 id="hero-see-how-it-works"
               >
                 <Play size={18} />
-                <span>See How It Works</span>
+                <span>See the 3-Minute Setup</span>
               </button>
             </div>
 

@@ -20,20 +20,32 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
+  const [industryDropdownOpen, setIndustryDropdownOpen] = useState(false);
+
+  const mainLinks = [
+    { label: 'Pricing', href: '/pricing' },
+    { label: 'Integrations', href: '/integrations' },
+    { label: 'Customers', href: '/customers' },
     { label: 'About', href: '/about' },
-    { label: 'How It Works', href: '#how-it-works' },
-    { label: 'Features', href: '#features' },
-    { label: 'Industries', href: '#industries' },
-    { label: 'ROI Calculator', href: '#calculator' },
-    { label: 'Pricing', href: '#pricing' },
-    { label: 'Inquiry', href: '#inquiry' },
-    { label: 'FAQ', href: '#faq' },
+  ];
+
+  const industryLinks = [
+    { label: 'Dental Clinics', href: '/industries/dental', desc: 'Recall & new patient emergency triage' },
+    { label: 'Medical Practices', href: '/industries/medical', desc: 'Patient intake & appointment routing' },
+    { label: 'Hair & Beauty Salons', href: '/industries/salons', desc: 'Stylist matching & deposit capture' },
+    { label: 'Luxury Spas', href: '/industries/spas', desc: 'White-glove concierge & packages' },
+    { label: 'Med Spas & Aesthetics', href: '/industries/med-spa', desc: 'Treatment FAQs & consultations' },
+    { label: 'Law Firms', href: '/industries/legal', desc: 'Case intake & UPL conflict screening' },
+    { label: 'Real Estate', href: '/industries/real-estate', desc: 'Showing coordination & MLS lookup' },
+    { label: 'Home Services & HVAC', href: '/industries/home-services', desc: 'After-hours job capture & dispatch' },
+    { label: 'Auto Services', href: '/industries/auto-services', desc: 'Vehicle triage & bay drop-off' },
+    { label: 'Wellness Clinics', href: '/industries/wellness', desc: 'PT, Chiro & rehab intake' },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
+    setIndustryDropdownOpen(false);
     navigateTo(href);
   };
 
@@ -41,6 +53,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
     trackEvent('hero_cta_click', { source: 'navbar' });
     onOpenDemo();
     setMobileMenuOpen(false);
+    setIndustryDropdownOpen(false);
   };
 
   return (
@@ -111,10 +124,82 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
 
         {/* Desktop Navigation Links */}
         <nav 
-          style={{ display: 'none', alignItems: 'center', gap: '32px' }}
+          style={{ display: 'none', alignItems: 'center', gap: '28px' }}
           className="desktop-nav"
         >
-          {navLinks.map((link) => (
+          {/* Industries Dropdown */}
+          <div 
+            style={{ position: 'relative' }}
+            onMouseEnter={() => setIndustryDropdownOpen(true)}
+            onMouseLeave={() => setIndustryDropdownOpen(false)}
+          >
+            <button
+              type="button"
+              onClick={() => setIndustryDropdownOpen(!industryDropdownOpen)}
+              style={{
+                fontSize: '0.9375rem',
+                fontWeight: 600,
+                color: currentRoute.startsWith('/industries') ? 'var(--accent-blue)' : 'var(--text-secondary)',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                padding: '6px 0'
+              }}
+            >
+              <span>Industries</span>
+              <span style={{ fontSize: '0.75rem', opacity: 0.7 }}>▾</span>
+            </button>
+
+            {industryDropdownOpen && (
+              <div 
+                style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: '-40px',
+                  width: '560px',
+                  background: 'var(--bg-card)',
+                  borderRadius: '16px',
+                  border: '1px solid var(--border-subtle)',
+                  boxShadow: 'var(--shadow-lg)',
+                  padding: '14px',
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '6px',
+                  zIndex: 110
+                }}
+              >
+                {industryLinks.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={(e) => handleNavClick(e, item.href)}
+                    style={{
+                      padding: '10px 14px',
+                      borderRadius: '10px',
+                      textDecoration: 'none',
+                      display: 'block',
+                      transition: 'background 0.15s ease',
+                      background: currentRoute === item.href ? 'rgba(37, 99, 235, 0.08)' : 'transparent'
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(37, 99, 235, 0.08)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.background = currentRoute === item.href ? 'rgba(37, 99, 235, 0.08)' : 'transparent')}
+                  >
+                    <div style={{ fontWeight: 700, fontSize: '0.9rem', color: currentRoute === item.href ? 'var(--accent-blue)' : 'var(--text-primary)' }}>
+                      {item.label}
+                    </div>
+                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '2px' }}>
+                      {item.desc}
+                    </div>
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {mainLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
@@ -148,8 +233,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
             }}
             id="nav-talk-to-agent-pettra"
           >
-            <Sparkles size={16} />
-            <span className="nav-cta-text">Talk to Agent Pettra</span>
+            <PhoneCall size={16} />
+            <span className="nav-cta-text">Call Live Demo</span>
           </button>
 
           {/* Mobile Menu Button */}
@@ -199,23 +284,48 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
             padding: '24px 20px calc(24px + env(safe-area-inset-bottom, 0px)) 20px',
             display: 'flex',
             flexDirection: 'column',
-            gap: '16px',
+            gap: '12px',
             zIndex: 99,
             maxHeight: 'calc(100dvh - 70px)',
             overflowY: 'auto',
             WebkitOverflowScrolling: 'touch',
             boxShadow: 'var(--shadow-lg)'
           }}>
-            {navLinks.map((link) => (
+            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: '4px' }}>
+              Industries
+            </div>
+            {industryLinks.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
+                style={{
+                  fontSize: '0.95rem',
+                  fontWeight: 600,
+                  color: currentRoute === item.href ? 'var(--accent-blue)' : 'var(--text-primary)',
+                  padding: '8px 12px',
+                  borderRadius: '8px',
+                  background: 'var(--bg-secondary)',
+                  textDecoration: 'none'
+                }}
+              >
+                {item.label}
+              </a>
+            ))}
+
+            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: '12px' }}>
+              Pages
+            </div>
+            {mainLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
                 style={{
-                  fontSize: '1.05rem',
+                  fontSize: '1rem',
                   fontWeight: 600,
                   color: currentRoute === link.href ? 'var(--accent-blue)' : 'var(--text-primary)',
-                  padding: '10px 0',
+                  padding: '8px 0',
                   borderBottom: '1px solid var(--border-subtle)',
                   textDecoration: 'none'
                 }}
@@ -223,13 +333,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemo }) => {
                 {link.label}
               </a>
             ))}
+
             <button
               onClick={handleCtaClick}
               className="btn btn-primary"
-              style={{ width: '100%', marginTop: '8px', justifyContent: 'center', padding: '14px' }}
+              style={{ width: '100%', marginTop: '12px', justifyContent: 'center', padding: '14px' }}
             >
               <PhoneCall size={18} />
-              Talk to Agent Pettra
+              <span>Call Live Demo</span>
             </button>
           </div>
         </>

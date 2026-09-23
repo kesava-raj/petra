@@ -10,20 +10,27 @@ export interface UTMParameters {
 
 export type AnalyticsEvent = 
   | 'page_view'
+  | 'industry_page_view'
   | 'hero_cta_click'
   | 'demo_open'
   | 'demo_start'
+  | 'demo_call_connected'
+  | 'demo_permission_result'
   | 'demo_complete'
   | 'demo_error'
   | 'phone_demo_click'
   | 'pricing_view'
   | 'pricing_cta_click'
+  | 'plan_selected'
+  | 'roi_calculation_completed'
   | 'lead_form_start'
   | 'lead_submitted'
   | 'inline_inquiry_submitted'
   | 'email_intent_captured'
   | 'checkout_start'
-  | 'subscription_started';
+  | 'subscription_started'
+  | 'meeting_booked'
+  | 'qualified_call';
 
 declare global {
   interface Window {

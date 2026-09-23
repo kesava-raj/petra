@@ -1,6 +1,25 @@
 import { useState, useEffect } from 'react';
 
-export type AppRoute = '/' | '/about' | '/privacy' | '/terms' | '/security';
+export type AppRoute = 
+  | '/' 
+  | '/industries/dental' 
+  | '/industries/medical'
+  | '/industries/salons'
+  | '/industries/spas'
+  | '/industries/med-spa' 
+  | '/industries/legal'
+  | '/industries/real-estate'
+  | '/industries/home-services' 
+  | '/industries/auto-services'
+  | '/industries/wellness'
+  | '/pricing' 
+  | '/integrations' 
+  | '/customers' 
+  | '/about' 
+  | '/privacy' 
+  | '/terms' 
+  | '/security'
+  | '/404';
 
 // Listeners for route changes
 const listeners: Array<() => void> = [];
@@ -8,11 +27,31 @@ const listeners: Array<() => void> = [];
 export function getCurrentRoute(): AppRoute {
   if (typeof window === 'undefined') return '/';
   const path = window.location.pathname.toLowerCase().replace(/\/$/, '');
+  
+  if (!path || path === '') return '/';
+  if (path === '/industries/dental' || path === '/industries/dental-ai-receptionist') return '/industries/dental';
+  if (path === '/industries/medical' || path === '/industries/medical-practices') return '/industries/medical';
+  if (path === '/industries/salons' || path === '/industries/salon' || path === '/industries/hair-salons') return '/industries/salons';
+  if (path === '/industries/spas' || path === '/industries/spa' || path === '/industries/luxury-spas') return '/industries/spas';
+  if (path === '/industries/med-spa' || path === '/industries/med-spa-ai-receptionist' || path === '/industries/medspa') return '/industries/med-spa';
+  if (path === '/industries/legal' || path === '/industries/law-firms' || path === '/industries/legal-intake') return '/industries/legal';
+  if (path === '/industries/real-estate' || path === '/industries/realestate') return '/industries/real-estate';
+  if (path === '/industries/home-services' || path === '/industries/home-services-ai-answering' || path === '/industries/hvac') return '/industries/home-services';
+  if (path === '/industries/auto-services' || path === '/industries/auto-repair' || path === '/industries/automotive') return '/industries/auto-services';
+  if (path === '/industries/wellness' || path === '/industries/physical-therapy' || path === '/industries/chiropractic') return '/industries/wellness';
+  if (path === '/pricing') return '/pricing';
+  if (path === '/integrations') return '/integrations';
+  if (path === '/customers') return '/customers';
   if (path === '/about') return '/about';
   if (path === '/privacy') return '/privacy';
   if (path === '/terms') return '/terms';
   if (path === '/security') return '/security';
-  return '/';
+  
+  // Known hash anchor paths on home:
+  if (path.startsWith('/#') || path === '') return '/';
+
+  // Unknown route returns 404
+  return '/404';
 }
 
 export function navigateTo(path: string, options?: { replace?: boolean; scrollToTop?: boolean }) {

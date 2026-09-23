@@ -17,7 +17,7 @@ import {
   Check 
 } from 'lucide-react';
 import { trackEvent } from '../utils/analytics';
-import { submitLeadToGoogleSheet } from '../services/leadService';
+import { submitLead } from '../services/leadService';
 
 interface InquirySectionProps {
   onOpenDemo?: () => void;
@@ -86,21 +86,20 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [confirmedLeadId, setConfirmedLeadId] = useState<string>('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.email.trim()) return;
 
     setSubmitting(true);
 
     const needsList = selectedNeeds.map(id => NEED_OPTIONS.find(o => o.id === id)?.label).filter(Boolean);
-    const payload = {
-      ...formData,
-      needs: needsList,
-      source: 'inquiry_section'
-    };
 
+    // Non-PII analytics tracking per Meta & GA4 audit compliance
     trackEvent('lead_submitted', {
-      ...formData,
+      businessType: formData.businessType,
+      hasBusinessName: Boolean(formData.businessName),
       inquiryNeeds: selectedNeeds.join(','),
       source: 'inquiry_section'
     });
@@ -110,8 +109,6 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
       window.dataLayer.push({
         event: 'generate_lead',
         lead_source: 'inquiry_section',
-        email: formData.email,
-        business_name: formData.businessName,
         business_type: formData.businessType,
         inquiry_needs: selectedNeeds
       });
@@ -130,8 +127,8 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
       }
     }
 
-    // Submit live to Google Sheets (with automatic localStorage backup)
-    submitLeadToGoogleSheet({
+    // Submit live with unique correlation leadId and server confirmation
+    const result = await submitLead({
       source: 'inquiry_section',
       name: formData.name,
       businessName: formData.businessName,
@@ -142,10 +139,9 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
       message: formData.message
     });
 
-    setTimeout(() => {
-      setSubmitting(false);
-      setSubmitted(true);
-    }, 600);
+    setConfirmedLeadId(result.leadId);
+    setSubmitting(false);
+    setSubmitted(true);
   };
 
   return (
@@ -766,7 +762,7 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
                   id="inquiry-submit-btn"
                 >
                   <Send size={18} />
-                  <span>{submitting ? 'Submitting Inquiry...' : 'Submit Inquiry'}</span>
+                  <span>{submitting ? 'Connecting Demo Line...' : 'Request My Demo Line'}</span>
                 </button>
               </form>
             ) : (
@@ -787,11 +783,28 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
                 </div>
 
                 <h3 style={{ fontSize: '1.55rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '10px' }}>
-                  Inquiry Received!
+                  Demo Line Request Confirmed!
                 </h3>
 
+                {confirmedLeadId && (
+                  <div style={{
+                    display: 'inline-block',
+                    background: 'var(--bg-secondary)',
+                    border: '1px solid var(--border-subtle)',
+                    padding: '6px 14px',
+                    borderRadius: '8px',
+                    fontSize: '0.85rem',
+                    fontFamily: 'monospace',
+                    color: 'var(--accent-blue)',
+                    fontWeight: 700,
+                    marginBottom: '16px'
+                  }}>
+                    Reference: {confirmedLeadId}
+                  </div>
+                )}
+
                 <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: '24px' }}>
-                  Thank you, <strong>{formData.name}</strong>. We&apos;ve sent a confirmation to <strong>{formData.email}</strong>. Our team will configure your preview line for <strong>{formData.businessName}</strong> within 2 hours.
+                  Thank you, <strong>{formData.name}</strong>. We&apos;ve logged your request for <strong>{formData.businessName || 'your business'}</strong>. Our implementation team will review your call flow requirements and reach out within 15 minutes during business hours.
                 </p>
 
                 {onOpenDemo && (

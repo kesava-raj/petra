@@ -12,7 +12,8 @@ import {
   CheckCircle2, 
   RotateCcw,
   MessageSquare,
-  AlertCircle
+  AlertCircle,
+  ShieldCheck
 } from 'lucide-react';
 import Vapi from '@vapi-ai/web';
 import { voiceConfig } from '../config/voiceConfig';
@@ -31,8 +32,45 @@ interface MessageLog {
   time: string;
 }
 
+const INDUSTRY_RECORDED_SAMPLES = {
+  dental: {
+    title: 'Miller Dental Wellness',
+    subtitle: 'Chipped Molar Emergency Evaluation (0:45)',
+    messages: [
+      { id: '1', sender: 'customer' as const, text: "Hi, I have a chipped tooth from dinner and need to see Dr. Miller today if possible.", time: "0:02" },
+      { id: '2', sender: 'petra' as const, text: "Hello! You are speaking with Agent Pettra for Miller Dental. We hold urgent triage openings for tooth pain. Dr. Miller has an opening at 2:15 PM today. Would that work?", time: "0:08" },
+      { id: '3', sender: 'customer' as const, text: "2:15 PM works great. Do you accept Delta Dental Premier?", time: "0:15" },
+      { id: '4', sender: 'petra' as const, text: "Yes, we are in-network with Delta Dental Premier. I have reserved 2:15 PM for you and sent an SMS confirmation to this number.", time: "0:22" }
+    ]
+  },
+  medspa: {
+    title: 'Lumière Aesthetics & Skin',
+    subtitle: 'First-Time Morpheus8 Consultation (0:47)',
+    messages: [
+      { id: '1', sender: 'customer' as const, text: "Hi! How much is your Morpheus8 microneedling treatment, and do you have consultations this Friday?", time: "0:02" },
+      { id: '2', sender: 'petra' as const, text: "Hello! You are speaking with Agent Pettra for Lumière Aesthetics. Morpheus8 sessions start at $850. We have consultation openings this Friday at 1:30 PM or 3:45 PM. Would either fit your schedule?", time: "0:09" },
+      { id: '3', sender: 'customer' as const, text: "Friday at 1:30 PM is great.", time: "0:16" },
+      { id: '4', sender: 'petra' as const, text: "Wonderful! Friday at 1:30 PM is reserved with Nurse Sarah. I've texted your prep notes and clinic directions.", time: "0:23" }
+    ]
+  },
+  homeservices: {
+    title: 'Beacon Heating & Air',
+    subtitle: 'Emergency AC Outage Dispatch (0:56)',
+    messages: [
+      { id: '1', sender: 'customer' as const, text: "Our AC completely stopped blowing cold air and it's 88 degrees inside.", time: "0:02" },
+      { id: '2', sender: 'petra' as const, text: "Hello! You are speaking with Agent Pettra for Beacon Heating & Air. What is your ZIP code?", time: "0:07" },
+      { id: '3', sender: 'customer' as const, text: "We are in Austin, ZIP 78759.", time: "0:12" },
+      { id: '4', sender: 'petra' as const, text: "78759 is within our priority service area. Technician Marcus is available between 3:00 and 5:00 PM today for an on-site diagnosis. Should I book that arrival window?", time: "0:18" },
+      { id: '5', sender: 'customer' as const, text: "Yes, please book that!", time: "0:23" },
+      { id: '6', sender: 'petra' as const, text: "Booked! Marcus is assigned to your 3:00-5:00 PM window. I've sent an instant SMS tracking link to your phone.", time: "0:29" }
+    ]
+  }
+};
+
 export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal }) => {
   const [callStatus, setCallStatus] = useState<CallStatus>('idle');
+  const [activeDemoMode, setActiveDemoMode] = useState<'live' | 'recorded'>('live');
+  const [selectedIndustrySample, setSelectedIndustrySample] = useState<'dental' | 'medspa' | 'homeservices'>('dental');
   const [isMuted, setIsMuted] = useState(false);
   const [callDuration, setCallDuration] = useState(0);
   const [messages, setMessages] = useState<MessageLog[]>([]);
@@ -406,16 +444,145 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
         {/* Demo Interface Card */}
         <div className="petra-voice-card">
 
-          {/* Top Status Bar */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '16px',
-            paddingBottom: '24px',
-            borderBottom: '1px solid var(--border-subtle)'
-          }}>
+          {/* Mode Selector Tabs */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '24px', background: 'var(--bg-secondary)', padding: '6px', borderRadius: '14px', border: '1px solid var(--border-subtle)' }}>
+            <button
+              type="button"
+              onClick={() => setActiveDemoMode('live')}
+              style={{
+                padding: '10px 16px',
+                borderRadius: '10px',
+                border: 'none',
+                background: activeDemoMode === 'live' ? 'var(--accent-blue)' : 'transparent',
+                color: activeDemoMode === 'live' ? '#FFFFFF' : 'var(--text-muted)',
+                fontWeight: 600,
+                fontSize: '0.875rem',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <PhoneCall size={16} />
+              <span>Live Interactive Call</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveDemoMode('recorded')}
+              style={{
+                padding: '10px 16px',
+                borderRadius: '10px',
+                border: 'none',
+                background: activeDemoMode === 'recorded' ? 'var(--accent-blue)' : 'transparent',
+                color: activeDemoMode === 'recorded' ? '#FFFFFF' : 'var(--text-muted)',
+                fontWeight: 600,
+                fontSize: '0.875rem',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <Volume2 size={16} />
+              <span>45s Audio Sample & Transcript</span>
+            </button>
+          </div>
+
+          {activeDemoMode === 'recorded' ? (
+            <div style={{ padding: '8px 0' }}>
+              {/* Industry Selectors */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '20px' }}>
+                {[
+                  { id: 'dental', label: 'Dental Practice' },
+                  { id: 'medspa', label: 'Med Spa & Aesthetics' },
+                  { id: 'homeservices', label: 'Home Services / HVAC' }
+                ].map((ind) => (
+                  <button
+                    key={ind.id}
+                    type="button"
+                    onClick={() => setSelectedIndustrySample(ind.id as any)}
+                    style={{
+                      padding: '8px 16px',
+                      borderRadius: '10px',
+                      border: selectedIndustrySample === ind.id ? '1px solid var(--accent-blue)' : '1px solid var(--border-subtle)',
+                      background: selectedIndustrySample === ind.id ? 'rgba(37, 99, 235, 0.1)' : 'var(--bg-secondary)',
+                      color: selectedIndustrySample === ind.id ? 'var(--accent-blue)' : 'var(--text-secondary)',
+                      fontWeight: 600,
+                      fontSize: '0.85rem',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {ind.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Sample Header Info */}
+              <div style={{ background: 'var(--bg-secondary)', padding: '16px 20px', borderRadius: '16px', border: '1px solid var(--border-subtle)', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+                <div>
+                  <div style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '1rem' }}>
+                    {INDUSTRY_RECORDED_SAMPLES[selectedIndustrySample].title}
+                  </div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '2px' }}>
+                    {INDUSTRY_RECORDED_SAMPLES[selectedIndustrySample].subtitle}
+                  </div>
+                </div>
+
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '4px 10px', borderRadius: '14px', background: 'rgba(16, 185, 129, 0.1)', color: '#059669', fontSize: '0.78rem', fontWeight: 600 }}>
+                  <CheckCircle2 size={14} />
+                  <span>Call Resolved & Booked</span>
+                </div>
+              </div>
+
+              {/* Transcript Display */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxHeight: '280px', overflowY: 'auto', padding: '16px', background: 'var(--bg-secondary)', borderRadius: '16px', border: '1px solid var(--border-subtle)' }}>
+                {INDUSTRY_RECORDED_SAMPLES[selectedIndustrySample].messages.map((m) => (
+                  <div 
+                    key={m.id}
+                    style={{
+                      maxWidth: '85%',
+                      alignSelf: m.sender === 'customer' ? 'flex-end' : 'flex-start',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: m.sender === 'customer' ? 'flex-end' : 'flex-start'
+                    }}
+                  >
+                    <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '3px', display: 'flex', gap: '8px' }}>
+                      <span>{m.sender === 'customer' ? 'Caller' : 'Agent Pettra (AI)'}</span>
+                      <span>{m.time}</span>
+                    </div>
+                    <div style={{
+                      padding: '10px 14px',
+                      borderRadius: '14px',
+                      fontSize: '0.875rem',
+                      lineHeight: 1.5,
+                      background: m.sender === 'customer' ? 'var(--accent-blue)' : 'var(--bg-card)',
+                      color: m.sender === 'customer' ? '#FFFFFF' : 'var(--text-primary)',
+                      border: m.sender === 'customer' ? 'none' : '1px solid var(--border-subtle)'
+                    }}>
+                      {m.text}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <>
+              {/* Top Status Bar */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '16px',
+                paddingBottom: '24px',
+                borderBottom: '1px solid var(--border-subtle)'
+              }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <img 
                 src="/logo.png" 
@@ -692,56 +859,73 @@ export const PetraVoiceDemo: React.FC<PetraVoiceDemoProps> = ({ onOpenLeadModal 
             )}
           </div>
 
-          <p style={{
-            textAlign: 'center',
-            fontSize: '0.85rem',
-            color: 'var(--text-muted)',
-            marginTop: '16px'
-          }}>
-            No forms. No waiting. No sales call.
-          </p>
+            <p style={{
+              textAlign: 'center',
+              fontSize: '0.85rem',
+              color: 'var(--text-muted)',
+              marginTop: '16px'
+            }}>
+              No forms. No waiting. No sales call.
+            </p>
+          </>
+        )}
 
-          {/* Dedicated Fallback: Call Agent Pettra on Phone */}
-          <div style={{
-            marginTop: '28px',
-            padding: '16px 20px',
-            background: 'var(--bg-secondary)',
-            borderRadius: '14px',
-            border: '1px solid var(--border-subtle)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '14px'
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <Phone size={18} color="var(--accent-blue)" />
-              <div>
-                <span style={{ fontSize: '0.9rem', color: 'var(--text-primary)', fontWeight: 600 }}>
-                  Prefer using your phone?
-                </span>
-                <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', display: 'block' }}>
-                  Call our live demonstration line directly
-                </span>
-              </div>
+        {/* Dedicated Fallback: Call Agent Pettra on Phone */}
+        <div style={{
+          marginTop: '28px',
+          padding: '16px 20px',
+          background: 'var(--bg-secondary)',
+          borderRadius: '14px',
+          border: '1px solid var(--border-subtle)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '14px'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <Phone size={18} color="var(--accent-blue)" />
+            <div>
+              <span style={{ fontSize: '0.9rem', color: 'var(--text-primary)', fontWeight: 600 }}>
+                Prefer using your phone?
+              </span>
+              <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', display: 'block' }}>
+                Call our live demonstration line directly
+              </span>
             </div>
-
-            <a
-              href={`tel:${voiceConfig.phoneNumber}`}
-              onClick={() => trackEvent('phone_demo_click', { number: voiceConfig.phoneNumber })}
-              className="btn btn-secondary btn-sm"
-              style={{
-                borderColor: 'var(--border-glow)',
-                color: 'var(--accent-blue)',
-                fontWeight: 600
-              }}
-            >
-              <PhoneCall size={14} />
-              <span>Call {voiceConfig.displayPhoneNumber}</span>
-            </a>
           </div>
 
+          <a
+            href={`tel:${voiceConfig.phoneNumber}`}
+            onClick={() => trackEvent('phone_demo_click', { number: voiceConfig.phoneNumber })}
+            className="btn btn-secondary btn-sm"
+            style={{
+              borderColor: 'var(--border-glow)',
+              color: 'var(--accent-blue)',
+              fontWeight: 600
+            }}
+          >
+            <PhoneCall size={14} />
+            <span>Call {voiceConfig.displayPhoneNumber}</span>
+          </a>
         </div>
+
+        {/* FTC & Transparency Compliance Notice */}
+        <div style={{
+          marginTop: '16px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '8px',
+          fontSize: '0.78rem',
+          color: 'var(--text-muted)',
+          textAlign: 'center'
+        }}>
+          <ShieldCheck size={14} color="var(--accent-blue)" />
+          <span>FTC AI Disclosure: You are testing an artificial intelligence receptionist. Voice data is processed solely for demonstration purposes.</span>
+        </div>
+
+      </div>
 
         {/* Section 14: Demo Post-Interaction Conversion Card */}
         {callStatus === 'ended' && (

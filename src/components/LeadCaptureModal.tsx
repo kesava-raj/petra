@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X, CheckCircle2, Sparkles, Building, Mail, Phone, User, Briefcase } from 'lucide-react';
 import { LeadFormData } from '../types';
 import { trackEvent } from '../utils/analytics';
-import { submitLeadToGoogleSheet } from '../services/leadService';
+import { submitLead } from '../services/leadService';
 
 interface LeadCaptureModalProps {
   isOpen: boolean;
@@ -20,6 +20,7 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [confirmedLeadId, setConfirmedLeadId] = useState<string>('');
 
   if (!isOpen) return null;
 
@@ -27,12 +28,14 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // Non-PII analytics event per compliance
     trackEvent('lead_submitted', { 
-      ...formData,
+      businessType: formData.businessType,
+      hasBusinessName: Boolean(formData.businessName),
       planId: selectedPlan?.planId,
       billingCycle: selectedPlan?.billingCycle
     });
@@ -42,7 +45,7 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
       window.dataLayer.push({
         event: 'generate_lead',
         lead_source: selectedPlan ? `pricing_${selectedPlan.planId}_${selectedPlan.billingCycle}` : 'modal',
-        ...formData
+        business_type: formData.businessType
       });
 
       if (typeof window.gtag === 'function') {
@@ -61,10 +64,10 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
 
     const planText = selectedPlan 
       ? `${formatPlanName(selectedPlan.planId)} (${selectedPlan.billingCycle})`
-      : 'General Inquiry / Demo Request';
+      : 'General Custom Demo Request';
 
-    // Submit live to Google Sheets (with automatic localStorage backup)
-    submitLeadToGoogleSheet({
+    // Submit live with unique correlation leadId and server confirmation
+    const result = await submitLead({
       source: 'lead_modal',
       name: formData.name,
       businessName: formData.businessName,
@@ -72,13 +75,12 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
       phone: formData.phone,
       businessType: formData.businessType,
       needsOrPlan: `Plan: ${planText}`,
-      message: 'Submitted via Plan Selection / Get Started modal'
+      message: 'Submitted via Plan Selection / Build My Custom Demo modal'
     });
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 600);
+    setConfirmedLeadId(result.leadId);
+    setIsSubmitting(false);
+    setIsSubmitted(true);
   };
 
   const handleModalClose = () => {
@@ -346,7 +348,7 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
                 className="btn btn-primary btn-lg"
                 style={{ width: '100%', marginTop: '8px', padding: '14px' }}
               >
-                <span>{isSubmitting ? 'Configuring Preview...' : 'See How Agent Pettra Can Work for My Business'}</span>
+                <span>{isSubmitting ? 'Configuring Demo...' : 'Build My Custom Demo'}</span>
               </button>
             </form>
           </div>
@@ -367,12 +369,29 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
               <CheckCircle2 size={36} />
             </div>
 
-            <h3 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '10px' }}>
-              We&apos;re Preparing Your Custom Setup!
+            <h3 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '8px' }}>
+              Custom Demo Line Requested!
             </h3>
 
+            {confirmedLeadId && (
+              <div style={{
+                display: 'inline-block',
+                background: 'var(--bg-secondary)',
+                border: '1px solid var(--border-subtle)',
+                padding: '6px 14px',
+                borderRadius: '8px',
+                fontSize: '0.85rem',
+                fontFamily: 'monospace',
+                color: 'var(--accent-blue)',
+                fontWeight: 700,
+                marginBottom: '16px'
+              }}>
+                Reference: {confirmedLeadId}
+              </div>
+            )}
+
             <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', lineHeight: 1.5, marginBottom: '28px' }}>
-              Thank you, {formData.name}. Our onboarding specialist will connect your calendar and send you a private test line for {formData.businessName} within 2 hours.
+              Thank you, {formData.name}. Our onboarding team will configure your private test line and practice workflow for {formData.businessName || 'your business'} within 15 minutes during business hours.
             </p>
 
             <button
@@ -380,7 +399,7 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
               className="btn btn-primary"
               style={{ padding: '12px 32px' }}
             >
-              <span>Back to Demo</span>
+              <span>Back to Site</span>
             </button>
           </div>
         )}

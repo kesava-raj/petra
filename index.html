@@ -21,12 +21,60 @@
     <meta property="og:description" content="Never miss a customer call again. Meet Agent Pettra, your 24/7 AI receptionist that answers calls, talks naturally with callers, and schedules appointments." />
     <meta property="og:image" content="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=80" />
 
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://agentpettra.com/" />
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://agentpettra.com/" />
     <meta property="twitter:title" content="Agent Pettra — AI Receptionist for Your Business" />
-    <meta property="twitter:description" content="Never miss a customer call again. Meet Agent Pettra, your 24/7 AI receptionist that answers calls and books appointments." />
+    <meta property="twitter:description" content="Turn missed calls into booked appointments. Meet Agent Pettra, your 24/7 AI receptionist that answers calls and books appointments." />
     <meta property="twitter:image" content="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=80" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://agentpettra.com/#organization",
+          "name": "Agent Pettra Inc.",
+          "url": "https://agentpettra.com/",
+          "logo": "https://agentpettra.com/logo-192.png",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+1-855-738-8721",
+            "contactType": "customer service",
+            "areaServed": ["US", "CA"],
+            "availableLanguage": ["en", "es"]
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://agentpettra.com/#website",
+          "url": "https://agentpettra.com/",
+          "name": "Agent Pettra",
+          "publisher": {
+            "@id": "https://agentpettra.com/#organization"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://agentpettra.com/#software",
+          "name": "Agent Pettra AI Receptionist",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "All",
+          "offers": {
+            "@type": "Offer",
+            "price": "99.00",
+            "priceCurrency": "USD",
+            "description": "24/7 AI receptionist answering, call routing, and appointment scheduling"
+          }
+        }
+      ]
+    }
+    </script>
 
     <!-- Google Fonts: Plus Jakarta Sans & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
