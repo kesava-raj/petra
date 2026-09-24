@@ -268,10 +268,27 @@ export const DentalPage: React.FC<DentalPageProps> = () => {
               ))}
             </div>
 
-            {/* AI Disclosure Notice */}
-            <div style={{ marginTop: '24px', paddingTop: '16px', borderTop: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-              <ShieldCheck size={16} color="var(--accent-blue)" />
-              <span>FTC Compliance: Agent Pettra transparently discloses its AI identity at the start of every practice conversation.</span>
+            {/* Clinical & Emergency Boundary Notice */}
+            <div style={{
+              marginTop: '24px',
+              padding: '16px 20px',
+              borderRadius: '12px',
+              background: 'rgba(239, 68, 68, 0.05)',
+              border: '1px solid rgba(239, 68, 68, 0.2)',
+              fontSize: '0.825rem',
+              color: 'var(--text-secondary)',
+              lineHeight: 1.55,
+              display: 'flex',
+              gap: '12px',
+              alignItems: 'flex-start'
+            }}>
+              <ShieldCheck size={18} color="#EF4444" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div>
+                <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '2px' }}>
+                  Clinical & Emergency Practice Boundary
+                </strong>
+                Agent Pettra is strictly an administrative scheduling assistant. Agent Pettra does NOT provide clinical diagnosis, dental triage, or treatment recommendations. Callers reporting acute swelling, uncontrolled bleeding, trauma, or severe pain are immediately transferred to on-call staff or directed to emergency dental care. Business Associate Agreements (BAAs) available for covered practices.
+              </div>
             </div>
           </div>
         </div>

@@ -457,7 +457,7 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
             Have questions or need a custom setup?
           </h2>
           <p className="section-subtitle">
-            Get in touch with our solutions team. We&apos;ll configure a live preview phone line trained on your actual business within 2 hours.
+            Get in touch with our solutions team. We&apos;ll configure a preview test line trained on your business protocols within 2 to 4 business hours.
           </p>
         </div>
 
@@ -498,13 +498,14 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
                 </div>
                 <div style={{ minWidth: 0, flex: 1 }}>
                   <h4 style={{ fontSize: '0.98rem', fontWeight: 700, color: 'var(--text-primary)', margin: 0, lineHeight: 1.35 }}>
-                    Fast 2&#8209;Hour Turnaround
+                    Rapid Demo Line Setup
                   </h4>
                   <p style={{ fontSize: '0.84rem', color: 'var(--text-muted)', margin: '4px 0 0 0', lineHeight: 1.55 }}>
-                    Receive a personalized demo phone number configured with your practice hours and FAQs.
+                    Receive a personalized preview line configured with your hours &amp; FAQ within 2–4 business hours (production launch in 24–48h).
                   </p>
                 </div>
               </div>
+
 
               <div className="inquiry-perk-item">
                 <div className="inquiry-perk-icon emerald">
@@ -578,12 +579,15 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
                 {/* Row 1: Name & Business */}
                 <div className="inquiry-input-grid">
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
+                    <label htmlFor="inquiry-name-field" style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
                       Full Name *
                     </label>
                     <div style={{ position: 'relative' }}>
                       <User size={15} color="var(--text-muted)" style={{ position: 'absolute', left: '13px', top: '50%', transform: 'translateY(-50%)' }} />
                       <input
+                        id="inquiry-name-field"
+                        name="name"
+                        autoComplete="name"
                         type="text"
                         required
                         placeholder="Dr. Jordan Miller"
@@ -595,12 +599,15 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
+                    <label htmlFor="inquiry-biz-field" style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
                       Business Name *
                     </label>
                     <div style={{ position: 'relative' }}>
                       <Building size={15} color="var(--text-muted)" style={{ position: 'absolute', left: '13px', top: '50%', transform: 'translateY(-50%)' }} />
                       <input
+                        id="inquiry-biz-field"
+                        name="organization"
+                        autoComplete="organization"
                         type="text"
                         required
                         placeholder="Miller Dental Wellness"
@@ -615,12 +622,15 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
                 {/* Row 2: Email & Phone */}
                 <div className="inquiry-input-grid">
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
+                    <label htmlFor="inquiry-email-field" style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
                       Work Email *
                     </label>
                     <div style={{ position: 'relative' }}>
                       <Mail size={15} color="var(--text-muted)" style={{ position: 'absolute', left: '13px', top: '50%', transform: 'translateY(-50%)' }} />
                       <input
+                        id="inquiry-email-field"
+                        name="email"
+                        autoComplete="email"
                         type="email"
                         required
                         placeholder="jordan@practice.com"
@@ -632,12 +642,15 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
+                    <label htmlFor="inquiry-phone-field" style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
                       Phone Number *
                     </label>
                     <div style={{ position: 'relative' }}>
                       <Phone size={15} color="var(--text-muted)" style={{ position: 'absolute', left: '13px', top: '50%', transform: 'translateY(-50%)' }} />
                       <input
+                        id="inquiry-phone-field"
+                        name="tel"
+                        autoComplete="tel"
                         type="tel"
                         required
                         placeholder="(555) 019-2834"
@@ -648,6 +661,7 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
                     </div>
                   </div>
                 </div>
+
 
                 {/* Row 3: Business Category (UI Adapted Custom Dropdown) */}
                 <div ref={categoryRef} style={{ position: 'relative' }}>
@@ -740,12 +754,14 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
 
                 {/* Row 5: Message */}
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
+                  <label htmlFor="inquiry-message-field" style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
                     Message or Practice Details (Optional)
                   </label>
                   <div style={{ position: 'relative' }}>
                     <MessageSquare size={15} color="var(--text-muted)" style={{ position: 'absolute', left: '13px', top: '14px' }} />
                     <textarea
+                      id="inquiry-message-field"
+                      name="message"
                       placeholder="Tell us about your current front-desk workflow, expected call hours, or specific questions..."
                       value={formData.message}
                       onChange={(e) => handleFieldChange('message', e.target.value)}
@@ -764,7 +780,15 @@ export const InquirySection: React.FC<InquirySectionProps> = ({ onOpenDemo }) =>
                   <Send size={18} />
                   <span>{submitting ? 'Connecting Demo Line...' : 'Request My Demo Line'}</span>
                 </button>
+
+                <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textAlign: 'center', marginTop: '10px', lineHeight: 1.45 }}>
+                  By submitting, you agree to receive communications regarding your demo line setup. No automated spam. Zero data sharing with third-party ad brokers. See our{' '}
+                  <span style={{ color: 'var(--accent-blue)', textDecoration: 'underline', cursor: 'pointer' }} onClick={() => window.location.href = '/privacy'}>
+                    Privacy Policy
+                  </span>.
+                </p>
               </form>
+
             ) : (
               <div style={{ textAlign: 'center', padding: '24px 0' }}>
                 <div style={{

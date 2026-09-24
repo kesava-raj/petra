@@ -5,16 +5,26 @@ import { StatsStrip } from './StatsStrip';
 
 interface HeroProps {
   onOpenDemo: () => void;
+  onOpenLeadModal?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenDemo, onOpenLeadModal }) => {
   const handlePrimaryCta = () => {
-    trackEvent('hero_cta_click', { button: 'primary_talk_to_agent_pettra' });
+    trackEvent('hero_cta_click', { button: 'primary_call_live_demo' });
     onOpenDemo();
   };
 
   const handleSecondaryCta = () => {
-    trackEvent('hero_cta_click', { button: 'secondary_see_how_it_works' });
+    trackEvent('hero_cta_click', { button: 'secondary_build_business_demo' });
+    if (onOpenLeadModal) {
+      onOpenLeadModal();
+    } else {
+      onOpenDemo();
+    }
+  };
+
+  const handleSetupScroll = () => {
+    trackEvent('hero_cta_click', { button: 'tertiary_see_setup' });
     const el = document.getElementById('how-it-works');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
@@ -50,12 +60,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
               Agent Pettra answers routine calls, handles common questions, books into your calendar, and transfers complex callers with context, even when your team is busy or offline.
             </p>
 
-            {/* CTA Group */}
+            {/* CTA Group: Primary "Call the Live Demo" + Secondary "Build My Business Demo" */}
             <div className="hero-cta-group">
               <button
                 onClick={handlePrimaryCta}
                 className="btn btn-primary btn-lg btn-pulse hero-primary-btn"
-                id="hero-talk-to-agent-pettra"
+                id="hero-call-live-demo"
               >
                 <PhoneCall size={20} />
                 <span>Call the Live Demo</span>
@@ -64,10 +74,23 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
               <button
                 onClick={handleSecondaryCta}
                 className="btn btn-secondary btn-lg hero-secondary-btn"
-                id="hero-see-how-it-works"
+                id="hero-build-business-demo"
               >
-                <Play size={18} />
-                <span>See the 3-Minute Setup</span>
+                <Sparkles size={18} />
+                <span>Build My Business Demo</span>
+              </button>
+            </div>
+
+            {/* Information promise link */}
+            <div style={{ marginBottom: '18px' }}>
+              <button
+                type="button"
+                onClick={handleSetupScroll}
+                className="hero-setup-link"
+                id="hero-see-3min-setup"
+              >
+                <Play size={14} />
+                <span>See the 3-minute setup &amp; how it works &rarr;</span>
               </button>
             </div>
 
@@ -75,10 +98,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
             <p className="hero-microcopy">
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', verticalAlign: 'middle', whiteSpace: 'nowrap' }}>
                 <CheckCircle2 size={16} strokeWidth={2.2} color="#10B981" style={{ flexShrink: 0 }} />
-                <span>Try Agent Pettra yourself.</span>
+                <span>Try Agent Pettra live.</span>
               </span>{' '}
               <span style={{ whiteSpace: 'nowrap', verticalAlign: 'middle' }}>
-                It takes less than a minute.
+                No credit card or software installation required.
               </span>
             </p>
 
@@ -86,18 +109,19 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
             <div className="hero-trust-bullets">
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10B981' }}></span>
-                <span>Zero Hold Times</span>
+                <span>&lt;650ms Response Latency</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#3B82F6' }}></span>
-                <span>Automated Scheduling</span>
+                <span>Two-Way Calendar Sync</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#6366F1' }}></span>
-                <span>Natural Human Tone</span>
+                <span>Contextual Staff Handoff</span>
               </div>
             </div>
           </div>
+
 
           {/* Right Column: Hero Visual - Modern Smartphone showing active call with bubbles */}
           <div className="hero-visual-col">
@@ -220,7 +244,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
                   ))}
                 </div>
 
-                {/* Key Realtime Status Card */}
+                {/* Key Realtime Status Card: From "hello" to booked, routed, or resolved */}
                 <div style={{
                   width: '100%',
                   background: 'rgba(255, 255, 255, 0.05)',
@@ -232,16 +256,17 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
                     <span style={{ fontSize: '0.72rem', color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 700 }}>
-                      Active Task
+                      Operational Pipeline
                     </span>
                     <span style={{ fontSize: '0.72rem', color: '#10B981', fontWeight: 600 }}>
-                      Matching Schedule
+                      From &ldquo;Hello&rdquo; to Booked
                     </span>
                   </div>
                   <p style={{ fontSize: '0.8125rem', color: '#F1F5F9', margin: 0, fontWeight: 500 }}>
-                    Reserving appointment for cleaning on Friday
+                    Calendar slot reserved &bull; Warm staff transfer ready
                   </p>
                 </div>
+
 
                 {/* Simulated In-Call Controls */}
                 <div style={{
@@ -294,25 +319,26 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
               </div>
             </div>
 
-            {/* Floating Bubble 1: Customer */}
+            {/* Floating Bubble 1: Caller */}
             <div className="hero-floating-bubble-1">
               <span style={{ fontSize: '0.7rem', color: '#94A3B8', fontWeight: 600, display: 'block', marginBottom: '2px' }}>
-                Customer
+                Caller
               </span>
               <p style={{ fontSize: '0.85rem', color: '#F8FAFC', fontWeight: 500, margin: 0 }}>
-                &ldquo;I&apos;d like to book an appointment.&rdquo;
+                &ldquo;I need an appointment for this Friday afternoon.&rdquo;
               </p>
             </div>
 
-            {/* Floating Bubble 2: Pettra */}
+            {/* Floating Bubble 2: Agent Pettra with FTC AI Disclosure */}
             <div className="hero-floating-bubble-2">
               <span style={{ fontSize: '0.7rem', color: '#93C5FD', fontWeight: 600, display: 'block', marginBottom: '2px' }}>
-                Pettra (AI Receptionist)
+                Agent Pettra (AI Receptionist)
               </span>
-              <p style={{ fontSize: '0.85rem', color: '#FFFFFF', fontWeight: 500, margin: 0 }}>
-                &ldquo;Absolutely. What day works best for you?&rdquo;
+              <p style={{ fontSize: '0.825rem', color: '#FFFFFF', fontWeight: 500, margin: 0, lineHeight: 1.45 }}>
+                &ldquo;You are speaking with Agent Pettra, AI receptionist for Dr. Miller. I have Friday at 2:00 PM open — shall I hold that for you?&rdquo;
               </p>
             </div>
+
 
           </div>
 
@@ -505,7 +531,85 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
             max-width: 260px;
           }
         }
+
+        .hero-setup-link {
+          background: none;
+          border: none;
+          color: var(--accent-blue);
+          font-size: 0.875rem;
+          font-weight: 600;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 4px 0;
+          transition: all 0.2s ease;
+          text-decoration: none;
+        }
+
+        .hero-setup-link:hover {
+          color: #60A5FA;
+          transform: translateX(2px);
+        }
+
+        /* Light Mode High-Contrast Rules (WCAG 2.2 AA Compliance) */
+        [data-theme="light"] .hero-heading {
+          background: none;
+          -webkit-background-clip: unset;
+          -webkit-text-fill-color: initial;
+          color: #0F172A;
+        }
+
+        [data-theme="light"] .hero-subheading {
+          color: #334155;
+        }
+
+        [data-theme="light"] .hero-microcopy {
+          color: #64748B;
+        }
+
+        [data-theme="light"] .hero-setup-link {
+          color: #2563EB;
+        }
+
+        [data-theme="light"] .hero-setup-link:hover {
+          color: #1D4ED8;
+        }
+
+        [data-theme="light"] .hero-trust-bullets {
+          border-top-color: rgba(15, 23, 42, 0.08);
+          color: #475569;
+        }
+
+        [data-theme="light"] .hero-floating-bubble-1 {
+          background: rgba(255, 255, 255, 0.96);
+          border: 1px solid rgba(15, 23, 42, 0.1);
+          box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+        }
+
+        [data-theme="light"] .hero-floating-bubble-1 p {
+          color: #0F172A !important;
+        }
+
+        [data-theme="light"] .hero-floating-bubble-1 span {
+          color: #64748B !important;
+        }
+
+        [data-theme="light"] .hero-floating-bubble-2 {
+          background: linear-gradient(135deg, #EFF6FF 0%, #EEF2FF 100%);
+          border: 1px solid rgba(37, 99, 235, 0.25);
+          box-shadow: 0 10px 25px rgba(37, 99, 235, 0.12);
+        }
+
+        [data-theme="light"] .hero-floating-bubble-2 p {
+          color: #1E293B !important;
+        }
+
+        [data-theme="light"] .hero-floating-bubble-2 span {
+          color: #2563EB !important;
+        }
       `}</style>
     </section>
+
   );
 };

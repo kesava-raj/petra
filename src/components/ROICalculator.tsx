@@ -247,9 +247,10 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onOpenDemo }) => {
               <span>See What Agent Pettra Can Do</span>
             </button>
 
-            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: 1.4, margin: 0 }}>
-              This calculator provides an illustrative estimate and does not guarantee revenue or conversion results.
+            <p style={{ fontSize: '0.725rem', color: 'var(--text-muted)', lineHeight: 1.45, margin: 0 }}>
+              Illustrative modeling tool only. Figures reflect potential gross scheduled appointment value based on user-supplied call volume, ticket size, and estimated capture rates; they do not represent net profit or guaranteed conversion outcomes. Actual results vary by geography, industry, and staff availability.
             </p>
+
           </div>
         </div>
       </div>

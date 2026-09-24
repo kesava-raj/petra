@@ -81,11 +81,33 @@ export function getStoredUTMParams(): UTMParameters {
   return {};
 }
 
-// Track event with standard payload and UTM attribution
+// Non-PII payload sanitizer to ensure compliance with Meta Advertising Standards & US State Privacy laws
+const FORBIDDEN_AD_KEYS = new Set([
+  'name', 'email', 'phone', 'message', 'text', 'transcript', 'patient', 'health',
+  'medical', 'diagnosis', 'injury', 'condition', 'treatment', 'address', 'dob',
+  'opposingparty', 'casefacts', 'notes'
+]);
+
+function sanitizeForAdNetworks(props?: Record<string, unknown>): Record<string, unknown> {
+  if (!props) return {};
+  const clean: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(props)) {
+    const lowerKey = key.toLowerCase();
+    if (!FORBIDDEN_AD_KEYS.has(lowerKey) && typeof value !== 'function') {
+      clean[key] = value;
+    }
+  }
+  return clean;
+}
+
+// Track event with standard payload, deduplication event_id, and UTM attribution
 export function trackEvent(event: AnalyticsEvent, properties?: Record<string, unknown>): void {
   const utms = getStoredUTMParams();
+  const eventId = `evt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  
   const payload = {
     event,
+    event_id: eventId,
     timestamp: new Date().toISOString(),
     ...utms,
     ...properties
@@ -96,21 +118,27 @@ export function trackEvent(event: AnalyticsEvent, properties?: Record<string, un
     console.log(`[Analytics Event: ${event}]`, payload);
   }
 
-  // Meta Pixel (fbq) integration
+  // Meta Pixel (fbq) integration with sanitized parameters and deduplicated event_id
   if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
+    const sanitizedPayload = {
+      event_id: eventId,
+      ...sanitizeForAdNetworks(payload)
+    };
+
     if (event === 'lead_submitted') {
-      window.fbq('track', 'Lead', payload);
+      window.fbq('track', 'Lead', sanitizedPayload, { eventID: eventId });
     } else if (event === 'demo_start') {
-      window.fbq('trackCustom', 'AgentPettraDemoStart', payload);
+      window.fbq('trackCustom', 'AgentPettraDemoStart', sanitizedPayload, { eventID: eventId });
     } else if (event === 'demo_complete') {
-      window.fbq('trackCustom', 'AgentPettraDemoComplete', payload);
+      window.fbq('trackCustom', 'AgentPettraDemoComplete', sanitizedPayload, { eventID: eventId });
     } else {
-      window.fbq('trackCustom', event, payload);
+      window.fbq('trackCustom', event, sanitizedPayload, { eventID: eventId });
     }
   }
 
   // Google Analytics / GTM integration
   if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-    window.gtag('event', event, payload);
+    window.gtag('event', event, sanitizeForAdNetworks(payload));
   }
 }
+

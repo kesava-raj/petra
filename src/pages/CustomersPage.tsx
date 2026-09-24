@@ -97,12 +97,33 @@ export const CustomersPage: React.FC<CustomersPageProps> = () => {
           </div>
 
           <h1 style={{ fontSize: 'clamp(2.4rem, 4.5vw, 3.4rem)', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.03em', marginBottom: '16px' }}>
-            How serious businesses turn missed calls into booked revenue.
+            How appointment-led businesses recover missed call revenue.
           </h1>
 
           <p style={{ fontSize: '1.15rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '28px' }}>
-            Real case studies with defined baselines, operational measurement periods, and verified appointment outcomes.
+            Detailed operational scenarios with defined call baselines, measurement periods, and verified scheduling protocols.
           </p>
+
+          {/* Methodology & Regulatory Transparency Box */}
+          <div style={{
+            background: 'var(--bg-secondary)',
+            border: '1px solid var(--border-subtle)',
+            borderRadius: '16px',
+            padding: '20px 24px',
+            textAlign: 'left',
+            fontSize: '0.85rem',
+            color: 'var(--text-muted)',
+            lineHeight: 1.6,
+            marginBottom: '32px'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '6px' }}>
+              <ShieldCheck size={18} color="var(--accent-blue)" />
+              <span>Evidence Standard & Measurement Methodology</span>
+            </div>
+            <p style={{ margin: 0 }}>
+              The case studies below represent <strong>illustrative operational scenarios</strong> synthesized from actual client onboarding workflows, audited phone logs, and appointment holds. <strong>Denominator:</strong> Baselines measure total inbound calls during unstaffed or overflow hours. <strong>Caveats & Limitations:</strong> Individual practice recovery depends on local market demand, practitioner availability, front-desk operating hours, and service pricing. Dollar amounts reflect gross scheduled procedure or job value, not guaranteed net profit.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -129,9 +150,14 @@ export const CustomersPage: React.FC<CustomersPageProps> = () => {
                         <IconComponent size={24} />
                       </div>
                       <div>
-                        <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
-                          {study.business}
-                        </h3>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
+                            {study.business}
+                          </h3>
+                          <span style={{ fontSize: '0.7rem', fontWeight: 700, padding: '2px 8px', borderRadius: '4px', background: 'rgba(37, 99, 235, 0.1)', color: 'var(--accent-blue)' }}>
+                            ILLUSTRATIVE SCENARIO
+                          </span>
+                        </div>
                         <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                           {study.industry} • {study.location}
                         </div>

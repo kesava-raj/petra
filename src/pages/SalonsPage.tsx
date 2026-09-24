@@ -242,9 +242,33 @@ export const SalonsPage: React.FC<SalonsPageProps> = ({ onOpenDemo }) => {
                 </div>
               ))}
             </div>
+
+            {/* Salon Booking & Cancellation Policy Boundary */}
+            <div style={{
+              marginTop: '24px',
+              padding: '16px 20px',
+              borderRadius: '12px',
+              background: 'rgba(236, 72, 153, 0.05)',
+              border: '1px solid rgba(236, 72, 153, 0.25)',
+              fontSize: '0.825rem',
+              color: 'var(--text-secondary)',
+              lineHeight: 1.55,
+              display: 'flex',
+              gap: '12px',
+              alignItems: 'flex-start'
+            }}>
+              <ShieldCheck size={18} color="#EC4899" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div>
+                <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '2px' }}>
+                  Salon Service Policy &amp; Deposit Transparency Boundary
+                </strong>
+                Agent Pettra enforces salon-approved booking rules, chair schedules, service durations, and cancellation policies. Deposit links and card authorizations are transmitted exclusively via PCI-compliant payment integrations (Square, Fresha, Boulevard). Agent Pettra adheres strictly to respectful, non-shaming beauty communication standards with zero personal attribute assertions.
+              </div>
+            </div>
           </div>
         </div>
       </section>
+
 
       {/* Qualifier Form */}
       <section id="salon-form-section" style={{ padding: '64px 0', background: 'var(--bg-secondary)', borderTop: '1px solid var(--border-subtle)' }}>

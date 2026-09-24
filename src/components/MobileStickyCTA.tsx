@@ -61,7 +61,7 @@ export const MobileStickyCTA: React.FC<MobileStickyCTAProps> = ({ onOpenDemo }) 
         }}
       >
         <PhoneCall size={20} />
-        <span>Talk to Agent Pettra</span>
+        <span>Call the Live Demo</span>
         <Sparkles size={16} color="#93C5FD" />
       </button>
 

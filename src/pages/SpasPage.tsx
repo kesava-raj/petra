@@ -242,9 +242,33 @@ export const SpasPage: React.FC<SpasPageProps> = ({ onOpenDemo }) => {
                 </div>
               ))}
             </div>
+
+            {/* Luxury Spa Etiquette & Wellness Policy Boundary */}
+            <div style={{
+              marginTop: '24px',
+              padding: '16px 20px',
+              borderRadius: '12px',
+              background: 'rgba(168, 85, 247, 0.05)',
+              border: '1px solid rgba(168, 85, 247, 0.25)',
+              fontSize: '0.825rem',
+              color: 'var(--text-secondary)',
+              lineHeight: 1.55,
+              display: 'flex',
+              gap: '12px',
+              alignItems: 'flex-start'
+            }}>
+              <ShieldCheck size={18} color="#A855F7" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div>
+                <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '2px' }}>
+                  Spa Etiquette, Contraindications &amp; Cancellation Policy Boundary
+                </strong>
+                Agent Pettra presents approved treatment descriptions, hydrotherapy prerequisites, and quiet-environment policies. For prenatal guests, acute allergies, or medical contraindications, Agent Pettra routes guests directly to your spa concierge or lead therapist. Cancellation policies and credit card guarantees are handled through encrypted, PCI-compliant booking gateways.
+              </div>
+            </div>
           </div>
         </div>
       </section>
+
 
       {/* Qualifier Form */}
       <section id="spa-form-section" style={{ padding: '64px 0', background: 'var(--bg-secondary)', borderTop: '1px solid var(--border-subtle)' }}>

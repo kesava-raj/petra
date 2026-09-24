@@ -259,9 +259,27 @@ export const MedSpaPage: React.FC<MedSpaPageProps> = () => {
               ))}
             </div>
 
-            <div style={{ marginTop: '24px', paddingTop: '16px', borderTop: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-              <ShieldCheck size={16} color="var(--accent-blue)" />
-              <span>FTC & Privacy Notice: Clear AI disclosure given on connection. No medical or health claims are stored in ad pixels.</span>
+            {/* Aesthetic & Meta Advertising Boundary Notice */}
+            <div style={{
+              marginTop: '24px',
+              padding: '16px 20px',
+              borderRadius: '12px',
+              background: 'rgba(219, 39, 119, 0.05)',
+              border: '1px solid rgba(219, 39, 119, 0.2)',
+              fontSize: '0.825rem',
+              color: 'var(--text-secondary)',
+              lineHeight: 1.55,
+              display: 'flex',
+              gap: '12px',
+              alignItems: 'flex-start'
+            }}>
+              <ShieldCheck size={18} color="#DB2777" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div>
+                <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '2px' }}>
+                  Aesthetic Practice & Meta Advertising Compliance Boundary
+                </strong>
+                Agent Pettra is strictly an administrative scheduling assistant. Agent Pettra does NOT diagnose dermatological conditions, evaluate aesthetic candidacy, or make outcome guarantees. Consultations and suitability determinations are performed exclusively by licensed medical directors or nurse injectors. In compliance with Meta Health & Personal Attribute policies, zero treatment categories, patient notes, or health data are transmitted to advertising pixels.
+              </div>
             </div>
           </div>
         </div>

@@ -102,7 +102,11 @@ export const App: React.FC = () => {
         {currentRoute === '/' && (
           <>
             {/* 2. Hero Section */}
-            <Hero onOpenDemo={scrollToDemo} />
+            <Hero 
+              onOpenDemo={scrollToDemo} 
+              onOpenLeadModal={() => setIsLeadModalOpen(true)} 
+            />
+
 
             {/* 3. Live Agent Pettra Demo (The most important section) */}
             <PetraVoiceDemo onOpenLeadModal={() => setIsLeadModalOpen(true)} />

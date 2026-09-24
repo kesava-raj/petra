@@ -26,7 +26,7 @@ export const pricingConfig: PricingConfig = {
         "Email & SMS alert summaries",
         "$0.35/min additional overage"
       ],
-      ctaText: "Get Started"
+      ctaText: "Build My Custom Demo"
     },
     {
       id: "growth",
@@ -47,7 +47,7 @@ export const pricingConfig: PricingConfig = {
         "$0.30/min additional overage"
       ],
       isPopular: true,
-      ctaText: "Get Started"
+      ctaText: "Build My Custom Demo"
     },
     {
       id: "pro",
@@ -67,7 +67,7 @@ export const pricingConfig: PricingConfig = {
         "White-glove priority onboarding",
         "$0.25/min additional overage"
       ],
-      ctaText: "Get Started"
+      ctaText: "Request Custom Setup"
     }
   ]
 };

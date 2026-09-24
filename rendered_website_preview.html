@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Pettra — Rendered Website & Subpages Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --bg-darkest: #F8FAFC;
+      --bg-primary: #FFFFFF;
+      --bg-secondary: #F1F5F9;
+      --bg-tertiary: #E2E8F0;
+      --bg-card: #FFFFFF;
+      --bg-glass: rgba(255, 255, 255, 0.95);
+      --border-subtle: rgba(15, 23, 42, 0.08);
+      --text-primary: #0F172A;
+      --text-secondary: #334155;
+      --text-muted: #64748B;
+      --accent-blue: #2563EB;
+      --accent-indigo: #4F46E5;
+      --accent-emerald: #059669;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 6px 20px -2px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 16px 36px -4px rgba(15, 23, 42, 0.12);
+    }
+    [data-theme="dark"] {
+      --bg-darkest: #050811;
+      --bg-primary: #080D1A;
+      --bg-secondary: #0D1527;
+      --bg-tertiary: #162238;
+      --bg-card: rgba(15, 23, 42, 0.85);
+      --bg-glass: rgba(13, 21, 39, 0.85);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --text-primary: #F8FAFC;
+      --text-secondary: #CBD5E1;
+      --text-muted: #94A3B8;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 6px 20px -2px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 16px 36px -4px rgba(0, 0, 0, 0.6);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-darkest);
+      color: var(--text-primary);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4, .brand-font {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: -0.025em;
+    }
+    .container {
+      width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    /* Preview Controller Bar */
+    .preview-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--bg-glass);
+      backdrop-filter: blur(16px);
+      border-bottom: 2px solid var(--accent-blue);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: var(--shadow-md);
+    }
+    .preview-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .preview-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--accent-blue);
+      color: #FFFFFF;
+      border-color: var(--accent-blue);
+    }
+    .page-view {
+      display: none;
+      animation: fadeIn 0.3s ease forwards;
+    }
+    .page-view.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-indigo) 100%);
+      color: #FFFFFF;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+      transition: transform 0.2s ease;
+      text-decoration: none;
+    }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-secondary {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-secondary:hover { background: var(--bg-secondary); }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+    }
+    .metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .metric-val {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .metric-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+    .protocol-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 32px;
+    }
+    .protocol-step {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1rem;
+      margin-bottom: 14px;
+    }
+    .transcript-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: var(--shadow-lg);
+      margin-top: 32px;
+    }
+    .chat-bubble {
+      margin-bottom: 16px;
+      max-width: 82%;
+    }
+    .chat-bubble.petra {
+      margin-right: auto;
+    }
+    .chat-bubble.caller {
+      margin-left: auto;
+      text-align: right;
+    }
+    .bubble-meta {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .bubble-text {
+      padding: 14px 18px;
+      border-radius: 16px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      display: inline-block;
+      text-align: left;
+    }
+    .bubble-petra .bubble-text {
+      background: rgba(37, 99, 235, 0.08);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      border-top-left-radius: 4px;
+      color: var(--text-primary);
+    }
+    .bubble-caller .bubble-text {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-top-right-radius: 4px;
+      color: var(--text-primary);
+    }
+    .form-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+      max-width: 800px;
+      margin: 32px auto 0;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .input-field {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Switcher Bar -->
+  <div class="preview-bar">
+    <div style="display:flex; align-items:center; gap:8px;">
+      <span style="font-weight:800; font-size:1.1rem; color:var(--text-primary);">Agent Pettra<span style="color:var(--accent-blue)">.</span></span>
+      <span style="font-size:0.75rem; background:rgba(37,99,235,0.1); color:var(--accent-blue); padding:3px 8px; border-radius:6px; font-weight:700;">RENDERED PREVIEW</span>
+    </div>
+
+    <!-- Page Switcher Tabs -->
+    <div class="preview-tabs">
+      <button class="tab-btn active" onclick="switchPage('home')">Home Page</button>
+      <button class="tab-btn" onclick="switchPage('dental')">Dental Clinics</button>
+      <button class="tab-btn" onclick="switchPage('medical')">Medical Practices</button>
+      <button class="tab-btn" onclick="switchPage('salons')">Hair & Beauty Salons</button>
+      <button class="tab-btn" onclick="switchPage('spas')">Luxury Spas</button>
+      <button class="tab-btn" onclick="switchPage('medspa')">Med Spas</button>
+      <button class="tab-btn" onclick="switchPage('legal')">Law Firms</button>
+      <button class="tab-btn" onclick="switchPage('realestate')">Real Estate</button>
+      <button class="tab-btn" onclick="switchPage('homeservices')">Home Services</button>
+      <button class="tab-btn" onclick="switchPage('auto')">Auto Services</button>
+      <button class="tab-btn" onclick="switchPage('wellness')">Wellness Clinics</button>
+      <button class="tab-btn" onclick="switchPage('pricing')">Pricing & Minutes</button>
+    </div>
+
+    <button onclick="toggleTheme()" class="tab-btn" style="border-radius:8px;">🌓 Theme</button>
+  </div>
+
+  <!-- ================= 1. HOME PAGE ================= -->
+  <div id="page-home" class="page-view active">
+    <section style="padding: 72px 0 48px; text-align: center; background: radial-gradient(ellipse at top, rgba(37, 99, 235, 0.08), transparent 70%);">
+      <div class="container" style="max-width:920px;">
+        <div class="badge" style="background:rgba(37,99,235,0.1); color:var(--accent-blue);">
+          ⚡ 24/7 AI RECEPTIONIST FOR APPOINTMENT-LED BUSINESSES
+        </div>
+        <h1 style="font-size:clamp(2.5rem, 5vw, 4rem); font-weight:800; line-height:1.15; margin-bottom:20px;">
+          Turn missed calls into booked appointments.
+        </h1>
+        <p style="font-size:1.25rem; color:var(--text-secondary); line-height:1.6; margin-bottom:32px;">
+          Agent Pettra answers routine calls, handles common questions, books into your calendar, and transfers complex callers with context, even when your team is busy or offline.
+        </p>
+        <div style="display:flex; justify-content:center; gap:16px; margin-bottom:18px; flex-wrap:wrap;">
+          <a href="#live-demo" class="btn-primary">Call the Live Demo</a>
+          <button onclick="switchPage('pricing')" class="btn-secondary">Build My Business Demo</button>
+        </div>
+        <div style="margin-bottom:32px;">
+          <a href="#how-it-works" style="color:var(--accent-blue); font-size:0.875rem; font-weight:600; text-decoration:none;">See the 3-minute setup &amp; how it works &rarr;</a>
+        </div>
+
+        <div style="display:flex; justify-content:center; gap:24px; color:var(--text-muted); font-size:0.875rem; flex-wrap:wrap;">
+          <span>🔒 SOC-2 Aligned Cloud Storage</span>
+          <span>⚡ &lt; 650ms Response Latency (TTFA)</span>
+          <span>📅 Google & Outlook Sync</span>
+          <span>🛡️ HIPAA-Ready & UPL Guardrails</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Industry Strip -->
+    <section style="padding:32px 0; border-top:1px solid var(--border-subtle); border-bottom:1px solid var(--border-subtle); background:var(--bg-secondary);">
+      <div class="container" style="text-align:center;">
+        <p style="font-size:0.85rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:20px;">
+          EXPLORE DEDICATED WORKFLOWS FOR APPOINTMENT-DRIVEN VERTICALS
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
+          <button onclick="switchPage('dental')" class="tab-btn" style="padding:10px 18px; font-size:0.9rem;">🦷 Dental Clinics →</button>
+          <button onclick="switchPage('medical')" class="tab-btn" style="padding:10px 18px; font-size:0.9rem;">🩺 Medical Practices →</button>
+          <button onclick="switchPage('salons')" class="tab-btn" style="padding:10px 18px; font-size:0.9rem;">✂️ Hair & Beauty Salons →</button>
+          <button onclick="switchPage('spas')" class="tab-btn" style="padding:10px 18px; font-size:0.9rem;">🌸 Luxury Spas →</button>
+          <button onclick="switchPage('medspa')" class="tab-btn" style="padding:10px 18px; font-size:0.9rem;">✨ Med Spas →</button>
+          <button onclick="switchPage('legal')" class="tab-btn" style="padding:10px 18px; font-size:0.9rem;">⚖️ Law Firms →</button>
+          <button onclick="switchPage('realestate')" class="tab-btn" style="padding:10px 18px; font-size:0.9rem;">🏡 Real Estate →</button>
+          <button onclick="switchPage('homeservices')" class="tab-btn" style="padding:10px 18px; font-size:0.9rem;">🔧 Home Services →</button>
+          <button onclick="switchPage('auto')" class="tab-btn" style="padding:10px 18px; font-size:0.9rem;">🚗 Auto Services →</button>
+          <button onclick="switchPage('wellness')" class="tab-btn" style="padding:10px 18px; font-size:0.9rem;">❤️ Wellness Clinics →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem & Solution Overview -->
+    <section style="padding:72px 0;">
+      <div class="container">
+        <div style="text-align:center; margin-bottom:48px;">
+          <h2 style="font-size:2.2rem; font-weight:800;">The High Cost of Missed Calls</h2>
+          <p style="color:var(--text-muted); font-size:1.1rem; margin-top:8px;">Every unanswered ring pushes high-intent revenue straight to your competitors.</p>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:20px;">
+          <div class="metric-card">
+            <div style="font-size:1.8rem; font-weight:800; color:var(--accent-blue); margin-bottom:8px;">67%</div>
+            <h4 style="margin-bottom:6px;">Hang Up on Voicemail</h4>
+            <p style="font-size:0.9rem; color:var(--text-muted);">Prospective clients calling for a booking will not leave a voicemail; they call the next local business.</p>
+          </div>
+          <div class="metric-card">
+            <div style="font-size:1.8rem; font-weight:800; color:#E11D48; margin-bottom:8px;">$1,200+</div>
+            <h4 style="margin-bottom:6px;">Lost Per Unanswered Call</h4>
+            <p style="font-size:0.9rem; color:var(--text-muted);">In clinical practices, home services, and legal intake, a single missed consultation costs thousands in client lifetime value.</p>
+          </div>
+          <div class="metric-card">
+            <div style="font-size:1.8rem; font-weight:800; color:#D97706; margin-bottom:8px;">38%</div>
+            <h4 style="margin-bottom:6px;">Calls Arrive After Hours</h4>
+            <p style="font-size:0.9rem; color:var(--text-muted);">Over a third of appointment research occurs between 5 PM and 9 AM or on weekends when staff is offline.</p>
+          </div>
+          <div class="metric-card">
+            <div style="font-size:1.8rem; font-weight:800; color:var(--accent-emerald); margin-bottom:8px;">&lt; 3 Sec</div>
+            <h4 style="margin-bottom:6px;">Agent Pettra Instant Pickup</h4>
+            <p style="font-size:0.9rem; color:var(--text-muted);">Pettra answers on the very first ring, answers questions accurately, and schedules appointments directly into your calendar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= 2. LAW FIRMS SUBPAGE ================= -->
+  <div id="page-legal" class="page-view">
+    <section style="padding:64px 0; background:radial-gradient(ellipse at top, rgba(99, 102, 241, 0.1), transparent 70%);">
+      <div class="container">
+        <div class="badge" style="background:rgba(99, 102, 241, 0.15); color:#6366F1;">
+          ⚖️ ATTORNEY-CLIENT INTAKE PROTOCOL & 24/7 CALL CAPTURE
+        </div>
+        <h1 style="font-size:clamp(2.3rem, 4vw, 3.4rem); font-weight:800; margin-bottom:16px;">
+          Capture high-value legal inquiries the moment prospective clients call.
+        </h1>
+        <p style="font-size:1.2rem; color:var(--text-secondary); max-width:800px; margin-bottom:32px;">
+          When prospective clients face an urgent legal crisis, they hire the first responsive firm. Agent Pettra qualifies practice area fit, screens conflicts, verifies jurisdiction, and schedules consultations 24/7 without offering unauthorized legal advice.
+        </p>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-bottom:48px;">
+          <div class="metric-card">
+            <div class="metric-val" style="color:#6366F1;">&lt; 3 Sec</div>
+            <div class="metric-desc">Zero missed calls when attorneys are in court or depositions</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val" style="color:var(--accent-emerald);">100% Guardrail</div>
+            <div class="metric-desc">Strict UPL compliance: no legal counsel or liability predictions</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val" style="color:var(--accent-blue);">Clio & MyCase</div>
+            <div class="metric-desc">Direct case lead creation and partner calendar synchronization</div>
+          </div>
+        </div>
+
+        <!-- 5-Step Blueprint -->
+        <h3 style="font-size:1.8rem; font-weight:800; text-align:center;">The 5-Step Legal Intake Protocol</h3>
+        <div class="protocol-grid">
+          <div class="protocol-step">
+            <div class="step-number" style="background:rgba(99,102,241,0.1); color:#6366F1;">1</div>
+            <h4>Identity & UPL Disclosure</h4>
+            <p style="font-size:0.9rem; color:var(--text-muted); margin-top:6px;">Greets callers with your firm name and states AI intake role with clear non-legal advice disclaimer.</p>
+          </div>
+          <div class="protocol-step">
+            <div class="step-number" style="background:rgba(99,102,241,0.1); color:#6366F1;">2</div>
+            <h4>Practice Area & Jurisdiction</h4>
+            <p style="font-size:0.9rem; color:var(--text-muted); margin-top:6px;">Categorizes case (Personal Injury, Estate, Family, Defense) and confirms incident location is within state bar license.</p>
+          </div>
+          <div class="protocol-step">
+            <div class="step-number" style="background:rgba(99,102,241,0.1); color:#6366F1;">3</div>
+            <h4>Pre-Conflict & Incident Facts</h4>
+            <p style="font-size:0.9rem; color:var(--text-muted); margin-top:6px;">Collects opposing party names, incident date, and statute urgency prior to attorney engagement.</p>
+          </div>
+          <div class="protocol-step">
+            <div class="step-number" style="background:rgba(99,102,241,0.1); color:#6366F1;">4</div>
+            <h4>Consultation Scheduling</h4>
+            <p style="font-size:0.9rem; color:var(--text-muted); margin-top:6px;">Explains contingency, flat fee, or paid retainer and locks calendar slot with assigned attorney.</p>
+          </div>
+          <div class="protocol-step">
+            <div class="step-number" style="background:rgba(99,102,241,0.1); color:#6366F1;">5</div>
+            <h4>CRM Sync & Evidence Portal</h4>
+            <p style="font-size:0.9rem; color:var(--text-muted); margin-top:6px;">Sends dossier to Clio/MyCase and texts caller a secure link to upload accident reports or citations.</p>
+          </div>
+        </div>
+
+        <!-- Call Transcript -->
+        <div class="transcript-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-subtle); padding-bottom:14px; margin-bottom:20px;">
+            <span style="font-weight:700; color:var(--text-primary);">Sample Call: Motor Vehicle Accident Case Intake</span>
+            <span style="font-size:0.8rem; background:rgba(16,185,129,0.1); color:var(--accent-emerald); padding:4px 10px; border-radius:999px; font-weight:600;">Duration: 1m 14s</span>
+          </div>
+
+          <div class="chat-bubble caller">
+            <div class="bubble-meta">Prospective Client • 0:02</div>
+            <div class="bubble-text">"Hello, I was involved in a three-car highway collision yesterday and the other driver's insurance is pressuring me to sign a settlement release. I need to speak with an attorney immediately."</div>
+          </div>
+
+          <div class="chat-bubble petra">
+            <div class="bubble-meta" style="color:#6366F1;">Agent Pettra (AI Intake) • 0:15</div>
+            <div class="bubble-text">"I'm so sorry you're dealing with that, and I'm glad you're seeking legal counsel before signing any documents. You are speaking with Agent Pettra, the intake receptionist for Vance & Harrington Law. We represent motor vehicle injury matters throughout Georgia. First, were you or anyone else evaluated at an emergency room or hospital?"</div>
+          </div>
+
+          <div class="chat-bubble caller">
+            <div class="bubble-meta">Prospective Client • 0:23</div>
+            <div class="bubble-text">"Yes, I was taken to Northside Emergency with a fractured collarbone and severe whiplash. The accident happened yesterday on I-85 in Fulton County."</div>
+          </div>
+
+          <div class="chat-bubble petra">
+            <div class="bubble-meta" style="color:#6366F1;">Agent Pettra (AI Intake) • 0:36</div>
+            <div class="bubble-text">"Thank you for sharing that. Please note that as an AI intake assistant, I cannot provide legal advice, but our managing trial partner, David Vance, reviews all serious collision cases. He has consultation openings tomorrow at 10:30 AM or 2:00 PM for an immediate case assessment. Which time works best for you?"</div>
+          </div>
+
+          <div class="chat-bubble caller">
+            <div class="bubble-meta">Prospective Client • 0:42</div>
+            <div class="bubble-text">"Tomorrow at 10:30 AM works well. Is there an upfront fee for this consultation?"</div>
+          </div>
+
+          <div class="chat-bubble petra">
+            <div class="bubble-meta" style="color:#6366F1;">Agent Pettra (AI Intake) • 0:53</div>
+            <div class="bubble-text">"All personal injury consultations at Vance & Harrington are 100% complimentary and strictly confidential under attorney work-product standards. I've placed a priority hold for tomorrow at 10:30 AM. May I have your full legal name and best mobile number?"</div>
+          </div>
+
+          <div class="chat-bubble caller">
+            <div class="bubble-meta">Prospective Client • 0:58</div>
+            <div class="bubble-text">"Marcus Holloway, at (404) 555-0182."</div>
+          </div>
+
+          <div class="chat-bubble petra">
+            <div class="bubble-meta" style="color:#6366F1;">Agent Pettra (AI Intake) • 1:10</div>
+            <div class="bubble-text">"Thank you, Marcus. I have reserved your consultation with Attorney Vance and texted your confirmation with a secure upload link for your police report or insurance letters. Attorney Vance will call you directly at 10:30 AM. Please rest and take care."</div>
+          </div>
+
+          <!-- ABA Model Rule 5.5 Compliance Panel -->
+          <div style="margin-top:24px; padding:16px 20px; border-radius:12px; background:rgba(99, 102, 241, 0.06); border:1px solid rgba(99, 102, 241, 0.25); font-size:0.825rem; color:var(--text-secondary); line-height:1.55;">
+            <strong style="color:var(--text-primary); display:block; margin-bottom:3px;">🛡️ ABA Model Rule 5.5 / UPL &amp; Attorney-Client Ethics Boundary</strong>
+            Agent Pettra is strictly an administrative intake assistant and does NOT provide legal advice, assess liability, predict case outcomes, or quote non-public retainers. Communications with Agent Pettra do NOT establish an attorney-client relationship. All prospective callers are screened for jurisdictional boundaries and conflict check parties before routing to a licensed attorney. Zero sensitive case facts are transmitted to ad pixels.
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+  <!-- ================= 3. REAL ESTATE SUBPAGE ================= -->
+  <div id="page-realestate" class="page-view">
+    <section style="padding:64px 0; background:radial-gradient(ellipse at top, rgba(37, 99, 235, 0.08), transparent 70%);">
+      <div class="container">
+        <div class="badge" style="background:rgba(37,99,235,0.12); color:var(--accent-blue);">
+          🏡 SHOWING COORDINATION & SIGN CALL CAPTURE 24/7
+        </div>
+        <h1 style="font-size:clamp(2.3rem, 4vw, 3.4rem); font-weight:800; margin-bottom:16px;">
+          Capture every buyer and seller inquiry while you're in the field.
+        </h1>
+        <p style="font-size:1.2rem; color:var(--text-secondary); max-width:800px; margin-bottom:32px;">
+          When buyers call off a yard sign or listing portal, speed to lead determines who writes the offer. Agent Pettra quotes accurate property details, qualifies buyer financing, schedules showing walkthroughs, and alerts you instantly on your mobile.
+        </p>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-bottom:48px;">
+          <div class="metric-card">
+            <div class="metric-val" style="color:var(--accent-blue);">0 Missed Calls</div>
+            <div class="metric-desc">Never lose a high-intent buyer during open houses or client meetings</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val" style="color:var(--accent-emerald);">&lt; 15 Sec</div>
+            <div class="metric-desc">Instant SMS dossier sent to listing agent with buyer qualification data</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val" style="color:#8B5CF6;">MLS Synced</div>
+            <div class="metric-desc">Accurate pricing, beds/baths, HOA fees, and showing instructions</div>
+          </div>
+        </div>
+
+        <div class="transcript-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-subtle); padding-bottom:14px; margin-bottom:20px;">
+            <span style="font-weight:700; color:var(--text-primary);">Sample Call: Sign Call & Showing Booking (742 Evergreen Terrace)</span>
+            <span style="font-size:0.8rem; background:rgba(16,185,129,0.1); color:var(--accent-emerald); padding:4px 10px; border-radius:999px; font-weight:600;">Duration: 1m 00s</span>
+          </div>
+
+          <div class="chat-bubble caller">
+            <div class="bubble-meta">Prospective Buyer • 0:02</div>
+            <div class="bubble-text">"Hi, I'm calling from the yard sign outside 742 Evergreen Terrace. Is the property still active, and could I schedule a walkthrough this weekend?"</div>
+          </div>
+
+          <div class="chat-bubble petra">
+            <div class="bubble-meta" style="color:var(--accent-blue);">Agent Pettra (Showing Assistant) • 0:17</div>
+            <div class="bubble-text">"Hello! You are speaking with Agent Pettra, the showing assistant for Highland Luxury Realty. Yes, 742 Evergreen Terrace is actively available! It's a 4-bedroom, 3.5-bath home with an open kitchen, heated pool, and private garden, listed at $875,000. Our listing specialist, Marcus Vance, has showing windows this Saturday at 11:00 AM or Sunday at 2:00 PM. Would either fit your schedule?"</div>
+          </div>
+
+          <div class="chat-bubble caller">
+            <div class="bubble-meta">Prospective Buyer • 0:23</div>
+            <div class="bubble-text">"Saturday at 11:00 AM would be perfect. Do we need a pre-approval letter before touring?"</div>
+          </div>
+
+          <div class="chat-bubble petra">
+            <div class="bubble-meta" style="color:var(--accent-blue);">Agent Pettra (Showing Assistant) • 0:36</div>
+            <div class="bubble-text">"The sellers do request a preliminary lender pre-approval or proof of funds prior to private lockbox access. I can hold the Saturday 11:00 AM slot for you right now so no one takes it. May I have your full name and mobile number?"</div>
+          </div>
+
+          <div class="chat-bubble caller">
+            <div class="bubble-meta">Prospective Buyer • 0:41</div>
+            <div class="bubble-text">"Elena Rostova, at (555) 234-8901."</div>
+          </div>
+
+          <div class="chat-bubble petra">
+            <div class="bubble-meta" style="color:var(--accent-blue);">Agent Pettra (Showing Assistant) • 0:56</div>
+            <div class="bubble-text">"Thank you, Elena. I've reserved Saturday at 11:00 AM with Marcus Vance. I just texted your private showing confirmation with a link to the 3D virtual tour and our secure pre-approval upload form. Marcus has been alerted directly on his mobile. Enjoy your tour!"</div>
+          </div>
+
+          <!-- Fair Housing Act Compliance Panel -->
+          <div style="margin-top:24px; padding:16px 20px; border-radius:12px; background:rgba(37, 99, 235, 0.06); border:1px solid rgba(37, 99, 235, 0.25); font-size:0.825rem; color:var(--text-secondary); line-height:1.55;">
+            <strong style="color:var(--text-primary); display:block; margin-bottom:3px;">🛡️ Fair Housing Act &amp; Meta Housing Category Compliance Boundary</strong>
+            Agent Pettra operates under strict non-discriminatory real estate protocols compliant with the Federal Fair Housing Act (42 U.S.C. 3601 et seq.) and NAR Code of Ethics. Agent Pettra provides objective property specifications, tour scheduling, and price ranges without inquiring about or making statements based on race, color, religion, sex, handicap, familial status, or national origin. Zero housing inquiries or demographic parameters are shared with advertising pixels (Meta Special Ad Category compliant).
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+  <!-- ================= 4. AUTO SERVICES SUBPAGE ================= -->
+  <div id="page-auto" class="page-view">
+    <section style="padding:64px 0; background:radial-gradient(ellipse at top, rgba(14, 165, 233, 0.09), transparent 70%);">
+      <div class="container">
+        <div class="badge" style="background:rgba(14, 165, 233, 0.12); color:#0284C7;">
+          🚗 AI SERVICE ADVISOR & VEHICLE INTAKE SCHEDULING
+        </div>
+        <h1 style="font-size:clamp(2.3rem, 4vw, 3.4rem); font-weight:800; margin-bottom:16px;">
+          Fill your service bays while your technicians are turning wrenches.
+        </h1>
+        <p style="font-size:1.2rem; color:var(--text-secondary); max-width:800px; margin-bottom:32px;">
+          When service advisors are busy with counter customers or road tests, ringing phones mean lost repair orders. Agent Pettra captures vehicle year/make/model, categorizes symptoms, explains diagnostic inspection policies, and books bay drop-offs 24/7.
+        </p>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-bottom:48px;">
+          <div class="metric-card">
+            <div class="metric-val" style="color:#0284C7;">100% Answered</div>
+            <div class="metric-desc">Zero missed calls during peak morning drop-offs and rush hours</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val" style="color:var(--accent-emerald);">Vehicle Intake</div>
+            <div class="metric-desc">Captures Year, Make, Model, Mileage, and warning lights upfront</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val" style="color:var(--accent-blue);">Shop Management</div>
+            <div class="metric-desc">Syncs directly with Tekmetric, Shopmonkey, & Mitchell 1</div>
+          </div>
+        </div>
+
+        <div class="transcript-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-subtle); padding-bottom:14px; margin-bottom:20px;">
+            <span style="font-weight:700; color:var(--text-primary);">Sample Call: Brake Inspection & Bay Scheduling (2021 Honda CR-V)</span>
+            <span style="font-size:0.8rem; background:rgba(16,185,129,0.1); color:var(--accent-emerald); padding:4px 10px; border-radius:999px; font-weight:600;">Duration: 1m 02s</span>
+          </div>
+
+          <div class="chat-bubble caller">
+            <div class="bubble-meta">Driver • 0:02</div>
+            <div class="bubble-text">"Hi, I have a 2021 Honda CR-V and the front brakes started squealing loudly whenever I come to a stop. Do you have any openings to look at it this week?"</div>
+          </div>
+
+          <div class="chat-bubble petra">
+            <div class="bubble-meta" style="color:#0284C7;">Agent Pettra (Service Advisor) • 0:18</div>
+            <div class="bubble-text">"Hello! You are speaking with Agent Pettra, the service advisor assistant for Precision Auto Care. Squealing brakes typically indicate the pad wear indicators are alerting you before rotor damage occurs. We can inspect your braking system and rotors this Thursday. We have morning drop-off windows between 7:30 AM and 8:30 AM. Would Thursday morning fit your routine?"</div>
+          </div>
+
+          <div class="chat-bubble caller">
+            <div class="bubble-meta">Driver • 0:25</div>
+            <div class="bubble-text">"Thursday at 7:30 AM would be ideal since I can drop it off on my way to the office. Do you have an early key drop box?"</div>
+          </div>
+
+          <div class="chat-bubble petra">
+            <div class="bubble-meta" style="color:#0284C7;">Agent Pettra (Service Advisor) • 0:39</div>
+            <div class="bubble-text">"Yes, absolutely! We have a secure 24/7 key drop box to the left of Service Bay 1. Our brake safety inspection is $65, which is credited 100% toward any brake repair work you authorize. May I have your full name and best mobile number?"</div>
+          </div>
+
+          <div class="chat-bubble caller">
+            <div class="bubble-meta">Driver • 0:44</div>
+            <div class="bubble-text">"David Chen, at (555) 432-8765."</div>
+          </div>
+
+          <div class="chat-bubble petra">
+            <div class="bubble-meta" style="color:#0284C7;">Agent Pettra (Service Advisor) • 0:58</div>
+            <div class="bubble-text">"Thank you, David. I've reserved your Thursday 7:30 AM bay slot for your 2021 Honda CR-V. I just texted your confirmation with our address, key-drop instructions, and digital check-in pass. Drive cautiously, and our lead technician will inspect it first thing Thursday morning."</div>
+          </div>
+
+          <!-- Mechanical Safety Boundary -->
+          <div style="margin-top:24px; padding:16px 20px; border-radius:12px; background:rgba(2, 132, 199, 0.06); border:1px solid rgba(2, 132, 199, 0.25); font-size:0.825rem; color:var(--text-secondary); line-height:1.55;">
+            <strong style="color:var(--text-primary); display:block; margin-bottom:3px;">🛡️ Mechanical Safety &amp; In-Person Inspection Boundary</strong>
+            Agent Pettra assists drivers with routine service scheduling, general shop hours, and estimated turnaround windows. Agent Pettra does NOT perform remote mechanical diagnostics, certify vehicle road-worthiness, or provide repair guarantees over the phone. All diagnostic assessments and safety repairs are performed exclusively in-person by ASE-certified technicians. In roadside emergencies, callers are directed to emergency roadside assistance or local authorities.
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+  <!-- ================= 5. WELLNESS CLINICS SUBPAGE ================= -->
+  <div id="page-wellness" class="page-view">
+    <section style="padding:64px 0; background:radial-gradient(ellipse at top, rgba(16, 185, 129, 0.08), transparent 70%);">
+      <div class="container">
+        <div class="badge" style="background:rgba(16,185,129,0.12); color:var(--accent-emerald);">
+          ❤️ CLINICAL INTAKE & SCHEDULING FOR WELLNESS, PT & CHIROPRACTIC
+        </div>
+        <h1 style="font-size:clamp(2.3rem, 4vw, 3.4rem); font-weight:800; margin-bottom:16px;">
+          Keep treatment tables full while your therapists are healing patients.
+        </h1>
+        <p style="font-size:1.2rem; color:var(--text-secondary); max-width:800px; margin-bottom:32px;">
+          When clinicians are hands-on in treatment sessions, ringing front desks lead to frustrated patients and empty appointment slots. Agent Pettra triages clinical disciplines, collects insurance details, answers cash/HSA FAQs, and books 60-minute initial evaluations 24/7.
+        </p>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-bottom:48px;">
+          <div class="metric-card">
+            <div class="metric-val" style="color:var(--accent-emerald);">100% Inbound</div>
+            <div class="metric-desc">Never lose a patient inquiry during active rehab or adjustment sessions</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val" style="color:var(--accent-blue);">Insurance Intake</div>
+            <div class="metric-desc">Captures Payer ID, member #, and HSA/FSA payment preferences</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val" style="color:#8B5CF6;">EHR Native</div>
+            <div class="metric-desc">Jane App, WebPT, Kareo, and ChiroTouch synchronized</div>
+          </div>
+        </div>
+
+        <div class="transcript-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-subtle); padding-bottom:14px; margin-bottom:20px;">
+            <span style="font-weight:700; color:var(--text-primary);">Sample Call: Acute Lumbar Strain Intake & Evaluation</span>
+            <span style="font-size:0.8rem; background:rgba(16,185,129,0.1); color:var(--accent-emerald); padding:4px 10px; border-radius:999px; font-weight:600;">Duration: 1m 07s</span>
+          </div>
+
+          <div class="chat-bubble caller">
+            <div class="bubble-meta">New Patient • 0:02</div>
+            <div class="bubble-text">"Hi, I strained my lower back lifting heavy moving boxes over the weekend and I can barely sit comfortably. Do you have any openings for an assessment this week?"</div>
+          </div>
+
+          <div class="chat-bubble petra">
+            <div class="bubble-meta" style="color:var(--accent-emerald);">Agent Pettra (Patient Intake) • 0:21</div>
+            <div class="bubble-text">"Hello! You are speaking with Agent Pettra, the patient intake coordinator for Elevate Physical Therapy & Spine. I'm so sorry to hear about your acute back strain. For lumbar discomfort, we schedule an initial 60-minute mobility and biomechanics evaluation with Dr. Vance, our Doctor of Physical Therapy. We have openings tomorrow at 1:30 PM or Thursday at 9:00 AM. Would either of those fit your schedule?"</div>
+          </div>
+
+          <div class="chat-bubble caller">
+            <div class="bubble-meta">New Patient • 0:28</div>
+            <div class="bubble-text">"Tomorrow at 1:30 PM would be great. Do you accept Blue Cross Blue Shield PPO?"</div>
+          </div>
+
+          <div class="chat-bubble petra">
+            <div class="bubble-meta" style="color:var(--accent-emerald);">Agent Pettra (Patient Intake) • 0:42</div>
+            <div class="bubble-text">"Yes, we are in-network with Blue Cross Blue Shield PPO, and our team verifies your exact copay or deductible prior to your arrival. We also accept HSA and FSA cards. I've placed a hold for tomorrow at 1:30 PM. May I have your full legal name and date of birth?"</div>
+          </div>
+
+          <div class="chat-bubble caller">
+            <div class="bubble-meta">New Patient • 0:48</div>
+            <div class="bubble-text">"Julian Reynolds, May 14th, 1988."</div>
+          </div>
+
+          <div class="chat-bubble petra">
+            <div class="bubble-meta" style="color:var(--accent-emerald);">Agent Pettra (Patient Intake) • 1:03</div>
+            <div class="bubble-text">"Thank you, Julian. I've confirmed your evaluation with Dr. Vance for tomorrow at 1:30 PM. I just texted your mobile a secure link to complete your digital medical history and upload your insurance card. Please wear loose athletic attire. We look forward to helping you recover tomorrow!"</div>
+          </div>
+
+          <!-- Wellness & Crisis Helpline Boundary -->
+          <div style="margin-top:24px; padding:16px 20px; border-radius:12px; background:rgba(16, 185, 129, 0.06); border:1px solid rgba(16, 185, 129, 0.25); font-size:0.825rem; color:var(--text-secondary); line-height:1.55;">
+            <strong style="color:var(--text-primary); display:block; margin-bottom:3px;">🛡️ Clinical Scope &amp; Mental Health Emergency Boundary</strong>
+            Agent Pettra is strictly an administrative patient intake and scheduling assistant. Agent Pettra does NOT provide medical diagnoses, psychological triage, or crisis counseling. For mental health emergencies or acute distress, calls are immediately directed to the Suicide &amp; Crisis Lifeline (988) or emergency medical services (911). Data handling adheres to HIPAA-ready encryption and minimum necessary disclosure protocols.
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+  <!-- ================= 6. OTHER SUBPAGES FALLBACK VIEW ================= -->
+  <div id="page-dental" class="page-view">
+    <section style="padding:64px 0;">
+      <div class="container">
+        <div class="badge" style="background:rgba(37,99,235,0.1); color:var(--accent-blue);">🦷 DENTAL CLINICS WORKFLOW</div>
+        <h1>Keep appointment requests moving, even when the front desk is busy.</h1>
+        <p style="color:var(--text-muted); margin:12px 0 24px;">5-Step protocol: triage cleanings vs acute throbbing toothache, check Delta/MetLife PPO, reserve 60-min new patient chair, text digital intake packet, escalate urgent swelling.</p>
+        <button onclick="switchPage('home')" class="btn-primary">Return to Homepage</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="page-medical" class="page-view">
+    <section style="padding:64px 0;">
+      <div class="container">
+        <div class="badge" style="background:rgba(16,185,129,0.1); color:var(--accent-emerald);">🩺 MEDICAL PRACTICES WORKFLOW</div>
+        <h1>Streamline patient intake and protect your staff from phone burnout.</h1>
+        <p style="color:var(--text-muted); margin:12px 0 24px;">Matches existing patient charts, categorizes 15-min follow-up vs 45-min physical, explains fasting from midnight, books into AthenaHealth/Epic, escalates chest pain/shortness of breath.</p>
+        <button onclick="switchPage('home')" class="btn-primary">Return to Homepage</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="page-salons" class="page-view">
+    <section style="padding:64px 0;">
+      <div class="container">
+        <div class="badge" style="background:rgba(236,72,153,0.1); color:#EC4899;">✂️ SALON CHAIR BOOKING</div>
+        <h1>Never lose a booking while your hands are in a client's hair.</h1>
+        <p style="color:var(--text-muted); margin:12px 0 24px;">Matches master colorists, calculates 2.5 hr balayage time blocks, sends $50 deposit SMS link via Square/Stripe, locks Vagaro chair.</p>
+        <button onclick="switchPage('home')" class="btn-primary">Return to Homepage</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="page-spas" class="page-view">
+    <section style="padding:64px 0;">
+      <div class="container">
+        <div class="badge" style="background:rgba(147,51,234,0.1); color:#9333EA;">🌸 LUXURY SPAS WORKFLOW</div>
+        <h1>Elevate every guest touchpoint from the very first ring.</h1>
+        <p style="color:var(--text-muted); margin:12px 0 24px;">White-glove concierge for couples massage packages, private suite availability, explains 24-hr cancellation policy, texts relaxation lounge arrival pass.</p>
+        <button onclick="switchPage('home')" class="btn-primary">Return to Homepage</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="page-medspa" class="page-view">
+    <section style="padding:64px 0;">
+      <div class="container">
+        <div class="badge" style="background:rgba(217,70,239,0.1); color:#D946EF;">✨ MED SPAS & AESTHETICS</div>
+        <h1>Turn more consultation calls into clear next steps.</h1>
+        <p style="color:var(--text-muted); margin:12px 0 24px;">Explains neurotoxin/filler downtime, delivers pre-care guidance (stopping blood thinners 48h prior), reserves Nurse Injector slot, Meta-compliant copy.</p>
+        <button onclick="switchPage('home')" class="btn-primary">Return to Homepage</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="page-homeservices" class="page-view">
+    <section style="padding:64px 0;">
+      <div class="container">
+        <div class="badge" style="background:rgba(249,115,22,0.1); color:#F97316;">🔧 HOME SERVICES & HVAC</div>
+        <h1>Answer every service call, even after hours.</h1>
+        <p style="color:var(--text-muted); margin:12px 0 24px;">Validates service territory ZIP code, checks for freezing weather or gas emergencies, books 2-hour arrival windows, dispatches on-call technician via SMS.</p>
+        <button onclick="switchPage('home')" class="btn-primary">Return to Homepage</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="page-pricing" class="page-view">
+    <section style="padding:64px 0;">
+      <div class="container">
+        <div style="text-align:center; margin-bottom:40px;">
+          <h2 style="font-size:2.4rem; font-weight:800;">Commercial Pricing & Minutes</h2>
+          <p style="color:var(--text-muted);">Predictable, transparent plans with zero hidden fees.</p>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
+          <div class="metric-card">
+            <h3>Starter</h3>
+            <div style="font-size:2.5rem; font-weight:800; margin:12px 0;">$99<span style="font-size:1rem; color:var(--text-muted); font-weight:500;">/mo</span></div>
+            <ul style="list-style:none; line-height:2; color:var(--text-secondary); margin-bottom:20px;">
+              <li>✓ 300 included minutes</li>
+              <li>✓ 24/7 AI Receptionist</li>
+              <li>✓ Instant call answering</li>
+              <li>✓ Email & SMS alerts</li>
+              <li>✓ $0.35/min additional overage</li>
+            </ul>
+            <button class="btn-secondary" style="width:100%;">Select Starter</button>
+          </div>
+          <div class="metric-card" style="border:2px solid var(--accent-blue);">
+            <div style="font-size:0.75rem; background:var(--accent-blue); color:#fff; display:inline-block; padding:2px 8px; border-radius:4px; font-weight:700;">MOST POPULAR</div>
+            <h3 style="margin-top:6px;">Growth ⭐</h3>
+            <div style="font-size:2.5rem; font-weight:800; margin:12px 0;">$199<span style="font-size:1rem; color:var(--text-muted); font-weight:500;">/mo</span></div>
+            <ul style="list-style:none; line-height:2; color:var(--text-secondary); margin-bottom:20px;">
+              <li>✓ 750 included minutes</li>
+              <li>✓ Everything in Starter</li>
+              <li>✓ Two-way Google/Outlook sync</li>
+              <li>✓ Custom FAQs & tone tuning</li>
+              <li>✓ $0.30/min additional overage</li>
+            </ul>
+            <button class="btn-primary" style="width:100%;">Select Growth</button>
+          </div>
+          <div class="metric-card">
+            <h3>Pro</h3>
+            <div style="font-size:2.5rem; font-weight:800; margin:12px 0;">$399<span style="font-size:1rem; color:var(--text-muted); font-weight:500;">/mo</span></div>
+            <ul style="list-style:none; line-height:2; color:var(--text-secondary); margin-bottom:20px;">
+              <li>✓ 1,500 included minutes</li>
+              <li>✓ Dedicated Onboarding Architect</li>
+              <li>✓ Custom REST Webhooks & Zapier</li>
+              <li>✓ Multi-calendar team routing</li>
+              <li>✓ $0.25/min additional overage</li>
+            </ul>
+            <button class="btn-secondary" style="width:100%;">Select Pro</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function switchPage(pageKey) {
+      document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      
+      const target = document.getElementById('page-' + pageKey);
+      if (target) {
+        target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      
+      // highlight active tab
+      const btns = Array.from(document.querySelectorAll('.tab-btn'));
+      const match = btns.find(b => b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + pageKey + "'"));
+      if (match) match.classList.add('active');
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+    }
+  </script>
+</body>
+</html>

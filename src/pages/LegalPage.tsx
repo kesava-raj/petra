@@ -281,12 +281,30 @@ export const LegalPage: React.FC<LegalPageProps> = ({ onOpenDemo }) => {
               ))}
             </div>
 
-            {/* Notice Footer */}
-            <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.825rem', color: 'var(--text-muted)' }}>
-              <ShieldCheck size={16} color="var(--accent-emerald)" style={{ flexShrink: 0 }} />
-              <span>Full compliance with ABA Model Rule 5.5 (Unauthorized Practice of Law) & End-to-End Encrypted Intake Storage.</span>
+            {/* ABA Model Rule 5.5 & Legal Ethics Boundary Notice */}
+            <div style={{
+              marginTop: '24px',
+              padding: '16px 20px',
+              borderRadius: '12px',
+              background: 'rgba(99, 102, 241, 0.05)',
+              border: '1px solid rgba(99, 102, 241, 0.25)',
+              fontSize: '0.825rem',
+              color: 'var(--text-secondary)',
+              lineHeight: 1.55,
+              display: 'flex',
+              gap: '12px',
+              alignItems: 'flex-start'
+            }}>
+              <ShieldCheck size={18} color="#6366F1" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div>
+                <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '2px' }}>
+                  ABA Model Rule 5.5 / UPL &amp; Attorney-Client Ethics Boundary
+                </strong>
+                Agent Pettra is strictly an administrative intake assistant and does NOT provide legal advice, assess liability, predict case outcomes, or quote non-public legal retainers. Communications with Agent Pettra do NOT establish an attorney-client relationship. All prospective caller details are screened for jurisdictional boundaries and prospective adverse parties before routing to a licensed attorney in good standing. In compliance with advertising platform policies, zero sensitive case facts or party names are transmitted to ad pixels.
+              </div>
             </div>
           </div>
+
         </div>
       </section>
 

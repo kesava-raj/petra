@@ -204,12 +204,15 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
+                <label htmlFor="modal-lead-name" style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
                   Full Name
                 </label>
                 <div style={{ position: 'relative' }}>
                   <User size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
                   <input
+                    id="modal-lead-name"
+                    name="name"
+                    autoComplete="name"
                     type="text"
                     required
                     placeholder="Dr. Jordan Miller"
@@ -230,12 +233,15 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
+                <label htmlFor="modal-lead-bizname" style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
                   Business Name
                 </label>
                 <div style={{ position: 'relative' }}>
                   <Building size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
                   <input
+                    id="modal-lead-bizname"
+                    name="organization"
+                    autoComplete="organization"
                     type="text"
                     required
                     placeholder="Miller Dental Wellness"
@@ -257,12 +263,15 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
 
               <div className="lead-modal-fields-row">
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
+                  <label htmlFor="modal-lead-email" style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
                     Work Email
                   </label>
                   <div style={{ position: 'relative' }}>
                     <Mail size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
                     <input
+                      id="modal-lead-email"
+                      name="email"
+                      autoComplete="email"
                       type="email"
                       required
                       placeholder="jordan@practice.com"
@@ -283,12 +292,15 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
+                  <label htmlFor="modal-lead-phone" style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
                     Phone Number
                   </label>
                   <div style={{ position: 'relative' }}>
                     <Phone size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
                     <input
+                      id="modal-lead-phone"
+                      name="tel"
+                      autoComplete="tel"
                       type="tel"
                       required
                       placeholder="(555) 019-2834"
@@ -310,12 +322,14 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
+                <label htmlFor="modal-lead-biztype" style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '6px' }}>
                   Business Type
                 </label>
                 <div style={{ position: 'relative' }}>
                   <Briefcase size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
                   <select
+                    id="modal-lead-biztype"
+                    name="businessType"
                     value={formData.businessType}
                     onChange={(e) => handleFieldChange('businessType', e.target.value)}
                     className="lead-modal-input"
@@ -350,7 +364,15 @@ export const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onCl
               >
                 <span>{isSubmitting ? 'Configuring Demo...' : 'Build My Custom Demo'}</span>
               </button>
+
+              <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textAlign: 'center', marginTop: '4px', lineHeight: 1.45 }}>
+                By submitting, you agree to receive communications regarding your demo line setup. No automated spam. Zero third-party data broker sharing. See our{' '}
+                <span style={{ color: 'var(--accent-blue)', textDecoration: 'underline', cursor: 'pointer' }} onClick={() => window.location.href = '/privacy'}>
+                  Privacy Policy
+                </span>.
+              </p>
             </form>
+
           </div>
         ) : (
           <div style={{ textAlign: 'center', padding: '24px 0' }}>

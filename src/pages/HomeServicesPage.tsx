@@ -261,11 +261,30 @@ export const HomeServicesPage: React.FC<HomeServicesPageProps> = () => {
               ))}
             </div>
 
-            <div style={{ marginTop: '24px', paddingTop: '16px', borderTop: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-              <ShieldCheck size={16} color="var(--accent-blue)" />
-              <span>Operational Rule: True emergency safety hazards (gas smells, sparks) are redirected immediately to emergency services and your master technician.</span>
+            {/* Emergency Life-Safety & Dispatch Boundary Notice */}
+            <div style={{
+              marginTop: '24px',
+              padding: '16px 20px',
+              borderRadius: '12px',
+              background: 'rgba(239, 68, 68, 0.05)',
+              border: '1px solid rgba(239, 68, 68, 0.25)',
+              fontSize: '0.825rem',
+              color: 'var(--text-secondary)',
+              lineHeight: 1.55,
+              display: 'flex',
+              gap: '12px',
+              alignItems: 'flex-start'
+            }}>
+              <ShieldCheck size={18} color="#EF4444" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div>
+                <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '2px' }}>
+                  Emergency Life-Safety &amp; Field Dispatch Boundary
+                </strong>
+                Agent Pettra handles routine job intake, service territory verification, and standard appointment scheduling. For critical life-safety hazards (active gas smells, electrical fire hazards, severe structural water breaks), Agent Pettra is programmed to immediately advise callers to evacuate, dial 911, and trigger immediate high-priority escalation to your on-call master technician.
+              </div>
             </div>
           </div>
+
         </div>
       </section>
 

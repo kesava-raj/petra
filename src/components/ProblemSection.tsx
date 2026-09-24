@@ -5,29 +5,30 @@ export const ProblemSection: React.FC = () => {
   const problems = [
     {
       badge: 'MISSED CALLS',
-      title: "The call you couldn't answer.",
-      description: "You're helping an in-office client. Your phone rings. You miss the call — and the revenue walks right to your competitor.",
+      title: "Concurrent calls during peak front-desk hours.",
+      description: "When staff is assisting in-person clients, incoming calls go to voicemail. Industry call data indicates over 80% of first-time callers hang up and call the next provider.",
       icon: PhoneMissed,
       color: '#EF4444',
       bgGradient: 'radial-gradient(circle at top left, rgba(239, 68, 68, 0.12) 0%, transparent 70%)'
     },
     {
       badge: 'AFTER HOURS',
-      title: "Your business closes. Your phone doesn't.",
-      description: "Over 40% of appointments are requested after 5:00 PM and on weekends when your staff is home. Voicemails rarely convert.",
+      title: "Evenings and weekend inquiry demand.",
+      description: "Healthcare and field-service benchmarks show up to 40% of appointment inquiries occur after 5:00 PM or on weekends. Unassisted voicemail rarely leads to a completed booking.",
       icon: Clock,
       color: '#F59E0B',
       bgGradient: 'radial-gradient(circle at top left, rgba(245, 158, 11, 0.12) 0%, transparent 70%)'
     },
     {
-      badge: 'RECEPTIONIST OVERLOAD',
-      title: "Your team has better things to do.",
-      description: "Answering the same repetitive inquiries and playing calendar tag pulls your front-desk staff away from delivering exceptional service.",
+      badge: 'ROUTINE INTAKE LOAD',
+      title: "Repetitive screening interrupts focused operations.",
+      description: "Routing simple directions, standard operating hours, and reschedule requests pulls practice staff away from complex client and patient interactions.",
       icon: Users2,
       color: '#6366F1',
       bgGradient: 'radial-gradient(circle at top left, rgba(99, 102, 241, 0.12) 0%, transparent 70%)'
     }
   ];
+
 
   return (
     <section className="section-padding" style={{ position: 'relative' }} id="problems">

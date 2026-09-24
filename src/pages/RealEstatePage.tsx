@@ -279,12 +279,30 @@ export const RealEstatePage: React.FC<RealEstatePageProps> = ({ onOpenDemo }) =>
               ))}
             </div>
 
-            {/* Notice Footer */}
-            <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.825rem', color: 'var(--text-muted)' }}>
-              <ShieldCheck size={16} color="var(--accent-emerald)" style={{ flexShrink: 0 }} />
-              <span>Complies with NAR Clear Cooperation guidelines and MLS data syndication security protocols.</span>
+            {/* Fair Housing Act & Real Estate Advertising Compliance Notice */}
+            <div style={{
+              marginTop: '24px',
+              padding: '16px 20px',
+              borderRadius: '12px',
+              background: 'rgba(37, 99, 235, 0.05)',
+              border: '1px solid rgba(37, 99, 235, 0.25)',
+              fontSize: '0.825rem',
+              color: 'var(--text-secondary)',
+              lineHeight: 1.55,
+              display: 'flex',
+              gap: '12px',
+              alignItems: 'flex-start'
+            }}>
+              <ShieldCheck size={18} color="var(--accent-blue)" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div>
+                <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '2px' }}>
+                  Fair Housing Act &amp; Meta Housing Category Compliance Boundary
+                </strong>
+                Agent Pettra operates under strict non-discriminatory real estate protocols compliant with the Federal Fair Housing Act (42 U.S.C. 3601 et seq.) and NAR Code of Ethics. Agent Pettra provides objective property specifications, tour scheduling, and price ranges without inquiring about or making statements based on race, color, religion, sex, handicap, familial status, or national origin. Zero housing inquiries or demographic parameters are shared with advertising pixels (Meta Special Ad Category compliant).
+              </div>
             </div>
           </div>
+
         </div>
       </section>
 

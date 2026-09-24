@@ -247,9 +247,27 @@ export const MedicalPage: React.FC<MedicalPageProps> = ({ onOpenDemo }) => {
               ))}
             </div>
 
-            <div style={{ marginTop: '24px', paddingTop: '16px', borderTop: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-              <ShieldCheck size={16} color="var(--accent-blue)" />
-              <span>Compliance Notice: Agent Pettra does not provide medical diagnosis or clinical advice. Acute symptoms are routed directly to your licensed staff.</span>
+            {/* Medical & Emergency Boundary Notice */}
+            <div style={{
+              marginTop: '24px',
+              padding: '16px 20px',
+              borderRadius: '12px',
+              background: 'rgba(239, 68, 68, 0.05)',
+              border: '1px solid rgba(239, 68, 68, 0.2)',
+              fontSize: '0.825rem',
+              color: 'var(--text-secondary)',
+              lineHeight: 1.55,
+              display: 'flex',
+              gap: '12px',
+              alignItems: 'flex-start'
+            }}>
+              <ShieldCheck size={18} color="#EF4444" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div>
+                <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '2px' }}>
+                  Medical & Emergency Clinical Boundary
+                </strong>
+                Agent Pettra is an administrative patient intake and scheduling assistant. Agent Pettra does NOT provide medical advice, diagnosis, triage, or prescription consultation. Callers reporting chest pain, severe shortness of breath, sudden numbness, or life-threatening symptoms are instructed to hang up and dial 911 immediately. Business Associate Agreements (BAAs) are executed for covered clinical entities.
+              </div>
             </div>
           </div>
         </div>

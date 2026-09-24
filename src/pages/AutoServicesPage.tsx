@@ -277,12 +277,30 @@ export const AutoServicesPage: React.FC<AutoServicesPageProps> = ({ onOpenDemo }
               ))}
             </div>
 
-            {/* Notice Footer */}
-            <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.825rem', color: 'var(--text-muted)' }}>
-              <ShieldCheck size={16} color="var(--accent-emerald)" style={{ flexShrink: 0 }} />
-              <span>Full compliance with TCPA appointment reminder permissions & vehicle privacy standards.</span>
+            {/* Mechanical Safety & Roadside Safety Boundary Notice */}
+            <div style={{
+              marginTop: '24px',
+              padding: '16px 20px',
+              borderRadius: '12px',
+              background: 'rgba(2, 132, 199, 0.05)',
+              border: '1px solid rgba(2, 132, 199, 0.25)',
+              fontSize: '0.825rem',
+              color: 'var(--text-secondary)',
+              lineHeight: 1.55,
+              display: 'flex',
+              gap: '12px',
+              alignItems: 'flex-start'
+            }}>
+              <ShieldCheck size={18} color="#0284C7" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div>
+                <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '2px' }}>
+                  Mechanical Safety &amp; In-Person Inspection Boundary
+                </strong>
+                Agent Pettra assists drivers with routine service scheduling, general shop hours, and estimated turnaround windows. Agent Pettra does NOT perform remote mechanical diagnostics, certify vehicle road-worthiness, or provide repair guarantees over the phone. All diagnostic assessments and safety repairs are performed exclusively in-person by ASE-certified technicians. In roadside emergencies, callers are directed to emergency roadside assistance or local authorities.
+              </div>
             </div>
           </div>
+
         </div>
       </section>
 

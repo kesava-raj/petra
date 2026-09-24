@@ -279,12 +279,30 @@ export const WellnessPage: React.FC<WellnessPageProps> = ({ onOpenDemo }) => {
               ))}
             </div>
 
-            {/* Notice Footer */}
-            <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.825rem', color: 'var(--text-muted)' }}>
-              <ShieldCheck size={16} color="var(--accent-emerald)" style={{ flexShrink: 0 }} />
-              <span>Full compliance with HIPAA encryption, minimum necessary disclosure, and red-flag medical escalation.</span>
+            {/* Wellness & Clinical Practice Scope Boundary Notice */}
+            <div style={{
+              marginTop: '24px',
+              padding: '16px 20px',
+              borderRadius: '12px',
+              background: 'rgba(16, 185, 129, 0.05)',
+              border: '1px solid rgba(16, 185, 129, 0.25)',
+              fontSize: '0.825rem',
+              color: 'var(--text-secondary)',
+              lineHeight: 1.55,
+              display: 'flex',
+              gap: '12px',
+              alignItems: 'flex-start'
+            }}>
+              <ShieldCheck size={18} color="var(--accent-emerald)" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div>
+                <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: '2px' }}>
+                  Clinical Scope &amp; Mental Health Emergency Boundary
+                </strong>
+                Agent Pettra is strictly an administrative patient intake and scheduling assistant. Agent Pettra does NOT provide medical diagnoses, psychological triage, or crisis counseling. For mental health emergencies or acute distress, calls are immediately directed to the Suicide &amp; Crisis Lifeline (988) or emergency medical services (911). Data handling adheres to HIPAA-ready encryption and minimum necessary disclosure protocols.
+              </div>
             </div>
           </div>
+
         </div>
       </section>
 

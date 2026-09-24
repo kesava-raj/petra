@@ -3,22 +3,25 @@ import React from 'react';
 export const StatsStrip: React.FC = () => {
   return (
     <div className="stats-strip-container" role="region" aria-label="Key Performance Statistics">
-      {/* 1. 24/7 Always On */}
+      {/* 1. 24/7 Continuous Coverage */}
       <div className="stats-strip-item">
         <span className="stats-strip-number">24/7</span>
-        <span className="stats-strip-label">ALWAYS ON</span>
+        <span className="stats-strip-label">CONTINUOUS COVERAGE</span>
+        <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '2px', letterSpacing: '0.01em' }}>Zero missed after-hours calls</span>
       </div>
 
-      {/* 2. 48h First Go-Live */}
+      {/* 2. <650ms Average Latency */}
+      <div className="stats-strip-item">
+        <span className="stats-strip-number">&lt;650ms</span>
+        <span className="stats-strip-label">AVG RESPONSE (TTFA)</span>
+        <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '2px', letterSpacing: '0.01em' }}>Verified sub-second turnaround</span>
+      </div>
+
+      {/* 3. 48h Typical Onboarding */}
       <div className="stats-strip-item">
         <span className="stats-strip-number">48h</span>
-        <span className="stats-strip-label">FIRST GO-LIVE</span>
-      </div>
-
-      {/* 3. 30+ Languages */}
-      <div className="stats-strip-item">
-        <span className="stats-strip-number">30+</span>
-        <span className="stats-strip-label">LANGUAGES</span>
+        <span className="stats-strip-label">TYPICAL ONBOARDING</span>
+        <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '2px', letterSpacing: '0.01em' }}>Assisted calendar & FAQ launch</span>
       </div>
 
       {/* 4. 30+ Languages Supported with Flag Graphics Card */}

@@ -85,7 +85,7 @@ const PLANS = [
       'Dedicated Onboarding Specialist',
       'Custom Voice Tuning & Persona Match',
       'Business Associate Agreement (BAA) Option',
-      '99.9% Uptime SLA & 24/7 Priority Support'
+      'Carrier-Grade High-Availability & Priority Support'
     ],
     highlight: false
   }
